@@ -12,7 +12,6 @@ export interface AuthForm {
     email?: string[] | undefined;
     phone_number?: string[] | undefined;
     password?: string[] | undefined;
-    // [key: string]: string[];
   }
 }
 

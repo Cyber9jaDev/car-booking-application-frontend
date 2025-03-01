@@ -19,14 +19,6 @@ const initialState: AuthForm = {
     password: [""],
     phone_number: [""],
   }
-  // errors: {
-  //   // name: "",
-  //   // email: "",
-  //   // phone_number: "",
-  //   password: [""],
-  //   // confirm_password: "",
-  //   // terms_and_conditions: false,
-  // }
 }
 
 export default function Signup() {
