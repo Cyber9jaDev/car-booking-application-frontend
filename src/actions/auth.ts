@@ -9,7 +9,8 @@ export async function register (prevState: AuthForm, formData: FormData){
     email: formData.get("email"),
     phone_number: formData.get("phone_number"),
     password: formData.get("password"),
-    confirmPassword: formData.get("confirmPassword"),
+    confirm_password: formData.get("confirm_password"),
+    terms_and_conditions: formData.get("terms_and_conditions") === "on",
   });
 
   if (!validatedFields.success) {
@@ -19,6 +20,7 @@ export async function register (prevState: AuthForm, formData: FormData){
       phone_number: formData.get("phone_number") as string,
       password: formData.get("password") as string,
       confirm_password: formData.get("confirm_password") as string,
+      terms_and_conditions: formData.get("terms_and_conditions") === "on",
       errors: validatedFields.error.flatten().fieldErrors,
     };
   }
