@@ -26,7 +26,7 @@ export const SignupFormSchema = z
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: "Password fields do not match.",
-        path: ["confirmPassword"],
+        path: ["confirm_password"],
       });
     }
   });

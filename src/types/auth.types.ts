@@ -12,6 +12,22 @@ export interface AuthForm {
     email?: string[] | undefined;
     phone_number?: string[] | undefined;
     password?: string[] | undefined;
+    confirm_password?: string[] | undefined;
   }
+}
+export const initialAuthFormState: AuthForm = {
+  name: "",
+  email: "",
+  phone_number: "",
+  password: "",
+  confirm_password: "",
+  terms_and_conditions: false,
+  // errors: {
+  //   name: undefined,
+  //   email: undefined,
+  //   phone_number: undefined,
+  //   password: undefined,
+  //   confirm_password: undefined,
+  // }
 }
 
