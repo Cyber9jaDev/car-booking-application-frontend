@@ -4,25 +4,11 @@ import { register } from "@/actions/auth";
 import { useActionState } from "react";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { AuthForm } from "@/types/auth.types";
-
-const initialState: AuthForm = {
-  name: "",
-  email: "",
-  phone_number: "",
-  password: "",
-  confirm_password: "",
-  terms_and_conditions: false,
-  errors: {
-    name: [""],
-    email: [""],
-    password: [""],
-    phone_number: [""],
-  }
-}
+import { initialAuthFormState } from "@/types/auth.types";
+import Link from "next/link";
 
 export default function Signup() {
-  const [state, action, isPending] = useActionState(register, initialState);
+  const [state, action, isPending] = useActionState(register, initialAuthFormState);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -33,45 +19,73 @@ export default function Signup() {
           <h4 className='text-center font-bold text-4xl text-black mb-6'>Sign up</h4>
           <p className="text-center text-[#888] mb-6 text-sm">Create your account to get started</p>
 
-          <div className="flex w-full justify-center items-center flex-wrap gap-y-5">
-            <div className="w-[47.5%] flex flex-col mx-auto gap-y-1.5">
+          <div className="flex w-full justify-center flex-wrap gap-y-5">
+            <div className="w-[47.5%] flex flex-col mx-auto gap-y-1">
               <label htmlFor="name" className="font-semibold text-xs text-[#7a7a7a]">Name</label>
               <div className="relative">
-                <input 
-                  name="name" id="name" type="text" 
+                <input
+                  defaultValue={state.name}
+                  name="name" id="name" type="text"  required
                   placeholder="Enter your name"
                   className="text-sm h-12 rounded-md w-full p-3 border border-[#71bced] outline-none text-[#555] font-medium leading-[17px] focus:border-[#009cff] focus:ring-2 focus:ring-[#009cff]/20 transition-all duration-200"
                 />
               </div>
+              { state?.errors?.name && (
+                <div className="text-xs">
+                  <p>Name must:</p>
+                  <ul className="list-disc list-inside ml-3">
+                    { state.errors.name.map((err) => ( <li key={err}>{err}</li> )) }
+                  </ul>
+                </div>
+              )}
             </div>
             
-            <div className="w-[47.5%] flex flex-col mx-auto gap-y-1.5">
+            <div className="w-[47.5%] flex flex-col mx-auto gap-y-1">
               <label htmlFor="email" className="font-semibold text-xs text-[#7a7a7a]">Email</label>
               <div className="relative">
                 <input 
-                  name="email" id="email" type="email" 
+                  defaultValue={state.email}
+                  name="email" id="email" type="email" required
                   placeholder="example@email.com"
                   className="text-sm h-12 rounded-md w-full p-3 border border-[#71bced] outline-none text-[#555] font-medium leading-[17px] focus:border-[#009cff] focus:ring-2 focus:ring-[#009cff]/20 transition-all duration-200"
                 />
               </div>
+              { state?.errors?.email && (
+                <div className="text-xs">
+                  <p>Email must:</p>
+                  <ul className="list-disc list-inside ml-3">
+                    { state.errors.email.map((err) => ( <li key={err}>{err}</li> )) }
+                  </ul>
+                </div>
+              )}
             </div>
             
-            <div className="w-[97.5%] flex flex-col mx-auto gap-y-1.5">
+            <div className="w-[97.5%] flex flex-col mx-auto gap-y-1">
               <label htmlFor="phone_number" className="font-semibold text-xs text-[#7a7a7a]">Phone Number</label>
               <div className="relative">
                 <input 
-                  name="phone_number" id="phone_number" type="text" 
+                  defaultValue={state.phone_number}
+                  name="phone_number" id="phone_number" type="text" required
                   placeholder="(123) 456-7890"
                   className="text-sm h-12 rounded-md w-full p-3 border border-[#71bced] outline-none text-[#555] font-medium leading-[17px] focus:border-[#009cff] focus:ring-2 focus:ring-[#009cff]/20 transition-all duration-200"
                 />
               </div>
+              { state?.errors?.phone_number && (
+                <div className="text-xs">
+                  <p>Phone number must:</p>
+                  <ul className="list-disc list-inside ml-3">
+                    { state.errors.phone_number.map((err) => ( <li key={err}>{err}</li> )) }
+                  </ul>
+                </div>
+              )}
             </div>
             
-            <div className="w-[47.5%] flex flex-col mx-auto gap-y-1.5">
+            <div className="w-[47.5%] flex flex-col mx-auto gap-y-1">
               <label htmlFor="password" className="font-semibold text-xs text-[#7a7a7a]">Password</label>
               <div className="relative">
-                <input 
-                  name="password" id="password" 
+                <input
+                  defaultValue={state.password}
+                  name="password" id="password" required
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
                   className="text-sm h-12 rounded-md w-full p-3 border border-[#71bced] outline-none text-[#555] font-medium leading-[17px] focus:border-[#009cff] focus:ring-2 focus:ring-[#009cff]/20 transition-all duration-200"
@@ -85,22 +99,21 @@ export default function Signup() {
                 </button>
               </div>
               { state?.errors?.password && (
-                <div className="error">
+                <div className="text-xs">
                   <p>Password must:</p>
-                  <ul className="list-disc list-inside ml-4">
-                    {state.errors.password.map((err) => (
-                      <li key={err}>{err}</li>
-                    ))}
+                  <ul className="list-disc list-inside ml-3">
+                    { state.errors.password.map((err) => ( <li key={err}>{err}</li> )) }
                   </ul>
                 </div>
               )}
             </div>
             
-            <div className="w-[47.5%] flex flex-col mx-auto gap-y-1.5">
+            <div className="w-[47.5%] flex flex-col mx-auto gap-y-1">
               <label htmlFor="confirm_password" className="font-semibold text-xs text-[#7a7a7a]">Confirm Password</label>
               <div className="relative">
                 <input 
-                  name="confirm_password" id="confirm_password" 
+                  defaultValue={state.confirm_password}
+                  name="confirm_password" id="confirm_password" required
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="••••••••"
                   className="text-sm h-12 rounded-md w-full p-3 border border-[#71bced] outline-none text-[#555] font-medium leading-[17px] focus:border-[#009cff] focus:ring-2 focus:ring-[#009cff]/20 transition-all duration-200"
@@ -113,11 +126,21 @@ export default function Signup() {
                   {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
+              { state?.errors?.confirm_password && (
+                <div className="text-xs mt-1">
+                  <ul className="list-disc list-inside ml-4">
+                    {state.errors.confirm_password.map((err) => (
+                      <li key={err}>{err}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
             
             <div className="w-[97.5%] flex items-center gap-x-3 mt-2">
-              <input 
-                name="terms_and_conditions" id="terms_and_conditions" type="checkbox" 
+              <input
+                defaultChecked={state.terms_and_conditions}
+                name="terms_and_conditions" id="terms_and_conditions" type="checkbox" required
                 className="w-4 h-4 text-[#009cff] border border-[#71bced] rounded focus:ring-[#009cff]"
               />
               <label htmlFor="terms_and_conditions" className="text-xs font-semibold text-[#555]">
@@ -125,7 +148,7 @@ export default function Signup() {
               </label>
             </div>
 
-            <div className="w-[97.5%] mt-6">
+            <div className="w-[97.5%] mt-2.5">
               <button
                 disabled={isPending} 
                 type="submit" 
@@ -135,9 +158,9 @@ export default function Signup() {
               </button>
             </div>
             
-            <div className="w-[97.5%] mt-4 text-center">
+            <div className="w-[97.5%] text-center">
               <p className="text-sm text-[#888] font-semibold">
-                Already have an account? <a href="/login" className="text-[#009cff] hover:underline font-medium">Sign in</a>
+                Already have an account? <Link href="/login" className="text-[#009cff] hover:underline font-medium">Sign in</Link>
               </p>
             </div>
           </div>
