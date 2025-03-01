@@ -4,13 +4,29 @@ import { register } from "@/actions/auth";
 import { useActionState } from "react";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { AuthForm } from "@/types/auth.types";
 
-const initialState = {
+const initialState: AuthForm = {
   name: "",
   email: "",
   phone_number: "",
   password: "",
   confirm_password: "",
+  terms_and_conditions: false,
+  errors: {
+    name: [""],
+    email: [""],
+    password: [""],
+    phone_number: [""],
+  }
+  // errors: {
+  //   // name: "",
+  //   // email: "",
+  //   // phone_number: "",
+  //   password: [""],
+  //   // confirm_password: "",
+  //   // terms_and_conditions: false,
+  // }
 }
 
 export default function Signup() {
@@ -20,10 +36,10 @@ export default function Signup() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#f3f0f0] p-4">
-      <div className="bg-white rounded-2xl p-6 w-full max-w-[750px] shadow-md border border-[#e0e0e0]">
+      <div className="bg-white rounded-2xl p-8 w-full max-w-[750px] shadow-md border border-[#e0e0e0]">
         <form action={action}>
-          <h4 className='text-center font-bold text-4xl text-black mb-8'>Sign up</h4>
-          <p className="text-center text-[#888] mb-8 text-sm">Create your account to get started</p>
+          <h4 className='text-center font-bold text-4xl text-black mb-6'>Sign up</h4>
+          <p className="text-center text-[#888] mb-6 text-sm">Create your account to get started</p>
 
           <div className="flex w-full justify-center items-center flex-wrap gap-y-5">
             <div className="w-[47.5%] flex flex-col mx-auto gap-y-1.5">
@@ -76,6 +92,16 @@ export default function Signup() {
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
+              { state?.errors?.password && (
+                <div className="error">
+                  <p>Password must:</p>
+                  <ul className="list-disc list-inside ml-4">
+                    {state.errors.password.map((err) => (
+                      <li key={err}>{err}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
             
             <div className="w-[47.5%] flex flex-col mx-auto gap-y-1.5">
