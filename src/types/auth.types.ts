@@ -29,7 +29,7 @@ export const initialRegisterFormState: RegisterAuthForm = {
 }
 
 
-export const initialLoginFormState: BaseAuthForm = {
+export const initialLoginFormState: LoginAuthForm = {
   email: "",
   password: "",
 }

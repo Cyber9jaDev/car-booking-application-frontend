@@ -56,13 +56,13 @@ export default function Login() {
                 type="submit" 
                 className="cursor-pointer text-sm h-12 rounded-md w-full p-2 bg-[#009cff] hover:bg-[#0089e0] outline-none text-white font-medium leading-[17px] transition-colors duration-200 flex justify-center items-center"
               > 
-                {isPending ? "Processing..." : "Create Account"}
+                {isPending ? "Processing..." : "Sign in"}
               </button>
             </div>
             
             <div className="w-[97.5%] text-center">
               <p className="text-sm text-[#888] font-semibold">
-                Already have an account? <Link href="/login" className="text-[#009cff] hover:underline font-medium">Sign in</Link>
+                Don't have an account? <Link href="/signup" className="text-[#009cff] hover:underline font-medium">Sign up</Link>
               </p>
             </div>
           </div>
