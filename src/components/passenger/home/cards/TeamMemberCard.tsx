@@ -4,7 +4,7 @@ import { TeamMember } from "../../passenger.interface";
 
 export const TeamMemberCard = ({ member }: { member: TeamMember }) => (
   <div className="flex flex-col items-center">
-    <div className="mb-4 w-full aspect-square relative overflow-hidden rounded-lg">
+    <div className="mb-4 w-[250px] max-h-[250px] aspect-square relative overflow-hidden rounded-xs">
       <Image
         src={member.image}
         alt={member.name}
