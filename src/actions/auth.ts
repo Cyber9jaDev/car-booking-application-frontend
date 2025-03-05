@@ -1,29 +1,48 @@
-import { SignupFormSchema } from "@/lib/zod";
-import { AuthForm } from "@/types/auth.types";
+import { LoginFormSchema, SignupFormSchema } from "@/lib/zod";
+import { LoginAuthForm, RegisterAuthForm } from "@/types/auth.types";
 import { redirect } from "next/navigation";
 
-export async function register (prevState: AuthForm, formData: FormData){
+
+export async function register (prevState: RegisterAuthForm, formData: FormData){
 
   const validatedFields = SignupFormSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
-    phone_number: formData.get("phone_number"),
+    phoneNumber: formData.get("phoneNumber"),
     password: formData.get("password"),
-    confirm_password: formData.get("confirm_password"),
-    terms_and_conditions: formData.get("terms_and_conditions") === "on",
+    confirmPassword: formData.get("confirmPassword"),
+    hasAgreedTermsAndConditions: formData.get("hasAgreedTermsAndConditions") === "on",
   });
 
   if (!validatedFields.success) {
     return {
       name: formData.get("name") as string,
       email: formData.get("email") as string,
-      phone_number: formData.get("phone_number") as string,
+      phoneNumber: formData.get("phoneNumber") as string,
       password: formData.get("password") as string,
-      confirm_password: formData.get("confirm_password") as string,
-      terms_and_conditions: formData.get("terms_and_conditions") === "on",
+      confirmPassword: formData.get("confirmPassword") as string,
+      hasAgreedTermsAndConditions: formData.get("hasAgreedTermsAndConditions") === "on",
       errors: validatedFields.error.flatten().fieldErrors,
     };
   }
 
     redirect("/");
+}
+
+export async function login (prevState: LoginAuthForm, formData: FormData){
+
+  const validatedFields = LoginFormSchema.safeParse({
+    email: formData.get("email"),
+    password: formData.get("password"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  redirect("/");
 }
