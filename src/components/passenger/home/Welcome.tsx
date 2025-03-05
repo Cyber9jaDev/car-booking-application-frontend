@@ -4,7 +4,7 @@ import Link from "next/link";
 const Welcome = () => {
   return (
     <section className="py-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4">
         <div className="mx-auto">
           <header className="mb-12">
             <h3 className="text-center uppercase text-4xl md:text-5xl font-extrabold tracking-wider text-gray-800">

@@ -35,7 +35,7 @@ const teamMembers: TeamMember[] = [
 
 export default function Team() {
   return (
-    <section id="team" className="py-12 max-w-7xl mx-auto">
+    <section id="team" className="py-12 px-4 max-w-7xl mx-auto">
       <div>
         <header className="mb-8">
           <h4 className="text-4xl md:text-[50px] font-extrabold text-center text-gray-800 tracking-wider uppercase"> Our Drivers </h4>
