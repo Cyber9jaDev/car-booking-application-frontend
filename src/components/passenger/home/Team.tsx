@@ -30,20 +30,18 @@ const teamMembers: TeamMember[] = [
     role: 'Taxi Driver',
     phone: '08062128170',
     image: image4.src
-  }
+  },
 ];
 
 export default function Team() {
   return (
-    <section id="team" className="py-12 max-w-7xl mx-auto bg-gray-50">
-      <div className="px-4">
+    <section id="team" className="py-12 max-w-7xl mx-auto bg-green-500">
+      <div>
         <header className="mb-8">
-          <h4 className="text-4xl md:text-[50px] font-extrabold text-center text-gray-800 tracking-wider uppercase">
-            Our Drivers
-          </h4>
+          <h4 className="text-4xl md:text-[50px] font-extrabold text-center text-gray-800 tracking-wider uppercase"> Our Drivers </h4>
         </header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center bg-red-500">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 bg-red-500">
           {teamMembers.map(member => <TeamMemberCard key={member.name} member={member} /> )}
         </div>
       </div>

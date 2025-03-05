@@ -25,7 +25,7 @@ const Why = () => {
 
   return (
     <section className="mb-8 py-12 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto">
         <header className="mb-12">
           <h3 className="text-center text-4xl md:text-5xl font-extrabold text-gray-800 capitalize tracking-wide">
             Why Taxi Cab
