@@ -4,5 +4,12 @@ export interface WhyFeatureInterface {
   imagePath: string;
 }
 
+export type TeamMember = {
+  name: string;
+  role: string;
+  phone: string;
+  image: string;
+};
+
 
 
