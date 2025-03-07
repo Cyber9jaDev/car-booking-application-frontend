@@ -1,14 +1,14 @@
 "use client";
 
 import { FeatureCard } from "./cards/FeatureCard";
-import image1 from '../../../assets/images/why1.jpg'
-import image2 from '../../../assets/images/why2.jpg'
-import image3 from '../../../assets/images/why3.jpg'
-import image4 from '../../../assets/images/why4.jpg'
-import image5 from '../../../assets/images/why3.jpg'
-import image6 from '../../../assets/images/why1.jpg'
-import image7 from '../../../assets/images/why2.jpg'
-import image8 from '../../../assets/images/why4.jpg'
+import image1 from '../../../assets/images/why1.jpg';
+import image2 from '../../../assets/images/why2.jpg';
+import image3 from '../../../assets/images/why3.jpg';
+import image4 from '../../../assets/images/why4.jpg';
+import image5 from '../../../assets/images/why3.jpg';
+import image6 from '../../../assets/images/why1.jpg';
+import image7 from '../../../assets/images/why2.jpg';
+import image8 from '../../../assets/images/why4.jpg';
 import { WhyFeatureInterface } from "../passenger.interface";
 
 const Why = () => {
