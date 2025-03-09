@@ -1,18 +1,18 @@
-export default function CarouselCard({ text, imageSrc, name, role }: { text: string, imageSrc: string, name: string, role: string }) {
+import React from 'react';
+
+const CarouselCard = ({ name, text, img, date }: { name: string, text: string, img: string, date: string}) => {
   return (
-    <div className="feedback-wrapper">
-        <header className="feedback-top">
-          <p>{ text } </p>
-        </header>
-        <div className="feedback-grids d-flex align-items-center">
-          <div className="feedback-img">
-            <img className="img" src={imageSrc} alt="feedback-img" />
-          </div>
-          <div className="ms-3">
-            <h5 className="name">{ name }</h5>
-            <p className="role">{ role } </p>
-          </div>
+    <div className='testimonial'>
+      <div className="profile-info">
+        <img src={img} alt="" />
+        <div className="profile">
+          <span className="name">{name}</span>
+          <span className="date">{date}</span>
         </div>
       </div>
-  );
+      <div className="text">{text}</div>
+    </div>
+  )
 }
+
+export default CarouselCard;

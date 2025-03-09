@@ -1,91 +1,68 @@
-.testimonial{
+/* TESTIMONIALS */
+.testimonials {
+  padding-top: 10px;
 
-  padding: 2em 0;
-  color: #fff;
-  
-
-  header > h4{
-    font-size: 50px;
-    font-weight: 800;
-    letter-spacing: 3px;
-    color: #333;
-  }
-
-  .slider-container{
-    color: '#fff';
-  }
-
-  .feedback-wrapper{
-    display: none !important;
-    margin: 0 1em;
-  }
-
-  .feedback-top{
-    border: 1px solid #bebebe;
+  .testimonial-container {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    width: 90%;
     position: relative;
+    margin: 0 auto;
+    box-shadow: 0px 4px 16px 16px rgba(0, 0, 0, 0.02);
   }
 
-  .feedback-top::after{
-    content: ' ';
-    position: absolute;
-    top: 100%;
-    left: 10%;
-    width: 0;
-    height: 0;
-    border-top: 15px solid rgb(43, 43, 43);
-    border-right: 4px solid transparent;
-    border-left: 12px solid transparent;
+  .icon-container {
+    width: 90%;
+    margin: 20px auto 0 auto;
+    display: flex;
+    padding-bottom: 40px;
   }
 
-  .feedback-top > p{
-    color: #333;
-    font-size: 0.925em;
-    margin: 0;
-    line-height: 2em;
-    letter-spacing: 1px;
-    font-weight: 600;
-    padding: 2em;
+  .icon {
+    color: #121212;
+    border: 2px solid #121212;
+    border-radius: 100%;
+    padding: 0.25rem 0.5rem;
+    font-size: 1rem;
+    font-weight: light;
+    cursor: pointer;
   }
 
-  .feedback-img > img{
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
+  .icon:last-of-type {
+    margin-left: 40px;
   }
 
-  .feedback-grids{
-    margin-top: 2em;
-  }
+  @media (max-width: 768px) {
+    .testimonial-header {
+      font-size: 24px;
+      width: 278px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-  .feedback-info {
-    float: left;
-    width: 65%;
-    margin: 1.5em 0 0 1em;
-  }
-  
-  .feedback-info h5 {
-    color: #333;
-    font-size: 1.2em;
-    letter-spacing: 1px;
-    font-weight: 800;
-  }
-  
-  .feedback-info p {
-    color: #6f6b6b;
-    font-size: .9em;
-    margin-top: .5em;
-  }
+    .profile > .name {
+      font-size: 16px;
+    }
+    .profile > .date {
+      font-size: 10px;
+    }
 
-  @media screen and (max-width: 768px){
-    header > h4{
-      font-size: 38px;
+    .icon-container {
+      justify-content: space-between;
     }
   }
 
-  @media screen and (max-width: 480px){
-    header > h4{
-      font-size: 32px;
+  @media (max-width: 480px) {
+    .testimonial > .text {
+      padding: 0 5px;
+      /* background-color: red; */
+    }
+    .testimonial > .profile-info {
+      margin-bottom: 0;
+    }
+    .text {
+      margin-top: 10px;
     }
   }
 }
