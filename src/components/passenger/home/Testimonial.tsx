@@ -7,12 +7,23 @@ import TestimonialCard from "./cards/TestimonialCard";
 import { testimonialData } from "./data/data";
 
 const Testimonial = () => {
-  let [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [cardsPerView, setCardsPerView] = useState(3);
 
   useEffect(() => {
     const handleWindowResize = () => {
+      if (window.innerWidth <= 767) {
+        setCardsPerView(1);
+      } else if (window.innerWidth > 767 && window.innerWidth <= 991) {
+        setCardsPerView(2);
+      } else {
+        setCardsPerView(3);
+      }
       setCurrentSlide(0);
     };
+
+    // Set initial cards per view
+    handleWindowResize();
 
     window.addEventListener("resize", handleWindowResize);
 
@@ -22,35 +33,12 @@ const Testimonial = () => {
   }, []);
 
   const handleLeftArrow = () => {
-    if (window.innerWidth <= 767) {
-      setCurrentSlide((currentSlide) =>
-        currentSlide === 0 ? currentSlide : currentSlide - 1
-      );
-    } else if (window.innerWidth > 767 && window.innerWidth <= 991) {
-      setCurrentSlide((currentSlide) =>
-        currentSlide === 0 ? currentSlide : currentSlide - 2
-      );
-    } else {
-      setCurrentSlide((currentSlide) =>
-        currentSlide === 0 ? currentSlide : currentSlide - 3
-      );
-    }
+    setCurrentSlide((prev) => (prev === 0 ? 0 : prev - 1));
   };
 
   const handleRightArrow = () => {
-    if (window.innerWidth <= 767) {
-      setCurrentSlide((currentSlide) =>
-        currentSlide === testimonialData.length - 1 ? 0 : currentSlide + 1
-      );
-    } else if (window.innerWidth > 767 && window.innerWidth <= 991) {
-      setCurrentSlide((currentSlide) =>
-        currentSlide === testimonialData.length - 2 ? 0 : currentSlide + 2
-      );
-    } else {
-      setCurrentSlide((currentSlide) =>
-        currentSlide === testimonialData.length - 3 ? 0 : currentSlide + 3
-      );
-    }
+    const maxSlide = testimonialData.length - cardsPerView;
+    setCurrentSlide((prev) => (prev >= maxSlide ? 0 : prev + 1));
   };
 
   return (
@@ -59,25 +47,31 @@ const Testimonial = () => {
         What people are saying about us
       </h4>
       <div className="flex overflow-hidden w-[90%] relative mx-auto shadow-[0px_4px_16px_16px_rgba(0,0,0,0.02)]">
-        {testimonialData.map((testimonial, index) => {
-          return ( 
-            <div key={index} 
-              className="w-full md:w-[50%] lg:w-[33%] min-h-[244px] shadow-lg p-2.5 font-['Inter'] bg-white"
-              style={ currentSlide === 0 ? { transition: "0s" } : { transform: `translateX(${-currentSlide * 100}%)`, transition: "all 1s ease-out" } }
+        <div 
+          className="flex transition-transform duration-1000 ease-out w-full"
+          style={{ transform: `translateX(-${currentSlide * (100 / cardsPerView)}%)` }}
+        >
+          {testimonialData.map((testimonial, index) => (
+            <div 
+              key={index} 
+              className="flex-shrink-0"
+              style={{ width: `${100 / cardsPerView}%` }}
             >
-              <TestimonialCard
-                img={testimonial.img}
-                name={testimonial.name}
-                date={testimonial.date}
-                text={testimonial.text}
-              />
+              <div className="p-2.5">
+                <TestimonialCard
+                  img={testimonial.img}
+                  name={testimonial.name}
+                  date={testimonial.date}
+                  text={testimonial.text}
+                />
+              </div>
             </div>
-          );
-        })}
+          ))}
+        </div>
       </div>
-      <div className="icon-container">
-        <CircleChevronLeft onClick={handleLeftArrow} className="icon" />
-        <CircleChevronRight onClick={handleRightArrow} className="icon" />
+      <div className="icon-container mt-4 flex justify-center gap-4">
+        <CircleChevronLeft onClick={handleLeftArrow} className="icon cursor-pointer" />
+        <CircleChevronRight onClick={handleRightArrow} className="icon cursor-pointer" />
       </div>
     </section>
   );
