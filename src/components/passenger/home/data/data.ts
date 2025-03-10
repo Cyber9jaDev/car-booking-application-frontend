@@ -2,16 +2,10 @@ import image1 from "../../../../assets/images/team1.jpg";
 import image2 from "../../../../assets/images/team2.jpg";
 import image3 from "../../../../assets/images/team3.jpg";
 import image4 from "../../../../assets/images/team4.jpg";
-
-type TestimonialType = { 
-  img: string;
-  name: string;
-  date: string;
-  text: string;
-}
+import { TestimonialType } from "../../passenger.interface";
 
 
-const testimonialData: TestimonialType = [
+export const testimonialData: TestimonialType = [
   {
     img: image1.src,
     name: "John Doe",
@@ -30,24 +24,24 @@ const testimonialData: TestimonialType = [
     date: "3 days ago",
     text: "This is where the story about the feature is discussed. This is where the story about the feature is discussed. This is where the story about the feature is discussed. This is where the story about the feature is discussed This is where the story about the feature is discussed This is where the story about the feature is discussed This is where the story about the feature is discussed",
   },
-  // {
-  //   img: image4,
-  //   name: "Jason Scott",
-  //   date: "4 days ago",
-  //   text: "This is where the story about the feature is discussed. This is where the story about the feature is discussed. This is where the story about the feature is discussed. This is where the story about the feature is discussed This is where the story about the feature is discussed This is where the story about the feature is discussed This is where the story about the feature is discussed",
-  // },
-  // {
-  //   img: image3,
-  //   name: "Antoine Malone",
-  //   date: "4 days ago",
-  //   text: "This is where the story about the feature is discussed. This is where the story about the feature is discussed. This is where the story about the feature is discussed. This is where the story about the feature is discussed This is where the story about the feature is discussed This is where the story about the feature is discussed This is where the story about the feature is discussed",
-  // },
-  // {
-  //   img: image3,
-  //   name: "Johnny Depp",
-  //   date: "5 days ago",
-  //   text: "This is where the story about the feature is discussed. This is where the story about the feature is discussed. This is where the story about the feature is discussed. This is where the story about the feature is discussed This is where the story about the feature is discussed This is where the story about the feature is discussed This is where the story about the feature is discussed",
-  // },
+  {
+    img: image4.src,
+    name: "Jason Scott",
+    date: "4 days ago",
+    text: "This is where the story about the feature is discussed. This is where the story about the feature is discussed. This is where the story about the feature is discussed. This is where the story about the feature is discussed This is where the story about the feature is discussed This is where the story about the feature is discussed This is where the story about the feature is discussed",
+  },
+  {
+    img: image3.src,
+    name: "Antoine Malone",
+    date: "4 days ago",
+    text: "This is where the story about the feature is discussed. This is where the story about the feature is discussed. This is where the story about the feature is discussed. This is where the story about the feature is discussed This is where the story about the feature is discussed This is where the story about the feature is discussed This is where the story about the feature is discussed",
+  },
+  {
+    img: image3.src,
+    name: "Johnny Depp",
+    date: "5 days ago",
+    text: "This is where the story about the feature is discussed. This is where the story about the feature is discussed. This is where the story about the feature is discussed. This is where the story about the feature is discussed This is where the story about the feature is discussed This is where the story about the feature is discussed This is where the story about the feature is discussed",
+  },
   // {
   //   img: image3,
   //   name: "Kyle Walker",

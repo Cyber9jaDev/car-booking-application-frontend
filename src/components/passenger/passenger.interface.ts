@@ -17,29 +17,15 @@ export type TeamMember = {
   image: string;
 };
 
-
-export type TestimonialCarouselType = ReactElement[];
-
-export type ResponsiveObjType = { items: number }
-
-export type ResponsiveType = { [index: number]: ResponsiveObjType }
-
-export type CarouselDataType = {
-  autoPlay?: boolean
-  autoPlayStrategy?: 'default' | 'none' | 'action' | 'all'
-  autoPlayInterval?: number
-  animationDuration?: number
-  animationType?: 'fadeout' | 'slide'
-  infinite?: boolean
-  touchTracking?: boolean
-  disableButtonsControls?: boolean
-  keyboardNavigation?: boolean
-}
+export type TestimonialType = { 
+  img: string;
+  name: string;
+  date: string;
+  text: string;
+}[]
 
 
-
-
-export const testimonialData = [
+export const _testimonialData = [
   {
     id: 1,
     name: "Timothy Leah",

@@ -2,7 +2,7 @@ import React from 'react';
 
 const TestimonialCard = ({ name, text, img, date }: { name: string, text: string, img: string, date: string}) => {
   return (
-    <div className='flex flex-col w-full'>
+    <div className='w-full bg-yellow-200'>
       <div className="flex items-center mb-2.5 bg-red-500">
         <img src={img} alt={name} className='w-[50px] h-[50px]' />
         <div className="flex flex-col w-full h-13 ml-4">

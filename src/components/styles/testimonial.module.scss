@@ -1,68 +1,68 @@
-/* TESTIMONIALS */
-.testimonials {
-  padding-top: 10px;
+// /* TESTIMONIALS */
+// .testimonials {
+//   padding-top: 10px;
 
-  .testimonial-container {
-    display: flex;
-    flex-direction: row;
-    overflow: hidden;
-    width: 90%;
-    position: relative;
-    margin: 0 auto;
-    box-shadow: 0px 4px 16px 16px rgba(0, 0, 0, 0.02);
-  }
+//   .testimonial-container {
+//     display: flex;
+//     flex-direction: row;
+//     overflow: hidden;
+//     width: 90%;
+//     position: relative;
+//     margin: 0 auto;
+//     box-shadow: 0px 4px 16px 16px rgba(0, 0, 0, 0.02);
+//   }
 
-  .icon-container {
-    width: 90%;
-    margin: 20px auto 0 auto;
-    display: flex;
-    padding-bottom: 40px;
-  }
+//   .icon-container {
+//     width: 90%;
+//     margin: 20px auto 0 auto;
+//     display: flex;
+//     padding-bottom: 40px;
+//   }
 
-  .icon {
-    color: #121212;
-    border: 2px solid #121212;
-    border-radius: 100%;
-    padding: 0.25rem 0.5rem;
-    font-size: 1rem;
-    font-weight: light;
-    cursor: pointer;
-  }
+//   .icon {
+//     color: #121212;
+//     border: 2px solid #121212;
+//     border-radius: 100%;
+//     padding: 0.25rem 0.5rem;
+//     font-size: 1rem;
+//     font-weight: light;
+//     cursor: pointer;
+//   }
 
-  .icon:last-of-type {
-    margin-left: 40px;
-  }
+//   .icon:last-of-type {
+//     margin-left: 40px;
+//   }
 
-  @media (max-width: 768px) {
-    .testimonial-header {
-      font-size: 24px;
-      width: 278px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+//   @media (max-width: 768px) {
+//     .testimonial-header {
+//       font-size: 24px;
+//       width: 278px;
+//       margin-left: auto;
+//       margin-right: auto;
+//     }
 
-    .profile > .name {
-      font-size: 16px;
-    }
-    .profile > .date {
-      font-size: 10px;
-    }
+//     .profile > .name {
+//       font-size: 16px;
+//     }
+//     .profile > .date {
+//       font-size: 10px;
+//     }
 
-    .icon-container {
-      justify-content: space-between;
-    }
-  }
+//     .icon-container {
+//       justify-content: space-between;
+//     }
+//   }
 
-  @media (max-width: 480px) {
-    .testimonial > .text {
-      padding: 0 5px;
-      /* background-color: red; */
-    }
-    .testimonial > .profile-info {
-      margin-bottom: 0;
-    }
-    .text {
-      margin-top: 10px;
-    }
-  }
-}
+//   @media (max-width: 480px) {
+//     .testimonial > .text {
+//       padding: 0 5px;
+//       /* background-color: red; */
+//     }
+//     .testimonial > .profile-info {
+//       margin-bottom: 0;
+//     }
+//     .text {
+//       margin-top: 10px;
+//     }
+//   }
+// }
