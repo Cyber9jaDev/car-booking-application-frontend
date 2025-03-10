@@ -2,10 +2,10 @@ import image1 from "../../../../assets/images/team1.jpg";
 import image2 from "../../../../assets/images/team2.jpg";
 import image3 from "../../../../assets/images/team3.jpg";
 import image4 from "../../../../assets/images/team4.jpg";
-import { TestimonialType } from "../../passenger.interface";
+import { CarouselCardProps } from "../../passenger.interface";
 
 
-export const testimonialData: TestimonialType = [
+export const testimonialData: CarouselCardProps[] = [
   {
     id: 1,
     name: "Timothy Leah",

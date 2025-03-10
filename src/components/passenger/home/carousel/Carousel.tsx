@@ -44,21 +44,18 @@ export default function Carousel() {
 
   return (
     <section>
-      <div className="flex overflow-hidden w-full relative mx-auto shadow-[0px_4px_16px_16px_rgba(0,0,0,0.02)]">
+      <div className="flex overflow-hidden h-full w-full relative mx-auto bg-white">
         <div
           className="flex transition-transform duration-1000 ease-out w-full"
           style={{
             transform: `translateX(-${currentSlide * (100 / cardsPerView)}%)`,
           }}
         >
-          {testimonialData.map((testimonial, index) => (
-            <div
-              key={index}
-              className="flex-shrink-0"
-              style={{ width: `${100 / cardsPerView}%` }}
-            >
+          {testimonialData.map((testimonial, id) => (
+            <div key={id} className="flex-shrink-0" style={{ width: `${100 / cardsPerView}%` }}>
               <div className="p-2.5">
                 <CarouselCard
+                  id={testimonial.id}
                   image={testimonial.image}
                   name={testimonial.name}
                   role={testimonial.role}
@@ -69,12 +66,12 @@ export default function Carousel() {
           ))}
         </div>
       </div>
-      <div className="mt-4 flex justify-center gap-4">
+      <div className="flex justify-center mt-5 gap-6 bg-white h-full">
         <CircleChevronLeft
-          onClick={handleLeftArrow} size={40}
+          onClick={handleLeftArrow} size={50}
           className="text-[#121212] rounded-full text-base font-light cursor-pointer"
         />
-        <CircleChevronRight size={40}
+        <CircleChevronRight size={50}
           onClick={handleRightArrow}
           className="text-[#121212] rounded-full text-base font-light cursor-pointer"
         />
