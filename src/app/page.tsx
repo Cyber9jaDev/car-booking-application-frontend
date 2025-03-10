@@ -1,3 +1,4 @@
+import Footer from "@/components/passenger/home/Footer";
 import Hero from "@/components/passenger/home/Hero";
 import Team from "@/components/passenger/home/Team";
 import Testimonial from "@/components/passenger/home/Testimonial";
@@ -12,6 +13,7 @@ export default function Homepage() {
       <Why/>
       <Team/>
       <Testimonial/>
+      <Footer/>
     </>
   );
 }
