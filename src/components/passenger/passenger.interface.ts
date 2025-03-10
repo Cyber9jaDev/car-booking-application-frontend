@@ -11,7 +11,7 @@ export interface WhyFeatureInterface {
   imagePath: string;
 }
 
-export type TeamMember = {
+export type DriverProps = {
   name: string;
   role: string;
   phone: string;

@@ -57,7 +57,7 @@ export default function Carousel() {
               className="flex-shrink-0"
               style={{ width: `${100 / cardsPerView}%` }}
             >
-              <div className="p-2.5">
+              <div className="lg:p-2.5">
                 <CarouselCard
                   id={id}
                   image={image}

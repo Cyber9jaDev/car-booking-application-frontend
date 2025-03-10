@@ -40,27 +40,27 @@ const Footer = () => {
             <div className="mt-10">
               <ul className="pl-0">
                 <li className="list-none inline-block">
-                  <a className="text-white text-lg bg-black/20 w-14 h-14 flex items-center justify-center rounded no-underline transition-all duration-[1.5s] hover:text-gray-800 hover:bg-gray-300" href="#">
+                  <a className="text-white text-lg bg-black/20 w-10 h-10 md:w-14 md:h-14 flex items-center justify-center rounded no-underline transition-all duration-[1.5s] hover:text-gray-800 hover:bg-gray-300" href="#">
                     <Facebook color="white"/>
                   </a>
                 </li>
                 <li className="list-none inline-block ml-3">
-                  <a className="text-white text-lg bg-black/20 w-14 h-14 flex items-center justify-center rounded no-underline transition-all duration-[1.5s] hover:text-gray-800 hover:bg-gray-300" href="#">
+                  <a className="text-white text-lg bg-black/20 w-10 h-10 md:w-14 md:h-14 flex items-center justify-center rounded no-underline transition-all duration-[1.5s] hover:text-gray-800 hover:bg-gray-300" href="#">
                     <Twitter color="white"/>
                   </a>
                 </li>
                 <li className="list-none inline-block ml-3">
-                  <a className="text-white text-lg bg-black/20 w-14 h-14 flex items-center justify-center rounded no-underline transition-all duration-[1.5s] hover:text-gray-800 hover:bg-gray-300" href="#">
+                  <a className="text-white text-lg bg-black/20 w-10 h-10 md:w-14 md:h-14 flex items-center justify-center rounded no-underline transition-all duration-[1.5s] hover:text-gray-800 hover:bg-gray-300" href="#">
                     <Instagram color="white"/>
                   </a>
                 </li>
                 <li className="list-none inline-block ml-3">
-                  <a className="text-white text-lg bg-black/20 w-14 h-14 flex items-center justify-center rounded no-underline transition-all duration-[1.5s] hover:text-gray-800 hover:bg-gray-300" href="#">
+                  <a className="text-white text-lg bg-black/20 w-10 h-10 md:w-14 md:h-14 flex items-center justify-center rounded no-underline transition-all duration-[1.5s] hover:text-gray-800 hover:bg-gray-300" href="#">
                     <MessageCircleHeart color="white"/>
                   </a>
                 </li>
                 <li className="list-none inline-block ml-3">
-                  <a className="text-white text-lg bg-black/20 w-14 h-14 flex items-center justify-center rounded no-underline transition-all duration-[1.5s] hover:text-gray-800 hover:bg-gray-300" href="#">
+                  <a className="text-white text-lg bg-black/20 w-10 h-10 md:w-14 md:h-14 flex items-center justify-center rounded no-underline transition-all duration-[1.5s] hover:text-gray-800 hover:bg-gray-300" href="#">
                     <Linkedin color="white" />
                   </a>
                 </li>

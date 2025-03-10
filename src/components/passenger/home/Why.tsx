@@ -24,10 +24,10 @@ const Why = () => {
   ];
 
   return (
-    <section className="w-[90%] mx-auto mb-8 py-12">
-      <header className="mb-12">
-        <h3 className="text-center text-4xl md:text-5xl font-extrabold text-gray-800 capitalize tracking-wide">
-          Why Taxi Cab
+    <section className="w-[95%] lg:w-[90%] mx-auto my-8 lg:my-12">
+      <header className="mb-10">
+        <h3 className="text-center text-2xl md:text-3xl font-extrabold text-gray-800 capitalize tracking-wide">
+          WHY TAXI CAB
         </h3>
       </header>
 
