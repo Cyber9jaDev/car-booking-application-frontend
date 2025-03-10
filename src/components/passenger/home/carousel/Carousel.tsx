@@ -3,11 +3,20 @@
 import { useEffect, useState } from "react";
 import CarouselCard from "./CarouselCard";
 import { testimonialData } from "../data/data";
-import { CircleChevronLeft, CircleChevronRight } from "lucide-react";
 
 export default function Carousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(3);
+
+  // Autoscroll
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      const maxSlide = testimonialData.length - cardsPerView;
+      setCurrentSlide((prev) => (prev >= maxSlide ? 0 : prev + 1));
+    }, 4000);
+
+    return () => { clearInterval(timerId); };
+  }, [currentSlide, testimonialData.length]);
 
   useEffect(() => {
     const handleWindowResize = () => {
@@ -33,51 +42,24 @@ export default function Carousel() {
     };
   }, []);
 
-  const handleLeftArrow = () => {
-    setCurrentSlide((prev) => (prev === 0 ? 0 : prev - 1));
-  };
-
-  const handleRightArrow = () => {
-    const maxSlide = testimonialData.length - cardsPerView;
-    setCurrentSlide((prev) => (prev >= maxSlide ? 0 : prev + 1));
-  };
 
   return (
     <section>
-      <div className="flex overflow-hidden w-full relative mx-auto shadow-[0px_4px_16px_16px_rgba(0,0,0,0.02)]">
+      <div className="flex overflow-hidden h-full w-full relative mx-auto bg-white">
         <div
           className="flex transition-transform duration-1000 ease-out w-full"
           style={{
             transform: `translateX(-${currentSlide * (100 / cardsPerView)}%)`,
           }}
         >
-          {testimonialData.map((testimonial, index) => (
-            <div
-              key={index}
-              className="flex-shrink-0"
-              style={{ width: `${100 / cardsPerView}%` }}
-            >
+          {testimonialData.map(({ id, image, name, role, text }) => (
+            <div key={id} className="flex-shrink-0" style={{ width: `${100 / cardsPerView}%` }}>
               <div className="p-2.5">
-                <CarouselCard
-                  image={testimonial.image}
-                  name={testimonial.name}
-                  role={testimonial.role}
-                  text={testimonial.text}
-                />
+                <CarouselCard id={id} image={image} name={name} role={role} text={text} />
               </div>
             </div>
           ))}
         </div>
-      </div>
-      <div className="mt-4 flex justify-center gap-4">
-        <CircleChevronLeft
-          onClick={handleLeftArrow} size={40}
-          className="text-[#121212] rounded-full text-base font-light cursor-pointer"
-        />
-        <CircleChevronRight size={40}
-          onClick={handleRightArrow}
-          className="text-[#121212] rounded-full text-base font-light cursor-pointer"
-        />
       </div>
     </section>
   );
