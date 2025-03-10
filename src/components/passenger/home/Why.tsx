@@ -1,14 +1,14 @@
 "use client";
 
 import { FeatureCard } from "./cards/FeatureCard";
-import image1 from '../../../assets/images/why1.jpg'
-import image2 from '../../../assets/images/why2.jpg'
-import image3 from '../../../assets/images/why3.jpg'
-import image4 from '../../../assets/images/why4.jpg'
-import image5 from '../../../assets/images/why3.jpg'
-import image6 from '../../../assets/images/why1.jpg'
-import image7 from '../../../assets/images/why2.jpg'
-import image8 from '../../../assets/images/why4.jpg'
+import image1 from "../../../assets/images/why1.jpg";
+import image2 from "../../../assets/images/why2.jpg";
+import image3 from "../../../assets/images/why3.jpg";
+import image4 from "../../../assets/images/why4.jpg";
+import image5 from "../../../assets/images/why3.jpg";
+import image6 from "../../../assets/images/why1.jpg";
+import image7 from "../../../assets/images/why2.jpg";
+import image8 from "../../../assets/images/why4.jpg";
 import { WhyFeatureInterface } from "../passenger.interface";
 
 const Why = () => {
@@ -24,19 +24,17 @@ const Why = () => {
   ];
 
   return (
-    <section className="mb-8 py-12 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4">
-        <header className="mb-12">
-          <h3 className="text-center text-4xl md:text-5xl font-extrabold text-gray-800 capitalize tracking-wide">
-            Why Taxi Cab
-          </h3>
-        </header>
+    <section className="w-[90%] mx-auto mb-8 py-12">
+      <header className="mb-12">
+        <h3 className="text-center text-4xl md:text-5xl font-extrabold text-gray-800 capitalize tracking-wide">
+          Why Taxi Cab
+        </h3>
+      </header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          { features.map(({ id, title, imagePath}) => (
-            <FeatureCard key={id} id={id} title={title} imagePath={imagePath}/>
-          ))}
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {features.map(({ id, title, imagePath }) => (
+          <FeatureCard key={id} id={id} title={title} imagePath={imagePath} />
+        ))}
       </div>
     </section>
   );

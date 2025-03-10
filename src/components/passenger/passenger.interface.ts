@@ -1,3 +1,9 @@
+import { ReactElement } from "react";
+import image1 from '../../assets/images/team1.jpg'
+import image2 from '../../assets/images/team2.jpg'
+import image3 from '../../assets/images/team3.jpg'
+import image4 from '../../assets/images/team4.jpg'
+
 export interface WhyFeatureInterface {
   id: number;
   title: string;
@@ -11,5 +17,10 @@ export type TeamMember = {
   image: string;
 };
 
-
-
+export type TestimonialType = { 
+  id: number;
+  image: string;
+  name: string;
+  role: string;
+  text: string;
+}[]

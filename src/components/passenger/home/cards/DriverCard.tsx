@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Phone } from 'lucide-react';
 import { TeamMember } from "../../passenger.interface";
 
-export const TeamMemberCard = ({ member }: { member: TeamMember }) => (
+export const DriverCard = ({ member }: { member: TeamMember }) => (
   <div className="flex flex-col items-center">
     <div className="mb-4 w-[250px] max-h-[250px] aspect-square relative overflow-hidden rounded-xs">
       <Image
