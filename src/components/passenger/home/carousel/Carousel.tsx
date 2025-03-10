@@ -15,18 +15,18 @@ export default function Carousel() {
       setCurrentSlide((prev) => (prev >= maxSlide ? 0 : prev + 1));
     }, 4000);
 
-    return () => { clearInterval(timerId); };
+    return () => {
+      clearInterval(timerId);
+    };
   }, [currentSlide, testimonialData.length]);
 
   useEffect(() => {
     const handleWindowResize = () => {
       if (window.innerWidth <= 767) {
         setCardsPerView(1);
-      } 
-      else if (window.innerWidth > 767 && window.innerWidth <= 991) {
+      } else if (window.innerWidth > 767 && window.innerWidth <= 991) {
         setCardsPerView(2);
-      } 
-      else {
+      } else {
         setCardsPerView(3);
       }
       setCurrentSlide(0);
@@ -42,7 +42,6 @@ export default function Carousel() {
     };
   }, []);
 
-
   return (
     <section>
       <div className="flex overflow-hidden h-full w-full relative mx-auto bg-white">
@@ -53,9 +52,19 @@ export default function Carousel() {
           }}
         >
           {testimonialData.map(({ id, image, name, role, text }) => (
-            <div key={id} className="flex-shrink-0" style={{ width: `${100 / cardsPerView}%` }}>
+            <div
+              key={id}
+              className="flex-shrink-0"
+              style={{ width: `${100 / cardsPerView}%` }}
+            >
               <div className="p-2.5">
-                <CarouselCard id={id} image={image} name={name} role={role} text={text} />
+                <CarouselCard
+                  id={id}
+                  image={image}
+                  name={name}
+                  role={role}
+                  text={text}
+                />
               </div>
             </div>
           ))}
