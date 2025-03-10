@@ -3,11 +3,20 @@
 import { useEffect, useState } from "react";
 import CarouselCard from "./CarouselCard";
 import { testimonialData } from "../data/data";
-import { CircleChevronLeft, CircleChevronRight } from "lucide-react";
 
 export default function Carousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(3);
+
+  // Autoscroll
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      const maxSlide = testimonialData.length - cardsPerView;
+      setCurrentSlide((prev) => (prev >= maxSlide ? 0 : prev + 1));
+    }, 4000);
+
+    return () => { clearInterval(timerId); };
+  }, [currentSlide, testimonialData.length]);
 
   useEffect(() => {
     const handleWindowResize = () => {
@@ -33,14 +42,6 @@ export default function Carousel() {
     };
   }, []);
 
-  const handleLeftArrow = () => {
-    setCurrentSlide((prev) => (prev === 0 ? 0 : prev - 1));
-  };
-
-  const handleRightArrow = () => {
-    const maxSlide = testimonialData.length - cardsPerView;
-    setCurrentSlide((prev) => (prev >= maxSlide ? 0 : prev + 1));
-  };
 
   return (
     <section>
@@ -51,30 +52,14 @@ export default function Carousel() {
             transform: `translateX(-${currentSlide * (100 / cardsPerView)}%)`,
           }}
         >
-          {testimonialData.map((testimonial, id) => (
+          {testimonialData.map(({ id, image, name, role, text }) => (
             <div key={id} className="flex-shrink-0" style={{ width: `${100 / cardsPerView}%` }}>
               <div className="p-2.5">
-                <CarouselCard
-                  id={testimonial.id}
-                  image={testimonial.image}
-                  name={testimonial.name}
-                  role={testimonial.role}
-                  text={testimonial.text}
-                />
+                <CarouselCard id={id} image={image} name={name} role={role} text={text} />
               </div>
             </div>
           ))}
         </div>
-      </div>
-      <div className="flex justify-center mt-5 gap-6 bg-white h-full">
-        <CircleChevronLeft
-          onClick={handleLeftArrow} size={50}
-          className="text-[#121212] rounded-full text-base font-light cursor-pointer"
-        />
-        <CircleChevronRight size={50}
-          onClick={handleRightArrow}
-          className="text-[#121212] rounded-full text-base font-light cursor-pointer"
-        />
       </div>
     </section>
   );
