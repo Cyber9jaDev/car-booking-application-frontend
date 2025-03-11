@@ -10,9 +10,9 @@ export default function HeroBannerSlideCard({ image, title, subtitle }: HeroBann
       {/* Text Overlay */}
       <div className="absolute inset-0 flex flex-col justify-center items-center text-white p-4 bg-black/30 mr-4">
         <h2 className="text-4xl md:text-6xl font-black text-center mx-auto mb-8 w-full">{title}</h2>
-        {subtitle && <p className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-center max-w-2xl">{subtitle}</p>}
+        <p className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-center max-w-2xl">{subtitle}</p>
         <button className="mt-12" >
-          <Link className="flex text-base border-2 text-white py-5 px-8 rounded-sm font-extrabold uppercase hover:bg-[#ffc107] transition-colors duration-1000 ease-in-ou" href="/booking"> Book Now </Link>
+          <Link className="flex text-base border-2 text-white py-5 px-8 rounded-sm font-extrabold uppercase hover:bg-gray-700 transition-all duration-1000 ease-in-out hover:scale-105" href="/booking"> Book Now </Link>
         </button>
       </div>
     </div>
