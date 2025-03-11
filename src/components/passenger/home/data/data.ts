@@ -2,7 +2,11 @@ import image1 from "../../../../assets/images/team1.jpg";
 import image2 from "../../../../assets/images/team2.jpg";
 import image3 from "../../../../assets/images/team3.jpg";
 import image4 from "../../../../assets/images/team4.jpg";
-import { CarouselCardProps, DriverProps } from "../../passenger.interface";
+import bannerImage1 from "../../../../assets/images/banner2.jpg";
+import bannerImage2 from "../../../../assets/images/banner4.jpg";
+import bannerImage3 from "../../../../assets/images/banner3.jpg";
+import bannerImage4 from "../../../../assets/images/banner2.jpg";
+import { CarouselCardProps, DriverProps, HeroBannerSlide } from "../../passenger.interface";
 
 export const testimonialData: CarouselCardProps[] = [
   {
@@ -75,3 +79,26 @@ export const drivers: DriverProps[] = [
     image: image4.src,
   },
 ];
+
+export const heroBannerSlides: HeroBannerSlide[] = [
+  {
+    title: "24/7 Bus Service",
+    subtitle: 'One Call Away',
+    image: bannerImage1.src
+  },
+  {
+    title: "Online Bus Booking",
+    subtitle: 'No Extra Charges',
+    image: bannerImage2.src
+  },
+  {
+    title: "Reach Your Destination",
+    subtitle: 'Within Exact Time',
+    image: bannerImage3.src
+  },
+  {
+    title: "Travel Safe & Secure",
+    subtitle: 'Assured Bus Service',
+    image: bannerImage4.src
+  }
+]

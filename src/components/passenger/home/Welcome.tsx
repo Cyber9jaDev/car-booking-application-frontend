@@ -10,7 +10,7 @@ import Link from "next/link";
 
 const Welcome = () => {
   return (
-    <section className="w-[95%] lg:w-[90%] mx-auto py-8">
+    <section className="relative w-[95%] lg:w-[90%] mx-auto py-8">
       <div className="mx-auto">
         <header className="mb-12">
           <h3 className="text-center uppercase text-2xl md:text-3xl font-extrabold tracking-wider text-gray-800">

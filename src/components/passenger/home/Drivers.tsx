@@ -3,7 +3,7 @@ import { drivers } from "./data/data";
 
 export default function Drivers() {
   return (
-    <section className="w-[95%] lg:w-[90%] mx-auto mt-8 lg:mt-20">
+    <section className="relative w-[95%] lg:w-[90%] mx-auto mt-8 lg:mt-20">
       <header className="mb-10">
         <h4 className="text-2xl md:text-3xl font-extrabold text-center text-gray-800 tracking-wider uppercase">
           OUR DRIVERS

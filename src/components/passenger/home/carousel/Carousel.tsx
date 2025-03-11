@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import CarouselCard from "./CarouselCard";
+import CarouselCard from "../cards/CarouselCard";
 import { testimonialData } from "../data/data";
 
 export default function Carousel() {
