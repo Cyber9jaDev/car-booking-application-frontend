@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="flex flex-wrap">
           <div className="w-full md:w-1/2 lg:w-1/3 mb-10 lg:mb-0">
             <h3 className="text-lg text-gray-300 font-semibold uppercase tracking-wider mb-4 sm:mb-5 mt-4 sm:mt-0 relative after:content-[''] after:absolute after:bottom-[-50%] after:bg-white after:left-0 after:w-1/5 after:h-0.5">About Company</h3>
-            <p className="text-[0.925em] text-[#b2aaaa] tracking-wider leading-6 mt-10">Vestibulum vitae libero consectetur, orn areeros id, congue metus. Aliquam erat volutpat. Donec rhoncus risus vitae ullam corper pretium. Duis vitae nisl neque. Aliquam tincidunt, tellus quis hendrerit tincidunt congue metus.</p>
+            <p className="text-sm md:text-lg text-[#b2aaaa] tracking-wider leading-6 mt-10">Vestibulum vitae libero consectetur, orn areeros id, congue metus. Aliquam erat volutpat. Donec rhoncus risus vitae ullam corper pretium. Duis vitae nisl neque. Aliquam tincidunt, tellus quis hendrerit tincidunt congue metus.</p>
             <Link href="/about" className="w-40 flex justify-center items-center text-gray-400 text-[0.925em] tracking-wider py-3 px-5 mt-6 bg-black/80 transition-all duration-1000 hover:bg-gray-300 hover:text-gray-800 rounded-md">
               Know More <ChevronRight color="white" />
             </Link>
