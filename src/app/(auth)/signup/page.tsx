@@ -17,8 +17,6 @@ export default function Signup() {
       <div className="bg-white rounded-2xl p-8 w-full max-w-[750px] shadow-md border border-[#e0e0e0]">
         <form action={action}>
           <h4 className='text-center font-bold text-4xl text-black mb-6'>Sign up</h4>
-          <p className="text-center text-[#888] mb-6 text-sm">Create your account to get started</p>
-
           <div className="flex w-full justify-center flex-wrap gap-y-5">
             <div className="w-[47.5%] flex flex-col mx-auto gap-y-1">
               <label htmlFor="name" className="font-semibold text-xs text-[#7a7a7a]">Name</label>
