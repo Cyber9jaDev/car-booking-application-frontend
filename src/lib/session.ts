@@ -1,6 +1,5 @@
 // "use server";
 
-import AuthLinksClient from "../components/passenger/home/links/AuthLinks";
 import { encodedKey } from "@/utils/constants";
 import { jwtVerify, SignJWT } from "jose";
 import { cookies, headers } from "next/headers";
@@ -54,4 +53,3 @@ export async function getAuthUser() {
   }
   return null;
 }
-
