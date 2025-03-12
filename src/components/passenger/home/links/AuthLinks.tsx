@@ -1,8 +1,8 @@
 "use client";
 
-import { getClientSessionCookie } from "@/utils/functions";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { getClientSessionCookie } from "@/utils/functions";
 
 export default function AuthLinks() {
   const pathname = usePathname();
