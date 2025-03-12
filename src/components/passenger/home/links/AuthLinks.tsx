@@ -1,36 +1,12 @@
 "use client";
 
+import { getClientSessionCookie } from "@/utils/functions";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 
 export default function AuthLinks() {
   const pathname = usePathname();
-
-  // Lazy initialization
-  const [user, setUser] = useState<null | string>(() => {
-    if (typeof document !== "undefined") {
-      const cookiePrefix = "session=";
-      const allCookies = decodeURIComponent(document.cookie);
-      const individualCookies = allCookies.split(";");
-
-      for (let i = 0; i < individualCookies.length; i++) {
-        let currentCookie = individualCookies[i];
-        // Remove leading whitespace
-        while (currentCookie.charAt(0) == " ") {
-          currentCookie = currentCookie.substring(1);
-        }
-        // Check if this cookie is the session cookie
-        if (currentCookie.indexOf(cookiePrefix) == 0) {
-          // Extract the session value by removing the "session=" prefix
-          const sessionValue = currentCookie.substring(cookiePrefix.length);
-          return sessionValue;
-        }
-      }
-    }
-    return null;
-  });
-
+  const user = getClientSessionCookie();
 
   return (
     <nav className="p-0 m-0 text-white">
