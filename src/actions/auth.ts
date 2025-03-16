@@ -1,10 +1,13 @@
+"use server";
+
 import { LoginFormSchema, SignupFormSchema } from "@/lib/zod";
 import { LoginAuthForm, RegisterAuthForm } from "@/types/auth.types";
 import { redirect } from "next/navigation";
 
-
-export async function register (prevState: RegisterAuthForm, formData: FormData){
-
+export async function register(
+  prevState: RegisterAuthForm,
+  formData: FormData
+) {
   const validatedFields = SignupFormSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
@@ -13,6 +16,8 @@ export async function register (prevState: RegisterAuthForm, formData: FormData)
     confirmPassword: formData.get("confirmPassword"),
     hasAgreedTermsAndConditions: formData.get("hasAgreedTermsAndConditions") === "on",
   });
+
+  console.log(validatedFields.data);
 
   if (!validatedFields.success) {
     return {
@@ -26,11 +31,12 @@ export async function register (prevState: RegisterAuthForm, formData: FormData)
     };
   }
 
-    redirect("/");
+  console.log(validatedFields.data);
+
+  redirect("/");
 }
 
-export async function login (prevState: LoginAuthForm, formData: FormData){
-
+export async function login(prevState: LoginAuthForm, formData: FormData) {
   const validatedFields = LoginFormSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),
@@ -43,6 +49,8 @@ export async function login (prevState: LoginAuthForm, formData: FormData){
       errors: validatedFields.error.flatten().fieldErrors,
     };
   }
+
+  console.log(validatedFields.data);
 
   redirect("/");
 }
