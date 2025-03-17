@@ -1,3 +1,5 @@
+import { Buses, Cities } from "./constants";
+
 export const getClientCookie = (cookieName: string): boolean => {
   if (typeof document !== "undefined") {
     const cookiePrefix = `${cookieName}=`;
@@ -22,3 +24,23 @@ export const getClientCookie = (cookieName: string): boolean => {
   }
   return false;
 };
+
+export const CitiesList = (): { label: string; value: string }[] => {
+  return Cities.sort((a: { label: string; value: string }, b: { label: string; value: string }) => {
+    const valueA = a.value.toUpperCase();
+    const valueB = b.value.toUpperCase();
+    if(valueA < valueB) return -1;
+    if(valueA > valueB) return 1
+    return 0
+  })
+}
+
+export const BusesList = (): { label: string; value: string }[] => {
+  return Buses.sort((a: { label: string; value: string }, b:{ label: string; value: string }) => {
+    const valueA = a.value.toUpperCase();
+    const valueB = b.value.toUpperCase();
+    if(valueA < valueB) return -1;
+    if(valueA > valueB) return 1;
+    return 0;
+  })
+}
