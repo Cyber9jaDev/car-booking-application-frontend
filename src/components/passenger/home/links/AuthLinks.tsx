@@ -3,24 +3,10 @@
 import { getClientCookie } from "@/utils/functions";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 
 export default function AuthLinks() {
   const pathname = usePathname();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // This code only runs on the client side
-    const isLoggedIn = getClientCookie("isLoggedIn");
-    setIsLoggedIn(isLoggedIn === "true");
-    setIsLoading(false);
-  }, []);
-
-  // Show nothing while determining login status
-  if (isLoading) {
-    return null; // Or a loading spinner
-  }
+  const isLoggedIn: boolean = getClientCookie("isLoggedIn");
 
   return (
     <nav className="p-0 m-0 text-white">

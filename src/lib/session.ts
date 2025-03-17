@@ -42,27 +42,14 @@ export async function createSession(userId: string) {
   });
 }
 
-// export async function getAuthUser(cookieName: string) {
-//   const cookieStore = await cookies();
-//   const session = cookieStore.get(cookieName)?.value;
-
-//   if (session) {
-//     const user = await decrypt(session);
-//     return user;
-//   }
-//   return null;
-// }
-
-
 export async function getAuthUser(cookieName: string) {
   const cookieStore = await cookies();
   const session = cookieStore.get(cookieName)?.value;
-  console.log(session);
 
   if (session) {
-    return true;
-    // const user = await decrypt(session);
-    // return user;
+    const user = await decrypt(session);
+    return user;
   }
   return null;
 }
+
