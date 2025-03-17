@@ -8,10 +8,7 @@ import { cookies } from "next/headers";
 
 const baseUrl = "http://localhost:5000/api/v1/auth/signup";
 
-export async function register(
-  prevState: RegisterAuthForm,
-  formData: FormData
-) {
+export async function register( prevState: RegisterAuthForm, formData: FormData ): Promise<RegisterAuthForm> {
   const validatedFields = SignupFormSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
@@ -54,7 +51,8 @@ export async function register(
       confirmPassword: formData.get("confirmPassword") as string,
       hasAgreedTermsAndConditions: formData.get("hasAgreedTermsAndConditions") === "on",
       errors: {
-        email: [result.message]
+        email: result.message === "Email already exists" ? [result.message] : undefined,
+        phoneNumber: result.message === "Phone number is in use by another user" ? [result.message] : undefined,
       }
     }
   }
