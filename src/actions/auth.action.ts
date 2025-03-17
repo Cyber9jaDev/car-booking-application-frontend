@@ -4,6 +4,7 @@ import { LoginFormSchema, SignupFormSchema } from "@/lib/zod";
 import { AuthResponse, BaseErrorResponse, LoginAuthForm, RegisterAuthForm } from "@/interface/auth.interface";
 import { redirect } from "next/navigation";
 import APICall from "@/utils/APICall";
+import { cookies } from "next/headers";
 
 const baseUrl = "http://localhost:5000/api/v1/auth/signup";
 
@@ -35,6 +36,12 @@ export async function register(
   const result = await APICall<AuthResponse, BaseErrorResponse>(baseUrl, "POST", validatedFields.data )
   
   if(result.success){
+    (await cookies()).set("isLoggedIn", "true", {
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+      secure: process.env.NODE_ENV === 'production',
+      httpOnly: false,
+      sameSite: "strict",
+    });
     redirect("/");
   } 
   

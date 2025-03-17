@@ -1,6 +1,6 @@
-export const getClientSessionCookie = () => {
+export const getClientCookie = (cookieName: string) => {
   if (typeof document !== "undefined") {
-    const cookiePrefix = "session=";
+    const cookiePrefix = `${cookieName}=`;
     const allCookies = decodeURIComponent(document.cookie);
     const individualCookies = allCookies.split(";");
 
