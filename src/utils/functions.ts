@@ -1,22 +1,46 @@
-export const getClientSessionCookie = () => {
+import { Buses, Cities } from "./constants";
+
+export const getClientCookie = (cookieName: string): boolean => {
   if (typeof document !== "undefined") {
-    const cookiePrefix = "session=";
+    const cookiePrefix = `${cookieName}=`;
     const allCookies = decodeURIComponent(document.cookie);
     const individualCookies = allCookies.split(";");
 
     for (let i = 0; i < individualCookies.length; i++) {
       let currentCookie = individualCookies[i];
-      // Remove leading whitespace
+
       while (currentCookie.charAt(0) == " ") {
         currentCookie = currentCookie.substring(1);
       }
-      // Check if this cookie is the session cookie
+
       if (currentCookie.indexOf(cookiePrefix) == 0) {
-        // Extract the session value by removing the "session=" prefix
         const sessionValue = currentCookie.substring(cookiePrefix.length);
-        return sessionValue;
+        if(sessionValue === "undefined"){
+          return false;
+        }
+        return true;
       }
     }
   }
-  return null;
+  return false;
 };
+
+export const CitiesList = (): { label: string; value: string }[] => {
+  return Cities.sort((a: { label: string; value: string }, b: { label: string; value: string }) => {
+    const valueA = a.value.toUpperCase();
+    const valueB = b.value.toUpperCase();
+    if(valueA < valueB) return -1;
+    if(valueA > valueB) return 1
+    return 0
+  })
+}
+
+export const BusesList = (): { label: string; value: string }[] => {
+  return Buses.sort((a: { label: string; value: string }, b:{ label: string; value: string }) => {
+    const valueA = a.value.toUpperCase();
+    const valueB = b.value.toUpperCase();
+    if(valueA < valueB) return -1;
+    if(valueA > valueB) return 1;
+    return 0;
+  })
+}

@@ -20,12 +20,11 @@ export async function encrypt(payload: PayloadSession): Promise<string> {
 
 export async function decrypt(session: string) {
   try {
-    const { payload } = await jwtVerify(session, encodedKey, {
-      algorithms: ["HS256"],
-    });
+    const { payload } = await jwtVerify(session, encodedKey, { algorithms: ["HS256"] });
     return payload;
   } catch (error) {
     console.log("Failed to verify session");
+    throw error;
   }
 }
 
@@ -43,9 +42,9 @@ export async function createSession(userId: string) {
   });
 }
 
-export async function getAuthUser() {
+export async function getAuthUser(cookieName: string) {
   const cookieStore = await cookies();
-  const session = cookieStore.get("session")?.value;
+  const session = cookieStore.get(cookieName)?.value;
 
   if (session) {
     const user = await decrypt(session);
@@ -53,3 +52,4 @@ export async function getAuthUser() {
   }
   return null;
 }
+

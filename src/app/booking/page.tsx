@@ -1,7 +1,9 @@
+import BookingForm from "@/components/passenger/booking/BookingForm";
+
 export default function Booking() {
   return (
-    <div>
-      Enter
-    </div>
-  );
+    <section>
+      <BookingForm/>
+    </section>
+  )
 }

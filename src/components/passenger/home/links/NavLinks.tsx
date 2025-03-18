@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 export default function NavLinks() {
   const pathname = usePathname();
+  
 
   return (
     <nav className="p-0 m-0 text-white">

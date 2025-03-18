@@ -28,8 +28,20 @@ export const initialRegisterFormState: RegisterAuthForm = {
   hasAgreedTermsAndConditions: false,
 }
 
-
 export const initialLoginFormState: LoginAuthForm = {
   email: "",
   password: "",
+}
+
+
+export interface AuthResponse {
+  message: string;
+  success: boolean;
+  statusCode: number;
+}
+
+export interface BaseErrorResponse{
+  message: string;
+  statusCode: number;
+  success: boolean;
 }
