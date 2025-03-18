@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from 'next/font/google'
 import "./globals.css";
 import Navbar from "@/components/passenger/home/Navbar";
+import Footer from "@/components/passenger/home/Footer";
 
 export const metadata: Metadata = {
   title: "Car Booking System",
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <Navbar/>
         {children}
+        <Footer/>
       </body>
     </html>
   );

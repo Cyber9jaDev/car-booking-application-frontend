@@ -46,10 +46,6 @@ export const Cities: { label: string; value: string }[] = [
     value: "onitsha",
   }, 
   {
-    label: "Maiduguri",
-    value: "maiduguri",
-  }, 
-  {
     label: "Benin",
     value: "benin",
   }, 
@@ -75,24 +71,13 @@ export const Cities: { label: string; value: string }[] = [
   }, 
   {
     label: "Agege",
-    value: "gege",
-  }, 
-  {
-    label: "Sokoto",
-    value: "sokoto",
-  },  
-  {
-    label: "Nnewi",
-    value: "nnewi",
+    value: "agege",
   }, 
   {
     label: "Ilesa",
     value: "ilesa",
   }, 
-  {
-    label: "Minna",
-    value: "minna",
-  },  
+
   {
     label: "Oshodi",
     value: "oshodi",
@@ -100,15 +85,7 @@ export const Cities: { label: string; value: string }[] = [
   {
     label: "Surulere",
     value: "surulere",
-  }, 
-  {
-    label: "Mushin",
-    value: "mushin",
-  },  
-  {
-    label: "Ojota",
-    value: "ojota",
-  },  
+  },   
   {
     label: "Ikoyi",
     value: "ikoyi",
@@ -117,10 +94,6 @@ export const Cities: { label: string; value: string }[] = [
     label: "Warri",
     value: "warri",
   },  
-  {
-    label: "Suleja",
-    value: "suleja"
-  },
   {
     label: "Akure",
     value: "akure"
@@ -133,8 +106,29 @@ export const Cities: { label: string; value: string }[] = [
     label: "Osun",
     value: "osun"
   },
-  {
-    label: 'Muritala Muhammed Intl Airport',
-    value: "mma"
-  }  
 ]
+
+export enum City {
+  LAGOS = "lagos",
+  KANO = "kano",
+  ABUJA = "abuja",
+  IBADAN = "ibadan",
+  PORT_HARCOURT = "ph",
+  ABA = "aba",
+  ONITSHA = "onitsha",
+  BENIN = "benin",
+  SHAGAMU = "shagamu",
+  OGBOMOSO = "ogbomoso",
+  OWERRI = "owerri",
+  IKEJA = "ikeja",
+  OSOGBO = "osogbo",
+  AGEGE = "agege",
+  ILESA = "ilesa",
+  OSHODI = "oshodi",
+  SURULERE = "surulere",
+  IKOYI = "ikoyi",
+  WARRI = "warri",
+  AKURE = "akure",
+  EKITI = "ekiti",
+  OSUN = "osun",
+}

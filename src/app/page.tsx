@@ -13,7 +13,6 @@ export default function Homepage() {
       <Why/>
       <Drivers/>
       <Testimonial/>
-      <Footer/>
     </>
   );
 }

@@ -44,3 +44,7 @@ export const BusesList = (): { label: string; value: string }[] => {
     return 0;
   })
 }
+
+export const formatDateForInput = (date: Date): string => {
+  return date.toISOString().split('T')[0];
+};

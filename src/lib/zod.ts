@@ -1,3 +1,4 @@
+import { City } from "@/utils/constants";
 import { z } from "zod";
 
 export const LoginFormSchema = z.object({
@@ -27,12 +28,41 @@ export const SignupFormSchema = z
     confirmPassword: z.string().trim(),
     hasAgreedTermsAndConditions: z.boolean(),
   })
-  .superRefine((val, ctx) => {
-    if (val.password !== val.confirmPassword) {
-      ctx.addIssue({
+  .superRefine((value, context) => {
+    if (value.password !== value.confirmPassword) {
+      context.addIssue({
         code: z.ZodIssueCode.custom,
         message: "Password fields do not match.",
         path: ["confirmPassword"],
+      });
+    }
+  });
+
+export const BookingFormSchema = z
+  .object({
+    departureCity: z.nativeEnum(City, {
+      required_error: "Please select a departure city.",
+      invalid_type_error: "That's not a city!",
+    }),
+    arrivalCity: z.nativeEnum(City, {
+      required_error: "Please select an arrival city.",
+      invalid_type_error: "That's not a city!",
+    }),
+    departureDate: z
+      .date({
+        required_error: "Please select a date and time",
+        invalid_type_error: "That's not a date!",
+      })
+      .refine((date) => date >= new Date(), {
+        message: "Date must be in the future",
+      }),
+  })
+  .superRefine((value, context) => {
+    if (value.arrivalCity === value.departureCity) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Arrival and departure cities cannot be the same.",
+        path: ["arrivalCity"],
       });
     }
   });
