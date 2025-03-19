@@ -7,12 +7,12 @@ interface FormFieldErrors {
 export interface BookingForm {
   departureCity: City;
   arrivalCity: City;
-  departureDate: Date;
+  departureDate: string;
   errors?: FormFieldErrors;
 }
 
 export const initialBookingFormState: BookingForm = {
   departureCity: City.ABA,
   arrivalCity: City.ABA,
-  departureDate: new Date()
+  departureDate: new Date().toISOString().split('T')[0]
 }

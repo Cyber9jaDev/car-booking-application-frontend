@@ -42,20 +42,26 @@ export const BookingFormSchema = z
   .object({
     departureCity: z.nativeEnum(City, {
       required_error: "Please select a departure city.",
-      invalid_type_error: "That's not a city!",
+      invalid_type_error: "This city is now available!",
     }),
     arrivalCity: z.nativeEnum(City, {
       required_error: "Please select an arrival city.",
-      invalid_type_error: "That's not a city!",
+      invalid_type_error: "This city is now available!",
     }),
     departureDate: z
-      .date({
-        required_error: "Please select a date and time",
-        invalid_type_error: "That's not a date!",
-      })
-      .refine((date) => date >= new Date(), {
-        message: "Date must be in the future",
-      }),
+      .string()
+      .min(1, { message: "Departure date is required." })
+      .refine(
+        (date) => {
+          const departureDate = new Date(date);
+          const now = new Date();
+          // Reset the time part of the dates to compare only the dates
+          now.setHours(0, 0, 0, 0);
+          departureDate.setHours(0, 0, 0, 0);
+          return !isNaN(departureDate.getTime()) && departureDate >= now;
+        },
+        { message: "Departure date must be today or in the future" }
+      ),
   })
   .superRefine((value, context) => {
     if (value.arrivalCity === value.departureCity) {

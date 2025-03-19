@@ -3,34 +3,34 @@
 import { BookingForm } from "@/interface/booking.interface";
 import { BookingFormSchema } from "@/lib/zod";
 import { City } from "@/utils/constants";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 
-export async function getBookings(prevState: BookingForm, formData: FormData){
-  const arrivalCity = formData.get("arrivalCity") as string;
-  const departureCity = formData.get("departureCity") as string;
-  const departureDateString = formData.get("departureDate") as string;
+export async function getBookings( previousState: BookingForm, formData: FormData ) {
   
   const validatedFields = BookingFormSchema.safeParse({
-    arrivalCity,
-    departureCity,
-    departureDate: departureDateString,
+    arrivalCity: formData.get("arrivalCity"),
+    departureCity: formData.get("departureCity"),
+    departureDate: formData.get("departureDate"),
   });
+
 
   if (!validatedFields.success) {
     return {
-      arrivalCity: arrivalCity as City,
-      departureCity: departureCity as City,
-      departureDate: departureDateString ? new Date(departureDateString) : new Date(),
+      arrivalCity: formData.get("arrivalCity") as City,
+      departureCity: formData.get("departureCity") as City,
+      departureDate: formData.get("departureDate") as string,
       errors: validatedFields.error.flatten().fieldErrors,
     };
   }
 
+  console.table(validatedFields.data);
+  console.log(validatedFields.data);
+
   return {
-    departureCity: departureCity as City,
-    arrivalCity: arrivalCity as City,
-    departureDate: new Date(departureDateString),
-    errors: {},
+    arrivalCity: formData.get("arrivalCity") as City,
+    departureCity: formData.get("departureCity") as City,
+    departureDate: formData.get("departureDate") as string,
   };
 
-  redirect("/");
+  // redirect("/");
 }
