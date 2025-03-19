@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from 'next/font/google'
-import "./globals.css";
 import Navbar from "@/components/passenger/home/Navbar";
 import Footer from "@/components/passenger/home/Footer";
+import '../globals.css';
 
 export const metadata: Metadata = {
   title: "Car Booking System",
@@ -15,7 +15,7 @@ const inter = Inter({
   variable: '--font-inter',
 })
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function HomeRootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={inter.className}>
       <body>

@@ -1,7 +1,7 @@
-export default function Admin() {
+export default function AdminPage() {
   return (
     <div>
-      Enter
+      Admin Page
     </div>
   );
 }

@@ -1,4 +1,3 @@
-import Footer from "@/components/passenger/home/Footer";
 import Hero from "@/components/passenger/home/Hero";
 import Testimonial from "@/components/passenger/home/Testimonial";
 import Welcome from "@/components/passenger/home/Welcome";
