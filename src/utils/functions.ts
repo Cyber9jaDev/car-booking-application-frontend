@@ -35,7 +35,7 @@ export const CitiesList = (): { label: string; value: string }[] => {
   })
 }
 
-export const BusesList = (): { label: string; value: string }[] => {
+export const BusList = (): { label: string; value: string }[] => {
   return Buses.sort((a: { label: string; value: string }, b:{ label: string; value: string }) => {
     const valueA = a.value.toUpperCase();
     const valueB = b.value.toUpperCase();

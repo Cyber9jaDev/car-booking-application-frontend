@@ -132,3 +132,9 @@ export enum City {
   EKITI = "ekiti",
   OSUN = "osun",
 }
+
+export enum Bus {
+  TOYOTA = "toyota",
+  MINIBUS = "minibus",
+  SIENNA = "sienna",
+}

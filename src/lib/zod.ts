@@ -1,4 +1,4 @@
-import { City } from "@/utils/constants";
+import { Bus, City } from "@/utils/constants";
 import { z } from "zod";
 
 export const LoginFormSchema = z.object({
@@ -59,6 +59,44 @@ export const BookingFormSchema = z
         },
         { message: "Departure date must be today or in the future" }
       ),
+  })
+  .superRefine((value, context) => {
+    if (value.arrivalCity === value.departureCity) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Arrival and departure cities cannot be the same.",
+        path: ["arrivalCity"],
+      });
+    }
+  });
+
+
+  export const TripCreationFormFormSchema = z
+  .object({
+    departureCity: z.nativeEnum(City, {
+      required_error: "Please select a departure city.",
+      invalid_type_error: "This city is not available!",
+    }),
+    arrivalCity: z.nativeEnum(City, {
+      required_error: "Please select an arrival city.",
+      invalid_type_error: "This city is not available!",
+    }),
+    departureDate: z
+      .string()
+      .min(1, { message: "Departure date is required." })
+      .refine(
+        (date) => {
+          const departureDate = new Date(date).toISOString().split("T")[0];
+          const now = new Date().toISOString().split("T")[0];
+          return departureDate >= now;
+        },
+        { message: "Departure date must be today or in the future" }
+      ),
+    price: z.number().min(1, { message: "Price is required." }),
+    busType: z.nativeEnum(Bus, {
+      required_error: "Please select a bus.",
+      invalid_type_error: "This bus type is not available!",
+    }),
   })
   .superRefine((value, context) => {
     if (value.arrivalCity === value.departureCity) {
