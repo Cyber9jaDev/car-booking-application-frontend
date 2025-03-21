@@ -9,13 +9,12 @@ const TripCreationForm = () => {
   const [state, action, isPending] = useActionState(createTrip, initialNewTripCreationFormState);
   
   return (
-    <section className="py-12 bg-gray-50">
+    <section className="">
       <div className="w-full mx-auto px-4 bg-white shadow-xl rounded-xl">
         <form action={action} className="py-5 space-y-8">
           {/* Header Section */}
           <div className="border-b pb-6 mb-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between">
-              <h2 className="text-3xl font-bold text-blue-700"></h2>
+            <div className="flex flex-col sm:flex-row sm:items-center justify">
               <div className="mt-4 sm:mt-0 bg-blue-50 p-3 rounded-lg">
                 <label className="flex items-center space-x-3 cursor-pointer">
                   <input 

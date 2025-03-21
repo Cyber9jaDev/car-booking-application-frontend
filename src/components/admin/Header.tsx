@@ -3,7 +3,7 @@ import Time from "./Time";
 
 export default function Header() {
   return (
-    <header className="flex w-full h-18 items-center px-3 bg-white shadow-md">
+    <header className="fixed top-0 left-1/8 flex w-7/8  h-18 items-center px-3 bg-white z-50">
       <AlignJustify className="cursor-pointer text-[#1363c6] text-xl"/>
       <X className="cursor-pointer text-[#1363c6] text-xl" />
       <Time/>
