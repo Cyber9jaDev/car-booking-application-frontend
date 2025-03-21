@@ -36,7 +36,7 @@ const TripCreationForm = () => {
             <div className="bg-blue-50 p-6 rounded-xl">
               <h3 className="text-xl font-semibold text-blue-800 mb-5">Route Details</h3>
               <div className="space-y-5">
-                {/* DepartureCity From */}
+                {/* Departure City */}
                 <div>
                   <label htmlFor="departureCity" className="block text-gray-700 font-medium mb-2">
                     <span className="flex items-center">
@@ -44,14 +44,14 @@ const TripCreationForm = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
-                      Travelling From
+                      Departure City
                     </span>
                   </label>
                   <select
                     id="departureCity"
                     name="departureCity"
                     defaultValue={state.departureCity}
-                    className="w-full p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                    className="text-sm h-12 rounded-md w-full p-3 border border-[#71bced] outline-none text-[#555] font-medium leading-[17px] focus:border-[#009cff] focus:ring-2 focus:ring-[#009cff]/20 transition-all duration-200"
                   >
                     {CitiesList().map((city) => (
                       <option key={city.value} value={city.value}>{city.label}</option>
@@ -59,21 +59,21 @@ const TripCreationForm = () => {
                   </select>
                 </div>
 
-                {/* Travelling To */}
+                {/* Arrival City */}
                 <div>
                   <label htmlFor="arrivalCity" className="block text-gray-700 font-medium mb-2">
                     <span className="flex items-center">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                       </svg>
-                      Travelling To
+                      Arrvival City
                     </span>
                   </label>
                   <select
                     id="arrivalCity"
                     name="arrivalCity"
                     defaultValue={state.arrivalCity}
-                    className="w-full p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                    className="text-sm h-12 rounded-md w-full p-3 border border-[#71bced] outline-none text-[#555] font-medium leading-[17px] focus:border-[#009cff] focus:ring-2 focus:ring-[#009cff]/20 transition-all duration-200"
                   >
                     {CitiesList().map((city) => (
                       <option key={city.value} value={city.value}>{city.label}</option>
@@ -103,7 +103,7 @@ const TripCreationForm = () => {
                     name="departureDate"
                     type="date"
                     min={new Date().toISOString().split('T')[0]}
-                    className="w-full p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                    className="text-sm h-12 rounded-md w-full p-3 border border-[#71bced] outline-none text-[#555] font-medium leading-[17px] focus:border-[#009cff] focus:ring-2 focus:ring-[#009cff]/20 transition-all duration-200"
                   />
                 </div>
 
@@ -121,7 +121,7 @@ const TripCreationForm = () => {
                     name="busType"
                     id="busType"
                     defaultValue={state.busType}
-                    className="w-full p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                    className="text-sm h-12 rounded-md w-full p-3 border border-[#71bced] outline-none text-[#555] font-medium leading-[17px] focus:border-[#009cff] focus:ring-2 focus:ring-[#009cff]/20 transition-all duration-200"
                   >
                     {BusList().map((bus) => (
                       <option key={bus.value} value={bus.value}>{bus.label}</option>
@@ -150,7 +150,7 @@ const TripCreationForm = () => {
                 type="number"
                 min={1}
                 defaultValue={state.price}
-                className="w-full sm:w-1/3 p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                className="text-sm h-12 rounded-md w-full p-3 border border-[#71bced] outline-none text-[#555] font-medium leading-[17px] focus:border-[#009cff] focus:ring-2 focus:ring-[#009cff]/20 transition-all duration-200"
               />
             </div>
           </div>
