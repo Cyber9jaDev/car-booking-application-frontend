@@ -1,4 +1,33 @@
-import { Bus, City } from "@/utils/constants";
+export enum City {
+  LAGOS = "LAGOS",
+  KANO = "KANO",
+  ABUJA = "ABUJA",
+  IBADAN = "IBADAN",
+  PORT_HARCOURT = "PORT_HARCOURT",
+  ABA = "ABA",
+  ONITSHA = "ONITSHA",
+  BENIN = "BENIN",
+  SHAGAMU = "SHAGAMU",
+  OGBOMOSO = "OGBOMOSO",
+  OWERRI = "OWERRI",
+  IKEJA = "IKEJA",
+  OSOGBO = "OSOGBO",
+  AGEGE = "AGEGE",
+  ILESA = "ILESA",
+  OSHODI = "OSHODI",
+  SURULERE = "SURULERE",
+  IKOYI = "IKOYI",
+  WARRI = "WARRI",
+  AKURE = "AKURE",
+  EKITI = "EKITI",
+  OSUN = "OSUN",
+}
+
+export enum Bus {
+  TOYOTA = "TOYOTA",
+  MINIBUS = "MINIBUS",
+  SIENNA = "SIENNA",
+}
 
 export interface Stat {
   title: string,
@@ -13,19 +42,19 @@ interface FormFieldErrors {
 }
 
 
-export interface NewTripCreationForm{
+export interface TicketForm{
   departureCity: City,
   arrivalCity: City,
   departureDate: string,
-  price: number,
-  busType: Bus,
+  ticketFee: number,
+  vehicleType: Bus,
   errors?: FormFieldErrors;
 }
 
-export const initialNewTripCreationFormState: NewTripCreationForm = {
+export const initialNewTripCreationFormState: TicketForm = {
   departureCity: City.ABA,
-  arrivalCity: City.ABA,
+  arrivalCity: City.LAGOS,
   departureDate: new Date().toISOString().split('T')[0],
-  price: 100,
-  busType: Bus.TOYOTA,
+  ticketFee: 100,
+  vehicleType: Bus.TOYOTA,
 }

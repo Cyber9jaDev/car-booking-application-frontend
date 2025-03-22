@@ -1,41 +1,24 @@
 'use client';
 
-import { createTrip } from "@/actions/admin/admin.action";
+import { createTicket } from "@/actions/admin/admin.action";
 import { initialNewTripCreationFormState } from "@/interface/admin.interface";
 import { BusList, CitiesList } from "@/utils/functions";
 import { useActionState } from "react";
 
-const TripCreationForm = () => {
-  const [state, action, isPending] = useActionState(createTrip, initialNewTripCreationFormState);
+const TicketForm = () => {
+  const [state, action, isPending] = useActionState(createTicket, initialNewTripCreationFormState);
   
   return (
-    <section className="">
-      <div className="w-full mx-auto px-4 bg-white shadow-xl rounded-xl">
+    <section className="bg-white h-full">
+      <div className="w-full mx-auto px-4 rounded-xl">
         <form action={action} className="py-5 space-y-8">
-          {/* Header Section */}
-          <div className="border-b pb-6 mb-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify">
-              <div className="mt-4 sm:mt-0 bg-blue-50 p-3 rounded-lg">
-                <label className="flex items-center space-x-3 cursor-pointer">
-                  <input 
-                    type="radio" 
-                    name="trip" 
-                    value="one-way" 
-                    defaultChecked 
-                    className="h-5 w-5 text-blue-600 focus:ring-blue-500" 
-                  />
-                  <span className="font-medium text-blue-900">One way trip</span>
-                </label>
-              </div>
-            </div>
-          </div>
-
           {/* Trip Details Section */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             {/* Route Details */}
             <div className="bg-blue-50 p-6 rounded-xl">
               <h3 className="text-xl font-semibold text-blue-800 mb-5">Route Details</h3>
               <div className="space-y-5">
+
                 {/* Departure City */}
                 <div>
                   <label htmlFor="departureCity" className="block text-gray-700 font-medium mb-2">
@@ -109,7 +92,7 @@ const TripCreationForm = () => {
 
                 {/* Select Bus */}
                 <div>
-                  <label htmlFor="busType" className="block text-gray-700 font-medium mb-2">
+                  <label htmlFor="vehicleType" className="block text-gray-700 font-medium mb-2">
                     <span className="flex items-center">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
@@ -118,9 +101,9 @@ const TripCreationForm = () => {
                     </span>
                   </label>
                   <select
-                    name="busType"
-                    id="busType"
-                    defaultValue={state.busType}
+                    name="vehicleType"
+                    id="vehicleType"
+                    defaultValue={state.vehicleType}
                     className="text-sm h-12 rounded-md w-full p-3 border border-[#71bced] outline-none text-[#555] font-medium leading-[17px] focus:border-[#009cff] focus:ring-2 focus:ring-[#009cff]/20 transition-all duration-200"
                   >
                     {BusList().map((bus) => (
@@ -136,7 +119,7 @@ const TripCreationForm = () => {
           <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl mt-6">
             <h3 className="text-xl font-semibold text-blue-800 mb-5">Pricing</h3>
             <div>
-              <label htmlFor="price" className="block text-gray-700 font-medium mb-2">
+              <label htmlFor="ticketFee" className="block text-gray-700 font-medium mb-2">
                 <span className="flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -145,23 +128,24 @@ const TripCreationForm = () => {
                 </span>
               </label>
               <input
-                id="price"
-                name="price"
+                id="ticketFee"
+                name="ticketFee"
                 type="number"
                 min={1}
-                defaultValue={state.price}
+                required
+                defaultValue={state.ticketFee}
                 className="text-sm h-12 rounded-md w-full p-3 border border-[#71bced] outline-none text-[#555] font-medium leading-[17px] focus:border-[#009cff] focus:ring-2 focus:ring-[#009cff]/20 transition-all duration-200"
               />
             </div>
           </div>
 
           {/* Form Actions */}
-          <div className="pt-6 border-t">
+          <div className="">
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
               <button
                 type="submit"
                 disabled={isPending}
-                className="w-full py-3 px-6 text-white bg-blue-600 rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-colors shadow-md disabled:bg-gray-400 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                className="cursor-pointer w-full py-3 px-6 text-white bg-blue-600 rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-colors shadow-md disabled:bg-gray-400 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
               >
                 {isPending ? (
                   <span className="flex items-center justify-center">
@@ -176,13 +160,13 @@ const TripCreationForm = () => {
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                     </svg>
-                    Add New Trip
+                    Create New Trip
                   </span>
                 )}
               </button>
               <button
                 type="reset"
-                className="w-full py-3 px-6 text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 active:bg-blue-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                className="cursor-pointer w-full py-3 px-6 text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 active:bg-blue-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
               >
                 <span className="flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -199,4 +183,4 @@ const TripCreationForm = () => {
   );
 };
 
-export default TripCreationForm;
+export default TicketForm;

@@ -1,4 +1,5 @@
-import { Bus, City } from "@/utils/constants";
+// import { Bus, City } from "@/utils/constants";
+import { Bus, City } from "@/interface/admin.interface";
 import { z } from "zod";
 
 export const LoginFormSchema = z.object({
@@ -70,8 +71,7 @@ export const BookingFormSchema = z
     }
   });
 
-
-  export const TripCreationFormFormSchema = z
+export const TicketFormFormSchema = z
   .object({
     departureCity: z.nativeEnum(City, {
       required_error: "Please select a departure city.",
@@ -92,8 +92,8 @@ export const BookingFormSchema = z
         },
         { message: "Departure date must be today or in the future" }
       ),
-    price: z.number().min(1, { message: "Price is required." }),
-    busType: z.nativeEnum(Bus, {
+    ticketFee: z.number().min(1, { message: "Ticket is required." }),
+    vehicleType: z.nativeEnum(Bus, {
       required_error: "Please select a bus.",
       invalid_type_error: "This bus type is not available!",
     }),
