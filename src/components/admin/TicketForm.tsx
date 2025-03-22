@@ -1,17 +1,21 @@
 'use client';
 
 import { createTicket } from "@/actions/admin/admin.action";
-import { initialNewTripCreationFormState } from "@/interface/admin.interface";
+import { initialTicketFormState } from "@/interface/admin.interface";
 import { BusList, CitiesList } from "@/utils/functions";
 import { useActionState } from "react";
 
 const TicketForm = () => {
-  const [state, action, isPending] = useActionState(createTicket, initialNewTripCreationFormState);
+  const [state, action, isPending] = useActionState(createTicket, initialTicketFormState);
   
   return (
     <section className="bg-white h-full">
       <div className="w-full mx-auto px-4 rounded-xl">
         <form action={action} className="py-5 space-y-8">
+
+          <div className="bg-red-50">
+            
+          </div>
           {/* Trip Details Section */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             {/* Route Details */}

@@ -1,4 +1,4 @@
-import TripCreationForm from "@/components/admin/TripCreationForm";
+import TripCreationForm from "@/components/admin/TicketForm";
 
 export default function CreateNewTripFormPage() {
   return (

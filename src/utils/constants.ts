@@ -3,7 +3,7 @@ export const encodedKey = new TextEncoder().encode(jwtKey);
 
 export const Buses: { label: string; value: string }[] = [
   {
-    value: "TOYOTa",
+    value: "TOYOTA",
     label: "TOYOTA",
   },
   {

@@ -24,6 +24,8 @@ export default async function APICall<T, R>(
 
   catch (error) {
     throw error as R;
+    // throw error as R;
+    // return error as R
   }
 
 }
