@@ -19,13 +19,12 @@ export default async function APICall<T, R>(
     })
 
     const response = await result.json();
+    console.log(response);
     return response as T;
   }
 
   catch (error) {
     throw error as R;
-    // throw error as R;
-    // return error as R
   }
 
 }
