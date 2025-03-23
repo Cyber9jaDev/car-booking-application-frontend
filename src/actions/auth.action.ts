@@ -76,6 +76,7 @@ export async function login(prevState: LoginAuthForm, formData: FormData) {
   });
 
   if (!validatedFields.success) {
+    console.log("Error");
     return {
       email: formData.get("email") as string,
       password: formData.get("password") as string,
@@ -83,12 +84,14 @@ export async function login(prevState: LoginAuthForm, formData: FormData) {
     };
   }
 
-  const result = await APICall<AuthResponse, BaseErrorResponse>(baseLoginUrl, "POST", validatedFields.data)
+  console.table(validatedFields.data)
+
+  const result = await APICall<AuthResponse, BaseErrorResponse>(baseLoginUrl, "POST", {}, validatedFields.data)
   
   if(result.success){
     // Server Cookie
     await createSession(result.data.userId); 
-    
+
     // Set Cookie for client use 
     (await cookies()).set("isLoggedIn", "true", {
       maxAge: 24 * 60 * 60 * 1000, // 1 day

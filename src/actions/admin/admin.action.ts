@@ -4,7 +4,8 @@ import { revalidatePath } from "next/cache";
 import { BaseErrorResponse, Bus, City, TicketForm, TicketResponse } from "../../interface/admin.interface";
 import { TicketFormFormSchema } from "@/lib/zod";
 import APICall from "@/utils/APICall";
-import { redirect } from "next/navigation";
+import { getAuthUser } from "@/lib/session";
+import { cookies } from "next/headers";
 
 const baseUrl = "http://localhost:5000/api/v1/admin/create-ticket";
 
@@ -29,16 +30,16 @@ export async function createTicket( previousState: TicketForm, formData: FormDat
     };
   }
 
-  const result = await APICall<TicketResponse, BaseErrorResponse>(
-    baseUrl,
-    "POST",
-    validatedFields.data
-  );
+  const cookieStore = await cookies();
+  const cookie = cookieStore.get("access-token")?.value;
+
+  console.log(cookie);
+
+  const result = await APICall<TicketResponse, BaseErrorResponse>( baseUrl, "POST", { "Cookie": `access-token=${cookie}` }, validatedFields.data );
 
   if (result.success) {
     console.log(result);
-    redirect("/admin")
-    // revalidatePath("/admin/create-ticket");
+    revalidatePath("/admin/create-ticket");
     return {
       ...previousState,
     };
