@@ -5,7 +5,6 @@ import { AuthResponse, BaseErrorResponse, LoginAuthForm, RegisterAuthForm } from
 import { redirect } from "next/navigation";
 import APICall from "@/utils/APICall";
 import { cookies } from "next/headers";
-import { createSession } from "@/lib/session";
 
 const baseUrl = "http://localhost:5000/api/v1/auth/signup";
 const baseLoginUrl = "http://localhost:5000/api/v1/auth/login";
@@ -36,16 +35,12 @@ export async function register( prevState: RegisterAuthForm, formData: FormData 
   
   if(result.success){
 
-    // Server Cookie
-    await createSession(result.data.userId);   
-
-    // Set Cookie for client use 
-    (await cookies()).set("isLoggedIn", "true", {
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
-      secure: process.env.NODE_ENV === 'production',
-      httpOnly: false,
-      sameSite: "strict",
-    });
+    // (await cookies()).set("isLoggedIn", "true", {
+    //   maxAge: 24 * 60 * 60 * 1000, // 1 day
+    //   secure: process.env.NODE_ENV === 'production',
+    //   httpOnly: false,
+    //   sameSite: "lax",
+    // });
 
     if(result.data.role === "ADMIN"){
       redirect("/admin");
@@ -84,20 +79,25 @@ export async function login(prevState: LoginAuthForm, formData: FormData) {
     };
   }
 
-  console.table(validatedFields.data)
 
-  const result = await APICall<AuthResponse, BaseErrorResponse>(baseLoginUrl, "POST", {}, validatedFields.data)
+  const response = await fetch(baseLoginUrl, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(validatedFields.data),
+  });
+
+  const result: AuthResponse =  await response.json();
   
   if(result.success){
-    // Server Cookie
-    await createSession(result.data.userId); 
-
     // Set Cookie for client use 
     (await cookies()).set("isLoggedIn", "true", {
       maxAge: 24 * 60 * 60 * 1000, // 1 day
       secure: process.env.NODE_ENV === 'production',
       httpOnly: false,
-      sameSite: "strict",
+      sameSite: "lax",
     });
 
     if(result.data.role === "ADMIN"){

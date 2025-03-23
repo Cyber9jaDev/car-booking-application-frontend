@@ -10,7 +10,7 @@ interface PayloadSession {
   [key: string]: any;
 }
 
-  export async function encrypt(payload: PayloadSession): Promise<string> {
+export async function encrypt(payload: PayloadSession): Promise<string> {
   return new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
