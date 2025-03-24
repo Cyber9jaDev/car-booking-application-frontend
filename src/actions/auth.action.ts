@@ -1,21 +1,13 @@
 "use server";
 
 import { LoginFormSchema, SignupFormSchema } from "@/lib/zod";
-import {
-  AuthSuccessResponse,
-  BaseErrorResponse,
-  LoginAuthForm,
-  RegisterAuthForm,
-} from "@/interface/auth.interface";
+import { AuthSuccessResponse, BaseErrorResponse, LoginFormState, RegisterFormState } from "@/interface/auth.interface";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { jwtDecode } from "jwt-decode";
 import { baseUrl } from "@/utils/constants";
 
-export async function register(
-  prevState: RegisterAuthForm,
-  formData: FormData
-): Promise<RegisterAuthForm> {
+export async function register( prevState: RegisterFormState, formData: FormData ): Promise<RegisterFormState> {
   const validatedFields = SignupFormSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
@@ -105,7 +97,7 @@ export async function register(
   };
 }
 
-export async function login(prevState: LoginAuthForm, formData: FormData) {
+export async function login(prevState: LoginFormState, formData: FormData) {
   const validatedFields = LoginFormSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),
