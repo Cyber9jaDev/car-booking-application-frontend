@@ -10,9 +10,7 @@ import {
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { jwtDecode } from "jwt-decode";
-
-const baseUrl = "http://localhost:5000/api/v1/auth/signup";
-const baseLoginUrl = "http://localhost:5000/api/v1/auth/login";
+import { baseUrl } from "@/utils/constants";
 
 export async function register(
   prevState: RegisterAuthForm,
@@ -41,7 +39,7 @@ export async function register(
     };
   }
 
-  const response = await fetch(baseUrl, {
+  const response = await fetch(`${baseUrl}/auth/signup`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
@@ -91,10 +89,7 @@ export async function register(
         path: "/",
       });
 
-      if (successResponse?.data?.role === "ADMIN") {
-        redirect("/admin");
-      }
-      redirect("/");
+      redirect(`${successResponse.data.role === "ADMIN" ? "/admin" : "/"}`);
     }
   }
 
@@ -104,7 +99,8 @@ export async function register(
     phoneNumber: formData.get("phoneNumber") as string,
     password: formData.get("password") as string,
     confirmPassword: formData.get("confirmPassword") as string,
-    hasAgreedTermsAndConditions: formData.get("hasAgreedTermsAndConditions") === "on",
+    hasAgreedTermsAndConditions:
+      formData.get("hasAgreedTermsAndConditions") === "on",
     errors: { message: ["Signup Failed"] },
   };
 }
@@ -123,60 +119,55 @@ export async function login(prevState: LoginAuthForm, formData: FormData) {
     };
   }
 
-  try {
-    const response = await fetch(baseLoginUrl, {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(validatedFields.data),
-    });
+  const response = await fetch(`${baseUrl}/auth/login`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(validatedFields.data),
+  });
 
-    if (!response.ok) {
-      const errorResponse = (await response.json()) as BaseErrorResponse;
-      return {
-        email: formData.get("email") as string,
-        password: formData.get("password") as string,
-        errors: { message: errorResponse.message || ["Login Failed"] },
-      };
-    }
-
-    const successResponse: AuthSuccessResponse = await response.json();
-    const setCookieHeader = response?.headers?.get("Set-Cookie");
-
-    if (setCookieHeader) {
-      const token = setCookieHeader.split(";")[0].split("=")[1];
-      const expires = new Date(jwtDecode(token).exp! * 1000);
-
-      // Set cookie to be used on the frontend in order ro set hover colours for links
-      (await cookies()).set({
-        name: "isLoggedIn",
-        value: "true",
-        expires,
-        secure: process.env.NODE_ENV === "production",
-        httpOnly: false,
-      });
-
-      // Set Cookie
-      (await cookies()).set({
-        name: "access-token",
-        value: token,
-        expires,
-        secure: process.env.NODE_ENV === "production",
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-      });
-
-      if (successResponse?.data?.role === "ADMIN") {
-        redirect("/admin");
-      }
-      redirect("/");
-    }
-  } catch (error) {
+  if (!response.ok) {
+    const errorResponse = (await response.json()) as BaseErrorResponse;
     return {
       email: formData.get("email") as string,
       password: formData.get("password") as string,
-      errors: { message: ["Login Failed"] },
+      errors: { message: errorResponse.message || ["Login Failed"] },
     };
   }
+
+  const successResponse: AuthSuccessResponse = await response.json();
+  const setCookieHeader = response?.headers?.get("Set-Cookie");
+
+  if (setCookieHeader) {
+    const token = setCookieHeader.split(";")[0].split("=")[1];
+    const expires = new Date(jwtDecode(token).exp! * 1000);
+
+    // Set cookie to be used on the frontend in order ro set hover colours for links
+    (await cookies()).set({
+      name: "isLoggedIn",
+      value: "true",
+      expires,
+      secure: process.env.NODE_ENV === "production",
+      httpOnly: false,
+    });
+
+    // Set Cookie
+    (await cookies()).set({
+      name: "access-token",
+      value: token,
+      expires,
+      secure: process.env.NODE_ENV === "production",
+      httpOnly: true,
+      sameSite: "lax",
+      path: "/",
+    });
+
+    redirect(`${successResponse.data.role === "ADMIN" ? "/admin" : "/"}`);
+  }
+
+  return {
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+    errors: { message: ["Login Failed"] },
+  };
 }

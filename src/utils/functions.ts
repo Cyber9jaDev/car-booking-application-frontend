@@ -15,6 +15,7 @@ export const getClientCookie = (cookieName: string): boolean => {
 
       if (currentCookie.indexOf(cookiePrefix) == 0) {
         const sessionValue = currentCookie.substring(cookiePrefix.length);
+        console.log("sessionValue", sessionValue);
         if(sessionValue === "undefined"){
           return false;
         }

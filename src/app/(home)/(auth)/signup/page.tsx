@@ -8,10 +8,7 @@ import { initialRegisterFormState } from "@/interface/auth.interface";
 import Link from "next/link";
 
 export default function Signup() {
-  const [state, action, isPending] = useActionState(
-    register,
-    initialRegisterFormState
-  );
+  const [state, action, isPending] = useActionState( register, initialRegisterFormState );
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
