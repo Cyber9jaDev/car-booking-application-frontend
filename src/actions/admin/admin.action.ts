@@ -1,16 +1,11 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import {
-  BaseErrorResponse,
-  Bus,
-  City,
-  TicketFormState,
-  TicketSuccessResponse,
-} from "../../interface/admin.interface";
+import { BaseErrorResponse, Bus, City, TicketFormState, TicketSuccessResponse } from "../../interface/admin.interface";
 import { TicketFormFormSchema } from "@/lib/zod";
 import { baseUrl } from "@/utils/constants";
 import { cookies } from "next/headers";
+import { jwtDecode } from "jwt-decode";
 
 export async function createTicket(state: TicketFormState, formData: FormData) {
   const validatedFields = TicketFormFormSchema.safeParse({
@@ -29,10 +24,11 @@ export async function createTicket(state: TicketFormState, formData: FormData) {
     };
   }
 
-  // Get auth cookie from request
   const cookieStore = await cookies();
-  const accessToken = cookieStore.get("access-token")?.value;
-  const isLoggedIn = cookieStore.get("isLoggedIn")?.value;
+  const accessToken = cookieStore.get("access-token")?.value as string;
+  const isLoggedIn = cookieStore.get("isLoggedIn")?.value as string;
+
+  console.log(jwtDecode(accessToken));
 
   if (!accessToken || !isLoggedIn) {
     return {
