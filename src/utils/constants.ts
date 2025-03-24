@@ -1,140 +1,141 @@
+export const baseUrl = process.env.NEXT_PUBLIC_API_LOCALHOST 
 const jwtKey = process.env.NEXT_PRIVATE_JWT_SECRET;
 export const encodedKey = new TextEncoder().encode(jwtKey);
 
 export const Buses: { label: string; value: string }[] = [
   {
-    value: 'toyota',
-    label: 'Toyota Hiace'
-  }, 
+    value: "TOYOTA",
+    label: "TOYOTA",
+  },
   {
-    value: 'minibus',
-    label: 'Minibus'
-  }, 
+    value: "MINIBUS",
+    label: "MINIBUS",
+  },
   {
-    value: 'sienna',
-    label: 'Sienna'
-  },  
-]
+    value: "SIENNA",
+    label: "SIENNA",
+  },
+];
 
 export const Cities: { label: string; value: string }[] = [
   {
-    label: "Lagos",
-    value: "lagos",
-  }, 
-  {
-    label: "Kano",
-    value: "kano",
-  }, 
-  {
-    label: "Abuja",
-    value: "abuja",
-  }, 
-  {
-    label: "Ibadan",
-    value: "ibadan",
-  }, 
-  {
-    label: "Port Harcourt",
-    value: "ph",
-  }, 
-  {
-    label: "Aba",
-    value: "aba",
-  }, 
-  {
-    label: "Onitsha",
-    value: "onitsha",
-  }, 
-  {
-    label: "Maiduguri",
-    value: "maiduguri",
-  }, 
-  {
-    label: "Benin",
-    value: "benin",
-  }, 
-  {
-    label: "Shagamu",
-    value: "shagamu",
-  }, 
-  {
-    label: "Ogbomoso",
-    value: "ogbomoso",
-  }, 
-  {
-    label: "Owerri",
-    value: "owerri",
-  }, 
-  {
-    label: "Ikeja",
-    value: "ikeja",
-  }, 
-  {
-    label: "Osogbo",
-    value: "osogbo",
-  }, 
-  {
-    label: "Agege",
-    value: "gege",
-  }, 
-  {
-    label: "Sokoto",
-    value: "sokoto",
-  },  
-  {
-    label: "Nnewi",
-    value: "nnewi",
-  }, 
-  {
-    label: "Ilesa",
-    value: "ilesa",
-  }, 
-  {
-    label: "Minna",
-    value: "minna",
-  },  
-  {
-    label: "Oshodi",
-    value: "oshodi",
-  }, 
-  {
-    label: "Surulere",
-    value: "surulere",
-  }, 
-  {
-    label: "Mushin",
-    value: "mushin",
-  },  
-  {
-    label: "Ojota",
-    value: "ojota",
-  },  
-  {
-    label: "Ikoyi",
-    value: "ikoyi",
-  }, 
-  {
-    label: "Warri",
-    value: "warri",
-  },  
-  {
-    label: "Suleja",
-    value: "suleja"
+    label: "LAGOS",
+    value: "LAGOS",
   },
   {
-    label: "Akure",
-    value: "akure"
+    label: "KANO",
+    value: "KANO",
   },
   {
-    label: "Ekiti",
-    value: "ekiti"
+    label: "ABUJA",
+    value: "ABUJA",
   },
   {
-    label: "Osun",
-    value: "osun"
+    label: "IBADAN",
+    value: "IBADAN",
   },
   {
-    label: 'Muritala Muhammed Intl Airport',
-    value: "mma"
-  }  
-]
+    label: "PORT_HARCOURT",
+    value: "PORT_HARCOURT",
+  },
+  {
+    label: "ABA",
+    value: "ABA",
+  },
+  {
+    label: "ONITSHA",
+    value: "ONITSHA",
+  },
+  {
+    label: "BENIN",
+    value: "BENIN",
+  },
+  {
+    label: "SHAGAMU",
+    value: "SHAGAMU",
+  },
+  {
+    label: "OGBOMOSO",
+    value: "OGBOMOSO",
+  },
+  {
+    label: "OWERRI",
+    value: "OWERRI",
+  },
+  {
+    label: "IKEJA",
+    value: "IKEJA",
+  },
+  {
+    label: "OSOGBO",
+    value: "OSOGBO",
+  },
+  {
+    label: "AGEGE",
+    value: "AGEGE",
+  },
+  {
+    label: "ILESA",
+    value: "ILESA",
+  },
+  {
+    label: "OSHODI",
+    value: "OSHODI",
+  },
+  {
+    label: "SURULERE",
+    value: "SURULERE",
+  },
+  {
+    label: "IKOYI",
+    value: "IKOYI",
+  },
+  {
+    label: "WARRI",
+    value: "WARRI",
+  },
+  {
+    label: "AKURE",
+    value: "AKURE",
+  },
+  {
+    label: "EKITI",
+    value: "EKITI",
+  },
+  {
+    label: "OSUN",
+    value: "OSUN",
+  },
+];
+
+
+export enum City {
+  LAGOS = "LAGOS",
+  KANO = "KANO",
+  ABUJA = "ABUJA",
+  IBADAN = "IBADAN",
+  PORT_HARCOURT = "PORT_HARCOURT",
+  ABA = "ABA",
+  ONITSHA = "ONITSHA",
+  BENIN = "BENIN",
+  SHAGAMU = "SHAGAMU",
+  OGBOMOSO = "OGBOMOSO",
+  OWERRI = "OWERRI",
+  IKEJA = "IKEJA",
+  OSOGBO = "OSOGBO",
+  AGEGE = "AGEGE",
+  ILESA = "ILESA",
+  OSHODI = "OSHODI",
+  SURULERE = "SURULERE",
+  IKOYI = "IKOYI",
+  WARRI = "WARRI",
+  AKURE = "AKURE",
+  EKITI = "EKITI",
+  OSUN = "OSUN",
+}
+
+export enum Bus {
+  TOYOTA = "TOYOTA",
+  MINIBUS = "MINIBUS",
+  SIENNA = "SIENNA",
+}

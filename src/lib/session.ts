@@ -1,12 +1,12 @@
-// "use server";
+"use server";
 
 import { encodedKey } from "@/utils/constants";
 import { jwtVerify, SignJWT } from "jose";
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
 
 interface PayloadSession {
   userId: string;
-  expiresAt: Date;
+  // expiresAt: number;  // why not a string?
   [key: string]: any;
 }
 
@@ -14,7 +14,7 @@ export async function encrypt(payload: PayloadSession): Promise<string> {
   return new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime("7d")
+    .setExpirationTime("1d")
     .sign(encodedKey);
 }
 
@@ -23,31 +23,28 @@ export async function decrypt(session: string) {
     const { payload } = await jwtVerify(session, encodedKey, { algorithms: ["HS256"] });
     return payload;
   } catch (error) {
-    console.log("Failed to verify session");
     throw error;
   }
 }
 
 export async function createSession(userId: string) {
-  const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  const session = await encrypt({ userId, expiresAt });
+  const cookie = await encrypt({ userId });
   const cookieStore = await cookies();
 
-  cookieStore.set("session", session, {
+  cookieStore.set("access-token", cookie, {
     httpOnly: true,
-    secure: true,
-    expires: expiresAt,
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 24 * 60 * 60 * 1000,
     sameSite: "lax",
-    path: "/",
   });
 }
 
 export async function getAuthUser(cookieName: string) {
   const cookieStore = await cookies();
-  const session = cookieStore.get(cookieName)?.value;
+  const cookie = cookieStore.get(cookieName)?.value;
 
-  if (session) {
-    const user = await decrypt(session);
+  if (cookie) {
+    const user = await decrypt(cookie);
     return user;
   }
   return null;

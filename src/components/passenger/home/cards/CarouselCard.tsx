@@ -1,5 +1,5 @@
+import { CarouselCardProps } from "@/interface/passenger.interface";
 import React from "react";
-import { CarouselCardProps } from "../../passenger.interface";
 
 const CarouselCard = ({ name, text, image, role }: CarouselCardProps) => {
   return (

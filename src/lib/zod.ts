@@ -1,3 +1,5 @@
+// import { Bus, City } from "@/utils/constants";
+import { Bus, City } from "@/interface/admin.interface";
 import { z } from "zod";
 
 export const LoginFormSchema = z.object({
@@ -27,12 +29,81 @@ export const SignupFormSchema = z
     confirmPassword: z.string().trim(),
     hasAgreedTermsAndConditions: z.boolean(),
   })
-  .superRefine((val, ctx) => {
-    if (val.password !== val.confirmPassword) {
-      ctx.addIssue({
+  .superRefine((value, context) => {
+    if (value.password !== value.confirmPassword) {
+      context.addIssue({
         code: z.ZodIssueCode.custom,
         message: "Password fields do not match.",
         path: ["confirmPassword"],
+      });
+    }
+  });
+
+export const BookingFormSchema = z
+  .object({
+    departureCity: z.nativeEnum(City, {
+      required_error: "Please select a departure city.",
+      invalid_type_error: "This city is not available!",
+    }),
+    arrivalCity: z.nativeEnum(City, {
+      required_error: "Please select an arrival city.",
+      invalid_type_error: "This city is not available!",
+    }),
+    departureDate: z
+      .string()
+      .min(1, { message: "Departure date is required." })
+      .refine(
+        (date) => {
+          const departureDate = new Date(date).toISOString().split("T")[0];
+          const now = new Date().toISOString().split("T")[0];
+          return departureDate >= now;
+        },
+        { message: "Departure date must be today or in the future" }
+      ),
+  })
+  .superRefine((value, context) => {
+    if (value.arrivalCity === value.departureCity) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Arrival and departure cities cannot be the same.",
+        path: ["arrivalCity"],
+      });
+    }
+  });
+
+export const TicketFormFormSchema = z
+  .object({
+    departureCity: z.nativeEnum(City, {
+      required_error: "Please select a departure city.",
+      invalid_type_error: "This city is not available!",
+    }),
+    arrivalCity: z.nativeEnum(City, {
+      required_error: "Please select an arrival city.",
+      invalid_type_error: "This city is not available!",
+    }),
+    departureDate: z
+      .string()
+      .min(1, { message: "Departure date is required." })
+      .refine(
+        (date) => {
+          const departureDate = new Date(date).toISOString().split("T")[0];
+          const now = new Date().toISOString().split("T")[0];
+          return departureDate >= now;
+        },
+        { message: "Departure date must be today or in the future" }
+      ),
+    ticketFee: z.number().min(1, { message: "Ticket is required." }),
+    vehicleType: z.nativeEnum(Bus, {
+      required_error: "Please select a bus.",
+      invalid_type_error: "This bus type is not available!",
+    }),
+  })
+  .superRefine((value, context) => {
+    if (value.arrivalCity === value.departureCity) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Arrival and departure cities cannot be the same.",
+        path: ["arrivalCity"],
       });
     }
   });

@@ -20,7 +20,13 @@ export default function Login() {
 
           <div className="flex w-full justify-center flex-wrap gap-y-5">
             <div className="w-[47.5%] flex flex-col mx-auto gap-y-1">
-              <label htmlFor="email" className="font-semibold text-xs text-[#7a7a7a]"> Email </label>
+              <label
+                htmlFor="email"
+                className="font-semibold text-xs text-[#7a7a7a]"
+              >
+                {" "}
+                Email{" "}
+              </label>
               <div className="relative">
                 <input
                   defaultValue={state.email}

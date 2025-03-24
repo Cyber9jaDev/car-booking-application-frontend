@@ -1,7 +1,9 @@
-export default function Admin() {
+import Dashboard from "@/components/admin/Dashboard";
+
+export default function AdminPage() {
   return (
-    <div>
-      Enter
+    <div className="relative top-18 w-7/8 bg-white">
+      <Dashboard/>
     </div>
   );
 }

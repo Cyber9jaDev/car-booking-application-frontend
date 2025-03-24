@@ -21,7 +21,13 @@ export default function Signup() {
           </h4>
           <div className="flex w-full justify-center flex-wrap gap-y-5">
             <div className="w-[47.5%] flex flex-col mx-auto gap-y-1">
-              <label htmlFor="name" className="font-semibold text-xs text-[#7a7a7a]"> Name </label>
+              <label
+                htmlFor="name"
+                className="font-semibold text-xs text-[#7a7a7a]"
+              >
+                {" "}
+                Name{" "}
+              </label>
               <div className="relative">
                 <input
                   defaultValue={state.name}
@@ -38,7 +44,9 @@ export default function Signup() {
                   <p>Name must:</p>
                   <ul className="list-disc list-inside ml-3">
                     {state.errors.name.map((err) => (
-                      <li className="text-red-500" key={err}>{err}</li>
+                      <li className="text-red-500" key={err}>
+                        {err}
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -50,7 +58,8 @@ export default function Signup() {
                 htmlFor="email"
                 className="font-semibold text-xs text-[#7a7a7a]"
               >
-                Email
+                {" "}
+                Email{" "}
               </label>
               <div className="relative">
                 <input
@@ -67,7 +76,9 @@ export default function Signup() {
                 <div className="text-xs">
                   <ul className="list-disc list-inside ml-3">
                     {state.errors.email.map((err) => (
-                      <li className="text-red-500" key={err}>{err}</li>
+                      <li className="text-red-500" key={err}>
+                        {err}
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -96,7 +107,9 @@ export default function Signup() {
                 <div className="text-xs">
                   <ul className="list-disc list-inside ml-3">
                     {state.errors.phoneNumber.map((err) => (
-                      <li className="text-red-500" key={err}>{err}</li>
+                      <li className="text-red-500" key={err}>
+                        {err}
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -133,7 +146,9 @@ export default function Signup() {
                   <p>Password must:</p>
                   <ul className="list-disc list-inside ml-3">
                     {state.errors.password.map((err) => (
-                      <li className="text-red-500" key={err}>{err}</li>
+                      <li className="text-red-500" key={err}>
+                        {err}
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -173,7 +188,9 @@ export default function Signup() {
                 <div className="text-xs mt-1">
                   <ul className="list-disc list-inside ml-4">
                     {state.errors.confirmPassword.map((err) => (
-                      <li className="text-red-500" key={err}>{err}</li>
+                      <li className="text-red-500" key={err}>
+                        {err}
+                      </li>
                     ))}
                   </ul>
                 </div>
