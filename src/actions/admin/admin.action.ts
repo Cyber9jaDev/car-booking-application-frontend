@@ -1,12 +1,13 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { Bus, City, TicketForm, TicketResponse } from "../../interface/admin.interface";
+import { BaseErrorResponse, Bus, City, TicketFormState, TicketSuccessResponse } from "../../interface/admin.interface";
 import { TicketFormFormSchema } from "@/lib/zod";
+import { baseUrl } from "@/utils/constants";
+import { cookies } from "next/headers";
+import { jwtDecode } from "jwt-decode";
 
-const baseUrl = "http://localhost:5000/api/v1/admin/create-ticket";
-
-export async function createTicket( previousState: TicketForm, formData: FormData ) {
+export async function createTicket(state: TicketFormState, formData: FormData) {
   const validatedFields = TicketFormFormSchema.safeParse({
     arrivalCity: formData.get("arrivalCity"),
     departureCity: formData.get("departureCity"),
@@ -18,42 +19,57 @@ export async function createTicket( previousState: TicketForm, formData: FormDat
   if (!validatedFields.success) {
     console.log("error");
     return {
+      ...state,
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("access-token")?.value as string;
+  const isLoggedIn = cookieStore.get("isLoggedIn")?.value as string;
+
+  console.log(jwtDecode(accessToken));
+
+  if (!accessToken || !isLoggedIn) {
+    return {
+      ...state,
+      errors: {
+        message: ["Authentication required, please login to create ticket"],
+      },
+    };
+  }
+
+  const response = await fetch(`${baseUrl}/admin/create-ticket`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Cookie: `access-token=${accessToken}`,
+    },
+    body: JSON.stringify(validatedFields.data),
+  });
+
+  if (!response.ok) {
+    const errorResponse: BaseErrorResponse = await response.json();
+    return {
       arrivalCity: formData.get("arrivalCity") as City,
       departureCity: formData.get("departureCity") as City,
       departureDate: formData.get("departureDate") as string,
       ticketFee: Number(formData.get("ticketFee")),
       vehicleType: formData.get("vehicleType") as Bus,
-      errors: validatedFields.error.flatten().fieldErrors,
+      errors: {
+        message: errorResponse.message,
+      },
     };
   }
 
-  const response = await fetch(baseUrl, {
-    credentials: "include",
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(validatedFields.data),
-  });
-
-  const result: TicketResponse = await response.json();
-
-  if (result.success) {
-    console.log(result);
+  // Successfully created ticket
+  const successResponse: TicketSuccessResponse = await response.json();
+  if (successResponse?.success) {
     revalidatePath("/admin/create-ticket");
-    return {
-      ...previousState,
-    };
   }
 
   return {
-    arrivalCity: formData.get("arrivalCity") as City,
-    departureCity: formData.get("departureCity") as City,
-    departureDate: formData.get("departureDate") as string,
-    ticketFee: Number(formData.get("ticketFee")),
-    vehicleType: formData.get("vehicleType") as Bus,
-    errors: {
-      
-    }
+    ...state,
+    errors: { message: ["Unable to book ticket"] },
   };
 }

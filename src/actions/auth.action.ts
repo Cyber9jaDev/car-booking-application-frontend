@@ -1,21 +1,25 @@
 "use server";
 
 import { LoginFormSchema, SignupFormSchema } from "@/lib/zod";
-import { AuthSuccessResponse, BaseErrorResponse, LoginFormState, RegisterFormState } from "@/interface/auth.interface";
+import {
+  AuthSuccessResponse,
+  BaseErrorResponse,
+  LoginFormState,
+  RegisterFormState,
+} from "@/interface/auth.interface";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { jwtDecode } from "jwt-decode";
 import { baseUrl } from "@/utils/constants";
 
-export async function register(state: RegisterFormState, formData: FormData): Promise<RegisterFormState> {
+export async function register( state: RegisterFormState, formData: FormData ): Promise<RegisterFormState> {
   const validatedFields = SignupFormSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
     phoneNumber: formData.get("phoneNumber"),
     password: formData.get("password"),
     confirmPassword: formData.get("confirmPassword"),
-    hasAgreedTermsAndConditions:
-      formData.get("hasAgreedTermsAndConditions") === "on",
+    hasAgreedTermsAndConditions: formData.get("hasAgreedTermsAndConditions") === "on",
   });
 
   if (!validatedFields.success) {
@@ -59,19 +63,29 @@ export async function register(state: RegisterFormState, formData: FormData): Pr
 
     if (setCookieHeader) {
       const token = setCookieHeader.split(";")[0].split("=")[1];
-      const expires = new Date(jwtDecode(token).exp! * 1000);
+      const decoded = jwtDecode(token);
 
-      // Set cookie to be used on the frontend in order ro set hover colours for links
-      (await cookies()).set({
+      // Validate expiration consistency
+      if (!decoded.exp) throw new Error("Invalid JWT expiration");
+
+      const expires = new Date(decoded.exp * 1000);
+      const now = new Date();
+      const maxAge = Math.floor((expires.getTime() - now.getTime()) / 1000);
+
+      const cookieStore = await cookies();
+
+      // Set cookie to be used on the frontend in order to set hover colours for links
+      cookieStore.set({
         name: "isLoggedIn",
         value: "true",
-        expires,
         secure: process.env.NODE_ENV === "production",
-        httpOnly: false,
+        sameSite: "lax",
+        path: "/",
+        maxAge, // Derive from JWT expiration
       });
 
       // Set Cookie
-      (await cookies()).set({
+      cookieStore.set({
         name: "access-token",
         value: token,
         expires,
@@ -132,19 +146,29 @@ export async function login(state: LoginFormState, formData: FormData) {
 
   if (setCookieHeader) {
     const token = setCookieHeader.split(";")[0].split("=")[1];
-    const expires = new Date(jwtDecode(token).exp! * 1000);
+    const decoded = jwtDecode(token);
+
+    // Validate expiration consistency
+    if (!decoded.exp) throw new Error("Invalid JWT expiration");
+
+    const expires = new Date(decoded.exp * 1000);
+    const now = new Date();
+    const maxAge = Math.floor((expires.getTime() - now.getTime()) / 1000);
+
+    const cookieStore = await cookies();
 
     // Set cookie to be used on the frontend in order ro set hover colours for links
-    (await cookies()).set({
+    cookieStore.set({
       name: "isLoggedIn",
       value: "true",
-      expires,
       secure: process.env.NODE_ENV === "production",
-      httpOnly: false,
+      sameSite: "lax",
+      path: "/",
+      maxAge, // Derive from JWT expiration
     });
 
     // Set Cookie
-    (await cookies()).set({
+    cookieStore.set({
       name: "access-token",
       value: token,
       expires,
