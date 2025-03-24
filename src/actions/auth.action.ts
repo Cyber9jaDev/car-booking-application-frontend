@@ -85,27 +85,34 @@ export async function login(prevState: LoginAuthForm, formData: FormData) {
 
   const response = await fetch(baseLoginUrl, {
     method: "POST",
-    // credentials: "include",
+    credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(validatedFields.data),
   });
 
-  const parsedResponse = await response.json();
+  const parsedResponse: AuthResponse = await response.json();
 
   if(!response.ok){
+    // handle error here
+    // console.log(parsedResponse);
+    return {
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+      errors: {
+        message: parsedResponse.message[0]
+      }
+    }
+    
     return { error: getErrorMessage(parsedResponse) }
   }
 
   if(parsedResponse?.success as boolean){
     const setCookieHeader = response?.headers?.get("Set-Cookie")
-    console.log(setCookieHeader);
     if(setCookieHeader){
       const token = setCookieHeader.split(";")[0].split("=")[1];
       (await cookies()).set({
         name: "access-token",
         value: token,
-        // expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 1 day from now
-        // expires: new Date(jwtDecode(token).exp! * 1000), // 1 day from now
         expires: new Date(jwtDecode(token).exp! * 1000),
         secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
