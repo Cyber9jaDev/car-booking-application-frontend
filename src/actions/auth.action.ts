@@ -1,25 +1,33 @@
 "use server";
 
 import { LoginFormSchema, SignupFormSchema } from "@/lib/zod";
-import { AuthResponse, BaseErrorResponse, LoginAuthForm, RegisterAuthForm } from "@/interface/auth.interface";
+import {
+  AuthResponse,
+  BaseErrorResponse,
+  LoginAuthForm,
+  RegisterAuthForm,
+} from "@/interface/auth.interface";
 import { redirect } from "next/navigation";
 import APICall from "@/utils/APICall";
 import { cookies } from "next/headers";
 import { getErrorMessage } from "@/utils/error";
 import { jwtDecode } from "jwt-decode";
 
-
 const baseUrl = "http://localhost:5000/api/v1/auth/signup";
 const baseLoginUrl = "http://localhost:5000/api/v1/auth/login";
 
-export async function register( prevState: RegisterAuthForm, formData: FormData ): Promise<RegisterAuthForm> {
+export async function register(
+  prevState: RegisterAuthForm,
+  formData: FormData
+): Promise<RegisterAuthForm> {
   const validatedFields = SignupFormSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
     phoneNumber: formData.get("phoneNumber"),
     password: formData.get("password"),
     confirmPassword: formData.get("confirmPassword"),
-    hasAgreedTermsAndConditions: formData.get("hasAgreedTermsAndConditions") === "on",
+    hasAgreedTermsAndConditions:
+      formData.get("hasAgreedTermsAndConditions") === "on",
   });
 
   if (!validatedFields.success) {
@@ -29,15 +37,19 @@ export async function register( prevState: RegisterAuthForm, formData: FormData 
       phoneNumber: formData.get("phoneNumber") as string,
       password: formData.get("password") as string,
       confirmPassword: formData.get("confirmPassword") as string,
-      hasAgreedTermsAndConditions: formData.get("hasAgreedTermsAndConditions") === "on",
+      hasAgreedTermsAndConditions:
+        formData.get("hasAgreedTermsAndConditions") === "on",
       errors: validatedFields.error.flatten().fieldErrors,
     };
   }
 
-  const result = await APICall<AuthResponse, BaseErrorResponse>(baseUrl, "POST", validatedFields.data )
-  
-  if(result.success){
+  const result = await APICall<AuthResponse, BaseErrorResponse>(
+    baseUrl,
+    "POST",
+    validatedFields.data
+  );
 
+  if (result.success) {
     // (await cookies()).set("isLoggedIn", "true", {
     //   maxAge: 24 * 60 * 60 * 1000, // 1 day
     //   secure: process.env.NODE_ENV === 'production',
@@ -45,37 +57,40 @@ export async function register( prevState: RegisterAuthForm, formData: FormData 
     //   sameSite: "lax",
     // });
 
-    if(result.data.role === "ADMIN"){
+    if (result.data.role === "ADMIN") {
       redirect("/admin");
     }
     redirect("/");
-  }
-  
-  else{
+  } else {
     return {
       name: formData.get("name") as string,
       email: formData.get("email") as string,
       phoneNumber: formData.get("phoneNumber") as string,
       password: formData.get("password") as string,
       confirmPassword: formData.get("confirmPassword") as string,
-      hasAgreedTermsAndConditions: formData.get("hasAgreedTermsAndConditions") === "on",
+      hasAgreedTermsAndConditions:
+        formData.get("hasAgreedTermsAndConditions") === "on",
       errors: {
-        email: result.message === "Email already exists" ? [result.message] : undefined,
-        phoneNumber: result.message === "Phone number is in use by another user" ? [result.message] : undefined,
-      }
-    }
+        email:
+          result.message === "Email already exists"
+            ? [result.message]
+            : undefined,
+        phoneNumber:
+          result.message === "Phone number is in use by another user"
+            ? [result.message]
+            : undefined,
+      },
+    };
   }
 }
 
 export async function login(prevState: LoginAuthForm, formData: FormData) {
-
   const validatedFields = LoginFormSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),
   });
 
   if (!validatedFields.success) {
-    console.log("Error");
     return {
       email: formData.get("email") as string,
       password: formData.get("password") as string,
@@ -92,36 +107,35 @@ export async function login(prevState: LoginAuthForm, formData: FormData) {
 
   const parsedResponse: AuthResponse = await response.json();
 
-  if(!response.ok){
-    // handle error here
-    // console.log(parsedResponse);
-    return {
-      email: formData.get("email") as string,
-      password: formData.get("password") as string,
-      errors: {
-        message: parsedResponse.message[0]
-      }
-    }
-    
-    return { error: getErrorMessage(parsedResponse) }
-  }
+  if (response.ok && parsedResponse.success) {
+    // Note:- The cookie is coming from the response not the parsed response
+    const setCookieHeader = response?.headers?.get("Set-Cookie");
 
-  if(parsedResponse?.success as boolean){
-    const setCookieHeader = response?.headers?.get("Set-Cookie")
-    if(setCookieHeader){
+    if (setCookieHeader) {
       const token = setCookieHeader.split(";")[0].split("=")[1];
+
+      // Set cookie to be used  on the frontend in order ro set hover colours for links
+      (await cookies()).set({
+        name: "isLoggedIn",
+        value: "true",
+        expires: new Date(jwtDecode(token).exp! * 1000),
+        secure: process.env.NODE_ENV === "production",
+        httpOnly: false,
+      });
+
+      // Set Cookie
       (await cookies()).set({
         name: "access-token",
         value: token,
         expires: new Date(jwtDecode(token).exp! * 1000),
-        secure: process.env.NODE_ENV === 'production',
+        secure: process.env.NODE_ENV === "production",
         httpOnly: true,
         sameSite: "lax",
         path: "/",
-      })
+      });
     }
 
-    if(parsedResponse?.data?.role === "ADMIN"){
+    if (parsedResponse?.data?.role === "ADMIN") {
       redirect("/admin");
     }
 
@@ -131,10 +145,6 @@ export async function login(prevState: LoginAuthForm, formData: FormData) {
   return {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
-    errors: {
-      // email: result.message === "Email already exists" ? [result.message] : undefined,
-      // password: result.message === "Phone number is in use by another user" ? [result.message] : undefined,
-    }
-  }
-
+    errors: { message: parsedResponse.message[0] },
+  };
 }
