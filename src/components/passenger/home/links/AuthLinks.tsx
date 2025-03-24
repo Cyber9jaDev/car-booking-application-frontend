@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 export default function AuthLinks() {
   const pathname = usePathname();
-  const isLoggedIn: boolean = getClientCookie("isLoggedIn");
+  const isLoggedIn: string | null = getClientCookie("isLoggedIn");
 
   return (
     <nav className="p-0 m-0 text-white">

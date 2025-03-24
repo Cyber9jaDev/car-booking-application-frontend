@@ -7,7 +7,7 @@ import { cookies } from "next/headers";
 import { jwtDecode } from "jwt-decode";
 import { baseUrl } from "@/utils/constants";
 
-export async function register( prevState: RegisterFormState, formData: FormData ): Promise<RegisterFormState> {
+export async function register(state: RegisterFormState, formData: FormData): Promise<RegisterFormState> {
   const validatedFields = SignupFormSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
@@ -97,7 +97,7 @@ export async function register( prevState: RegisterFormState, formData: FormData
   };
 }
 
-export async function login(prevState: LoginFormState, formData: FormData) {
+export async function login(state: LoginFormState, formData: FormData) {
   const validatedFields = LoginFormSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),
