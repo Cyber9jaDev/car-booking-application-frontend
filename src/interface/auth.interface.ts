@@ -30,7 +30,7 @@ export const initialRegisterFormState: RegisterAuthForm = {
 
 export const initialLoginFormState: LoginAuthForm = { email: "", password: "" }
 
-export interface AuthResponse {
+export interface AuthSuccessResponse {
   message: string;
   success: boolean;
   statusCode: number;
@@ -41,7 +41,8 @@ export interface AuthResponse {
 }
 
 export interface BaseErrorResponse{
-  message: string;
+  message: string[];
   statusCode: number;
-  success: boolean;
+  error: string;
 }
+

@@ -2,15 +2,13 @@
 
 import { LoginFormSchema, SignupFormSchema } from "@/lib/zod";
 import {
-  AuthResponse,
+  AuthSuccessResponse,
   BaseErrorResponse,
   LoginAuthForm,
   RegisterAuthForm,
 } from "@/interface/auth.interface";
 import { redirect } from "next/navigation";
-import APICall from "@/utils/APICall";
 import { cookies } from "next/headers";
-import { getErrorMessage } from "@/utils/error";
 import { jwtDecode } from "jwt-decode";
 
 const baseUrl = "http://localhost:5000/api/v1/auth/signup";
@@ -43,25 +41,15 @@ export async function register(
     };
   }
 
-  const result = await APICall<AuthResponse, BaseErrorResponse>(
-    baseUrl,
-    "POST",
-    validatedFields.data
-  );
+  const response = await fetch(baseUrl, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(validatedFields.data),
+  });
 
-  if (result.success) {
-    // (await cookies()).set("isLoggedIn", "true", {
-    //   maxAge: 24 * 60 * 60 * 1000, // 1 day
-    //   secure: process.env.NODE_ENV === 'production',
-    //   httpOnly: false,
-    //   sameSite: "lax",
-    // });
-
-    if (result.data.role === "ADMIN") {
-      redirect("/admin");
-    }
-    redirect("/");
-  } else {
+  if (!response.ok) {
+    const errorResponse: BaseErrorResponse = await response.json();
     return {
       name: formData.get("name") as string,
       email: formData.get("email") as string,
@@ -70,18 +58,55 @@ export async function register(
       confirmPassword: formData.get("confirmPassword") as string,
       hasAgreedTermsAndConditions:
         formData.get("hasAgreedTermsAndConditions") === "on",
-      errors: {
-        email:
-          result.message === "Email already exists"
-            ? [result.message]
-            : undefined,
-        phoneNumber:
-          result.message === "Phone number is in use by another user"
-            ? [result.message]
-            : undefined,
-      },
+      errors: { message: errorResponse.message || ["Signup Failed"] },
     };
   }
+
+  const successResponse: AuthSuccessResponse = await response.json();
+
+  if (successResponse.success) {
+    const setCookieHeader = response?.headers?.get("Set-Cookie");
+
+    if (setCookieHeader) {
+      const token = setCookieHeader.split(";")[0].split("=")[1];
+      const expires = new Date(jwtDecode(token).exp! * 1000);
+
+      // Set cookie to be used on the frontend in order ro set hover colours for links
+      (await cookies()).set({
+        name: "isLoggedIn",
+        value: "true",
+        expires,
+        secure: process.env.NODE_ENV === "production",
+        httpOnly: false,
+      });
+
+      // Set Cookie
+      (await cookies()).set({
+        name: "access-token",
+        value: token,
+        expires,
+        secure: process.env.NODE_ENV === "production",
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+      });
+
+      if (successResponse?.data?.role === "ADMIN") {
+        redirect("/admin");
+      }
+      redirect("/");
+    }
+  }
+
+  return {
+    name: formData.get("name") as string,
+    email: formData.get("email") as string,
+    phoneNumber: formData.get("phoneNumber") as string,
+    password: formData.get("password") as string,
+    confirmPassword: formData.get("confirmPassword") as string,
+    hasAgreedTermsAndConditions: formData.get("hasAgreedTermsAndConditions") === "on",
+    errors: { message: ["Signup Failed"] },
+  };
 }
 
 export async function login(prevState: LoginAuthForm, formData: FormData) {
@@ -98,27 +123,35 @@ export async function login(prevState: LoginAuthForm, formData: FormData) {
     };
   }
 
-  const response = await fetch(baseLoginUrl, {
-    method: "POST",
-    credentials: "include",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(validatedFields.data),
-  });
+  try {
+    const response = await fetch(baseLoginUrl, {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(validatedFields.data),
+    });
 
-  const parsedResponse: AuthResponse = await response.json();
+    if (!response.ok) {
+      const errorResponse = (await response.json()) as BaseErrorResponse;
+      return {
+        email: formData.get("email") as string,
+        password: formData.get("password") as string,
+        errors: { message: errorResponse.message || ["Login Failed"] },
+      };
+    }
 
-  if (response.ok && parsedResponse.success) {
-    // Note:- The cookie is coming from the response not the parsed response
+    const successResponse: AuthSuccessResponse = await response.json();
     const setCookieHeader = response?.headers?.get("Set-Cookie");
 
     if (setCookieHeader) {
       const token = setCookieHeader.split(";")[0].split("=")[1];
+      const expires = new Date(jwtDecode(token).exp! * 1000);
 
-      // Set cookie to be used  on the frontend in order ro set hover colours for links
+      // Set cookie to be used on the frontend in order ro set hover colours for links
       (await cookies()).set({
         name: "isLoggedIn",
         value: "true",
-        expires: new Date(jwtDecode(token).exp! * 1000),
+        expires,
         secure: process.env.NODE_ENV === "production",
         httpOnly: false,
       });
@@ -127,24 +160,23 @@ export async function login(prevState: LoginAuthForm, formData: FormData) {
       (await cookies()).set({
         name: "access-token",
         value: token,
-        expires: new Date(jwtDecode(token).exp! * 1000),
+        expires,
         secure: process.env.NODE_ENV === "production",
         httpOnly: true,
         sameSite: "lax",
         path: "/",
       });
-    }
 
-    if (parsedResponse?.data?.role === "ADMIN") {
-      redirect("/admin");
+      if (successResponse?.data?.role === "ADMIN") {
+        redirect("/admin");
+      }
+      redirect("/");
     }
-
-    redirect("/");
+  } catch (error) {
+    return {
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+      errors: { message: ["Login Failed"] },
+    };
   }
-
-  return {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
-    errors: { message: parsedResponse.message[0] },
-  };
 }

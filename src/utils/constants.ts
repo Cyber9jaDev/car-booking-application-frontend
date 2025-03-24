@@ -106,3 +106,35 @@ export const Cities: { label: string; value: string }[] = [
     value: "OSUN",
   },
 ];
+
+
+export enum City {
+  LAGOS = "LAGOS",
+  KANO = "KANO",
+  ABUJA = "ABUJA",
+  IBADAN = "IBADAN",
+  PORT_HARCOURT = "PORT_HARCOURT",
+  ABA = "ABA",
+  ONITSHA = "ONITSHA",
+  BENIN = "BENIN",
+  SHAGAMU = "SHAGAMU",
+  OGBOMOSO = "OGBOMOSO",
+  OWERRI = "OWERRI",
+  IKEJA = "IKEJA",
+  OSOGBO = "OSOGBO",
+  AGEGE = "AGEGE",
+  ILESA = "ILESA",
+  OSHODI = "OSHODI",
+  SURULERE = "SURULERE",
+  IKOYI = "IKOYI",
+  WARRI = "WARRI",
+  AKURE = "AKURE",
+  EKITI = "EKITI",
+  OSUN = "OSUN",
+}
+
+export enum Bus {
+  TOYOTA = "TOYOTA",
+  MINIBUS = "MINIBUS",
+  SIENNA = "SIENNA",
+}
