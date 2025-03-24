@@ -5,6 +5,9 @@ import { AuthResponse, BaseErrorResponse, LoginAuthForm, RegisterAuthForm } from
 import { redirect } from "next/navigation";
 import APICall from "@/utils/APICall";
 import { cookies } from "next/headers";
+import { getErrorMessage } from "@/utils/error";
+import { jwtDecode } from "jwt-decode";
+
 
 const baseUrl = "http://localhost:5000/api/v1/auth/signup";
 const baseLoginUrl = "http://localhost:5000/api/v1/auth/login";
@@ -65,6 +68,7 @@ export async function register( prevState: RegisterAuthForm, formData: FormData 
 }
 
 export async function login(prevState: LoginAuthForm, formData: FormData) {
+
   const validatedFields = LoginFormSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),
@@ -79,28 +83,38 @@ export async function login(prevState: LoginAuthForm, formData: FormData) {
     };
   }
 
-
   const response = await fetch(baseLoginUrl, {
     method: "POST",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    // credentials: "include",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(validatedFields.data),
   });
 
-  const result: AuthResponse =  await response.json();
-  
-  if(result.success){
-    // Set Cookie for client use 
-    (await cookies()).set("isLoggedIn", "true", {
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
-      secure: process.env.NODE_ENV === 'production',
-      httpOnly: false,
-      sameSite: "lax",
-    });
+  const parsedResponse = await response.json();
 
-    if(result.data.role === "ADMIN"){
+  if(!response.ok){
+    return { error: getErrorMessage(parsedResponse) }
+  }
+
+  if(parsedResponse?.success as boolean){
+    const setCookieHeader = response?.headers?.get("Set-Cookie")
+    console.log(setCookieHeader);
+    if(setCookieHeader){
+      const token = setCookieHeader.split(";")[0].split("=")[1];
+      (await cookies()).set({
+        name: "access-token",
+        value: token,
+        // expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 1 day from now
+        // expires: new Date(jwtDecode(token).exp! * 1000), // 1 day from now
+        expires: new Date(jwtDecode(token).exp! * 1000),
+        secure: process.env.NODE_ENV === 'production',
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+      })
+    }
+
+    if(parsedResponse?.data?.role === "ADMIN"){
       redirect("/admin");
     }
 
