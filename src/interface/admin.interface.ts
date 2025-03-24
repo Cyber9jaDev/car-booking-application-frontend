@@ -41,7 +41,7 @@ interface FormFieldErrors {
   [key: string]: string[] | undefined;
 }
 
-export interface TicketForm{
+export interface TicketFormState{
   departureCity: City,
   arrivalCity: City,
   departureDate: string,
@@ -50,7 +50,7 @@ export interface TicketForm{
   errors?: FormFieldErrors;
 }
 
-export const initialTicketFormState: TicketForm = {
+export const initialTicketFormState: TicketFormState = {
   departureCity: City.ABA,
   arrivalCity: City.LAGOS,
   departureDate: new Date().toISOString().split('T')[0],
@@ -58,7 +58,7 @@ export const initialTicketFormState: TicketForm = {
   vehicleType: Bus.TOYOTA,
 }
 
-export interface TicketResponse {
+export interface TicketSuccessResponse {
   message: string;
   success: boolean;
   statusCode: number;
