@@ -1,17 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { publicRoutes } from "./utils/constants";
-import { cookies } from "next/headers";
-import { decodeToken, verifySession } from "./lib/session";
-import { JWTPayload } from "./interface/utils.interface";
+import { protectedRoutes, publicRoutes } from "./utils/constants";
+import { verifySession } from "./lib/session";
 
 export default async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
-
-  const isPublicRoute = publicRoutes.includes(path);
-  const isProtectedRoute = publicRoutes.includes(path);
   const { isAuthenticated, userId, role } = await verifySession();
 
-  if (isProtectedRoute) {
+  if (protectedRoutes.includes(path)) {
     // You are stupid for trying to access this route if ypou are not authenticated
     if (!isAuthenticated) {
       return NextResponse.redirect(new URL("/login", request.nextUrl));
@@ -35,8 +30,27 @@ export default async function middleware(request: NextRequest) {
     }
   }
 
-  if (isPublicRoute) {
+  if (publicRoutes.includes(path)) {
+    if (path === "/") NextResponse.next();
+    if (isAuthenticated) NextResponse.redirect(new URL("/", request.nextUrl));
   }
-  // const session =
+
+  // if (protectedRoutes.some(p => path.startsWith(p))) {
+  //   if (!isAuthenticated) {
+  //     return NextResponse.redirect(new URL("/login", request.nextUrl));
+  //   }
+
+  //   // Admin route protection
+  //   if (path.startsWith("/admin") && role !== "ADMIN") {
+  //     return NextResponse.redirect(new URL("/", request.nextUrl));
+  //   }
+
+  //   // Passenger route protection
+  //   if (path.startsWith("/passenger") && role !== "PASSENGER") {
+  //     return NextResponse.redirect(new URL("/", request.nextUrl));
+  //   }
+
+  //   return NextResponse.next();
+  // }
   return NextResponse.next();
 }
