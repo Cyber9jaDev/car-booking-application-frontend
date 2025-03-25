@@ -1,3 +1,5 @@
+import { LayoutDashboard, Users, Ticket, CreditCard, BarChart, Settings } from "lucide-react";
+
 export const baseUrl = process.env.NEXT_PUBLIC_API_LOCALHOST 
 const jwtKey = process.env.NEXT_PRIVATE_JWT_SECRET;
 
@@ -143,3 +145,12 @@ export enum Bus {
   MINIBUS = "MINIBUS",
   SIENNA = "SIENNA",
 }
+
+export const navLinks = [
+  { name: "Dashboard", path: "/admin", icon: LayoutDashboard },
+  { name: "Tickets", path: "/admin/tickets", icon: Ticket },
+  { name: "Users", path: "/admin/users", icon: Users },
+  { name: "Payments", path: "/admin/payments", icon: CreditCard },
+  { name: "Reports", path: "/admin/reports", icon: BarChart },
+  { name: "Settings", path: "/admin/settings", icon: Settings },
+];

@@ -69,3 +69,4 @@ export interface BaseErrorResponse{
   statusCode: number;
   message: string[];
 }
+

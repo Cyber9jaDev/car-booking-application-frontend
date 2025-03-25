@@ -1,16 +1,7 @@
 import Link from "next/link";
-import { LayoutDashboard, Users, Ticket, CreditCard, BarChart, Settings } from "lucide-react";
+import { navLinks } from "@/utils/constants";
 
 export default function Sidebar() {
-  const navLinks = [
-    { name: "Dashboard", path: "/admin", icon: LayoutDashboard },
-    { name: "Tickets", path: "/admin/tickets", icon: Ticket },
-    { name: "Users", path: "/admin/users", icon: Users },
-    { name: "Payments", path: "/admin/payments", icon: CreditCard },
-    { name: "Reports", path: "/admin/reports", icon: BarChart },
-    { name: "Settings", path: "/admin/settings", icon: Settings },
-  ];
-
   return (
     <div className="fixed left-0 top-0 w-1/8 h-full bg-white border-r">
       <div className="h-full flex flex-col">
