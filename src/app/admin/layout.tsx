@@ -7,7 +7,7 @@ export default function AdminRootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <main className="relative flex w-full h-screen bg-[#eef2fa]">
+        <main className="relative flex w-full h-screen bg-white">
           {/* left */}
           <Sidebar />
           {/* Right */}
