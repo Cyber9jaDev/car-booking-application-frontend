@@ -45,8 +45,6 @@ export async function login(state: LoginFormState, formData: FormData) {
     const token = setCookieHeader.split(";")[0].split("=")[1];
     const decoded = jwtDecode(token);
 
-    console.log(decoded);
-
     // Validate expiration consistency
     if (!decoded.exp) throw new Error("Invalid JWT expiration");
 

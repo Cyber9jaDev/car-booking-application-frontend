@@ -1,5 +1,9 @@
 export const baseUrl = process.env.NEXT_PUBLIC_API_LOCALHOST 
 const jwtKey = process.env.NEXT_PRIVATE_JWT_SECRET;
+
+export const protectedRoutes = ['/admin', "/profile"];
+export const publicRoutes = ['/login', "/signup", "/"];
+
 export const encodedKey = new TextEncoder().encode(jwtKey);
 
 export const Buses: { label: string; value: string }[] = [
