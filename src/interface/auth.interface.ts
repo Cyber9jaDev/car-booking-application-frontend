@@ -12,14 +12,14 @@ interface BaseAuthForm {
 
 export interface LoginFormState extends BaseAuthForm {}
 
-export interface RegisterFormState extends BaseAuthForm {
+export interface SignupFormState extends BaseAuthForm {
   name: string;
   phoneNumber: string;
   confirmPassword: string;
   hasAgreedTermsAndConditions: boolean;
 }
 
-export const initialRegisterFormState: RegisterFormState = {
+export const initialSignupFormState: SignupFormState = {
   name: "",
   email: "",
   phoneNumber: "",

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import image from "../../../assets/images/car.jpg"
 import { useActionState } from "react";
 import { initialBookingFormState } from "@/interface/booking.interface";
-import { getBookings } from "@/actions/booking.action";
+import { getBookings } from "@/actions/passenger/booking.action";
 
 export default function BookingForm() {
   const [state, action, isPending] = useActionState(getBookings, initialBookingFormState);

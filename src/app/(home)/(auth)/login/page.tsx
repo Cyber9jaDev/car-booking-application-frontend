@@ -1,6 +1,6 @@
 "use client";
 
-import { login } from "@/actions/auth.action";
+import { login } from "@/actions/auth/login.action";
 import { initialLoginFormState } from "@/interface/auth.interface";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";

@@ -1,14 +1,14 @@
 "use client";
 
-import { register } from "@/actions/auth.action";
 import { useActionState } from "react";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { initialRegisterFormState } from "@/interface/auth.interface";
 import Link from "next/link";
+import { initialSignupFormState } from "@/interface/auth.interface";
+import { signup } from "@/actions/auth/signup.action";
 
 export default function Signup() {
-  const [state, action, isPending] = useActionState( register, initialRegisterFormState );
+  const [state, action, isPending] = useActionState( signup, initialSignupFormState );
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
