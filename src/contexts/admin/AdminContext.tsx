@@ -1,20 +1,21 @@
 "use client";
 import { createContext, ReactElement, useContext, useState } from "react";
-type ChildrenType = { children?: ReactElement | ReactElement[] };
+
+export type ChildrenType = { children?: ReactElement | ReactElement[] };
 
 type AdminContextType = {
-  isOpen: boolean;
+  collapsedSidebar: boolean;
   toggle: () => void;
 };
 
 const AdminContext = createContext<AdminContextType>({} as AdminContextType);
 
 export const AdminContextProvider = ({ children }: ChildrenType) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [collapsedSidebar, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen((prev) => !prev);
 
-  const contexValue = { isOpen, toggle };
+  const contexValue = { collapsedSidebar, toggle };
   return (
     <AdminContext.Provider value={contexValue}>
       {children}

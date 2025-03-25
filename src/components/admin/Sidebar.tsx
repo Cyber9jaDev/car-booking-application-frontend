@@ -1,9 +1,18 @@
+"use client";
+
 import Link from "next/link";
 import { navLinks } from "@/utils/constants";
+import { useAdminContext } from "@/contexts/admin/AdminContext";
 
 export default function Sidebar() {
+  const { collapsedSidebar } = useAdminContext();
+
   return (
-    <div className="fixed left-0 top-0 w-1/8 h-full bg-white border-r">
+    <aside
+      className={`fixed left-0 top-0 ${
+        collapsedSidebar ? "w-48" : "w-16"
+      } h-full bg-white border-r`}
+    >
       <div className="h-full flex flex-col">
         <div className="h-18 p-4 border-b flex items-center justify-center">
           <strong className="text-2xl text-[#1363c6]">Logo</strong>
@@ -22,6 +31,6 @@ export default function Sidebar() {
           ))}
         </nav>
       </div>
-    </div>
+    </aside>
   );
 }

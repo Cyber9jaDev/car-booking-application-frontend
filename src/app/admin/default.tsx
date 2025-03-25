@@ -3,7 +3,7 @@ import DashboardCard from "@/components/admin/cards/DashboardCard";
 import { stats } from "@/components/admin/data/data";
 import { useAdminContext } from "@/contexts/admin/AdminContext";
 
-export default function AdminPage() {
+export default function DefaultAdminPage() {
   const { isOpen } = useAdminContext();
   return (
     <div className="relative left-1/8 top-18 w-7/8">

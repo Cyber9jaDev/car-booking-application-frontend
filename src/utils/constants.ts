@@ -147,7 +147,7 @@ export enum Bus {
 }
 
 export const navLinks = [
-  { name: "Dashboard", path: "/admin", icon: LayoutDashboard },
+  { name: "Dashboard", path: "/admin/dashboard", icon: LayoutDashboard },
   { name: "Tickets", path: "/admin/tickets", icon: Ticket },
   { name: "Users", path: "/admin/users", icon: Users },
   { name: "Payments", path: "/admin/payments", icon: CreditCard },

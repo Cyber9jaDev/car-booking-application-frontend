@@ -1,3 +1,8 @@
+import { ReactNode } from "react";
+
+// export type Children = { children?: ReactElement | ReactElement[] };
+export type Children = { children?: ReactNode };
+
 export enum City {
   LAGOS = "LAGOS",
   KANO = "KANO",
