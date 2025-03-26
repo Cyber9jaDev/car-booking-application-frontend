@@ -11,7 +11,7 @@ export default function AdminRootLayout({ children }: { children: ReactNode }) {
         <AdminContextProvider>
           <main className="relative flex w-full h-screen bg-white">
             <Sidebar />
-            <Content children={children} />
+            <Content>{children}</Content>
           </main>
         </AdminContextProvider>
       </body>

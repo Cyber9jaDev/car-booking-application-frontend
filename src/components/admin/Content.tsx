@@ -1,10 +1,10 @@
 "use client";
 
-import { Children } from "@/interface/admin.interface";
 import Header from "./Header";
 import { useAdminContext } from "@/contexts/admin/AdminContext";
+import { ReactNode } from "react";
 
-export default function Content({ children }: Children) {
+export default function Content({ children }: { children: ReactNode }) {
   const { collapsedSidebar } = useAdminContext();
   return (
     <main

@@ -6,7 +6,7 @@ import bannerImage1 from "../../../../assets/images/banner2.jpg";
 import bannerImage2 from "../../../../assets/images/banner4.jpg";
 import bannerImage3 from "../../../../assets/images/banner3.jpg";
 import bannerImage4 from "../../../../assets/images/banner2.jpg";
-import { CarouselCardProps, DriverProps, HeroBannerSlide } from "../../passenger.interface";
+import { CarouselCardProps, DriverProps, HeroBannerSlide } from "@/interface/passenger.interface";
 
 export const testimonialData: CarouselCardProps[] = [
   {

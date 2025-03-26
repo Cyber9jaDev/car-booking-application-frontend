@@ -1,10 +1,10 @@
 "use client";
 import DashboardCard from "@/components/admin/cards/DashboardCard";
 import { stats } from "@/components/admin/data/data";
-import { useAdminContext } from "@/contexts/admin/AdminContext";
+// import { useAdminContext } from "@/contexts/admin/AdminContext";
 
 export default function AdminPage() {
-  const { isOpen } = useAdminContext();
+  // const { collapsedSidebar } = useAdminContext();
   return (
     <div className="relative left-1/8 top-18 w-7/8">
       <div className="mt-4">

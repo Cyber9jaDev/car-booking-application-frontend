@@ -18,7 +18,7 @@ export default function Carousel() {
     return () => {
       clearInterval(timerId);
     };
-  }, [currentSlide, testimonialData.length]);
+  }, [currentSlide, cardsPerView]);
 
   useEffect(() => {
     const handleWindowResize = () => {
@@ -40,7 +40,7 @@ export default function Carousel() {
     return () => {
       window.removeEventListener("resize", handleWindowResize);
     };
-  }, []);
+  }, [cardsPerView]);
 
   return (
     <section>

@@ -114,6 +114,7 @@ export async function signup(
       errors: { message: ["Signup Failed"] },
     };
   } catch (error) {
+    console.error(error)
     return {
       name: formData.get("name") as string,
       email: formData.get("email") as string,
