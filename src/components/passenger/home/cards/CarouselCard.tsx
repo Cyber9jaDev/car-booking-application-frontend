@@ -11,7 +11,7 @@ const CarouselCard = ({ name, text, image, role }: CarouselCardProps) => {
         </p>
       </header>
       <div className="mt-8 flex items-center">
-      <div>
+        <div>
           <Image
             src={image}
             alt={`${name}'s profile`}
