@@ -11,11 +11,14 @@ const CarouselCard = ({ name, text, image, role }: CarouselCardProps) => {
         </p>
       </header>
       <div className="mt-8 flex items-center">
-        <div>
+      <div>
           <Image
-            className="border rounded-full w-16 h-16 md:w-25 md:h-25 lg:w-30 lg:h-30 object-cover"
             src={image}
-            alt="feedback-img"
+            alt={`${name}'s profile`}
+            width={64}  // Default width in pixels
+            height={64} // Default height in pixels
+            className="border rounded-full w-16 h-16 md:w-25 md:h-25 object-cover"
+            sizes="(max-width: 768px) 64px, 96px" // Responsive sizes
           />
         </div>
         <div className="w-[65%] ml-3">
