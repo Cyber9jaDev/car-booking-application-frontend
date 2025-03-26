@@ -67,7 +67,6 @@ export async function createTicket(state: TicketFormState, formData: FormData) {
     }
 
     const successResponse: TicketSuccessResponse = await response.json();
-    console.log(successResponse);
     if (successResponse?.success) {
       revalidatePath("/admin/create-ticket");
     }
@@ -79,7 +78,7 @@ export async function createTicket(state: TicketFormState, formData: FormData) {
   } catch (error) {
     return {
       ...state,
-      errors: { message: ["It seems you are not connected to the internet"] },
+      errors: { message: ["Failed! Please, check your internet connection"] },
     };
   }
 }

@@ -1,11 +1,19 @@
-import { LayoutDashboard, Users, Ticket, CreditCard, BarChart, Settings, LucideProps } from "lucide-react";
+import {
+  LayoutDashboard,
+  Users,
+  Ticket,
+  CreditCard,
+  BarChart,
+  Settings,
+  LucideProps,
+} from "lucide-react";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
 
-export const baseUrl = process.env.NEXT_PUBLIC_API_LOCALHOST 
+export const baseUrl = process.env.NEXT_PUBLIC_API_LOCALHOST;
 const jwtKey = process.env.NEXT_PRIVATE_JWT_SECRET;
 
-export const protectedRoutes = ['/admin', "/profile"];
-export const publicRoutes = ['/login', "/signup", "/"];
+export const protectedRoutes = ["/admin/:path*", "/profile/:path*"];
+export const publicRoutes = ["/login", "/signup", "/"];
 
 export const encodedKey = new TextEncoder().encode(jwtKey);
 
@@ -115,7 +123,6 @@ export const Cities: { label: string; value: string }[] = [
   },
 ];
 
-
 export enum City {
   LAGOS = "LAGOS",
   KANO = "KANO",
@@ -150,7 +157,9 @@ export enum Bus {
 export interface NavLink {
   name: string;
   path: string;
-  icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
+  icon: ForwardRefExoticComponent<
+    Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+  >;
 }
 
 export const navLinks: NavLink[] = [
