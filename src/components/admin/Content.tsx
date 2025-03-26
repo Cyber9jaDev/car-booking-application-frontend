@@ -8,12 +8,12 @@ export default function Content({ children }: Children) {
   const { collapsedSidebar } = useAdminContext();
   return (
     <main
-      className={`w-full flex-1  flex h-full ${
-        collapsedSidebar ? "w-[calc(100%-12rem)] left-48" : "w-[calc(100%-4rem)] left-16"
+      className={`bg-red-500 w-full flex-1 flex h-full transition-all duration-300 ${
+        collapsedSidebar ? "ml-48" : "ml-16"
       }`}
     >
       <Header />
-      {children}
+      <div className="relative mt-18 flex-1 overflow-auto p-6">{children}</div>
     </main>
   );
 }

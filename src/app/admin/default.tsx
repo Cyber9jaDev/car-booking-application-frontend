@@ -1,12 +1,12 @@
 "use client";
 import DashboardCard from "@/components/admin/cards/DashboardCard";
 import { stats } from "@/components/admin/data/data";
-import { useAdminContext } from "@/contexts/admin/AdminContext";
+// import { useAdminContext } from "@/contexts/admin/AdminContext";
 
 export default function DefaultAdminPage() {
-  const { isOpen } = useAdminContext();
+  // const { isOpen } = useAdminContext();
   return (
-    <div className="relative left-1/8 top-18 w-7/8">
+    <div className="relative w-full">
       <div className="mt-4">
         <div className="mx-auto px-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
