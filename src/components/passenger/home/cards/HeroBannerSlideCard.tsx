@@ -1,5 +1,5 @@
+import { HeroBannerSlide } from "@/interface/passenger.interface";
 import Image from "next/image";
-import { HeroBannerSlide } from "../../passenger.interface";
 import Link from "next/link";
 
 export default function HeroBannerSlideCard({ image, title, subtitle }: HeroBannerSlide) {

@@ -1,5 +1,5 @@
+import { WhyFeatureInterface } from "@/interface/passenger.interface";
 import Image from "next/image";
-import { WhyFeatureInterface } from "../../passenger.interface";
 
 export const FeatureCard = ({ id, title, imagePath }: WhyFeatureInterface) => {
   return (

@@ -1,4 +1,5 @@
-import { LayoutDashboard, Users, Ticket, CreditCard, BarChart, Settings } from "lucide-react";
+import { LayoutDashboard, Users, Ticket, CreditCard, BarChart, Settings, LucideProps } from "lucide-react";
+import { ForwardRefExoticComponent, RefAttributes } from "react";
 
 export const baseUrl = process.env.NEXT_PUBLIC_API_LOCALHOST 
 const jwtKey = process.env.NEXT_PRIVATE_JWT_SECRET;
@@ -146,7 +147,13 @@ export enum Bus {
   SIENNA = "SIENNA",
 }
 
-export const navLinks = [
+export interface NavLink {
+  name: string;
+  path: string;
+  icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
+}
+
+export const navLinks: NavLink[] = [
   { name: "Dashboard", path: "/admin/dashboard", icon: LayoutDashboard },
   { name: "Tickets", path: "/admin/tickets", icon: Ticket },
   { name: "Users", path: "/admin/users", icon: Users },

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Phone } from 'lucide-react';
-import { DriverProps } from "../../passenger.interface";
+import { DriverProps } from "@/interface/passenger.interface";
 
 export const DriverCard = ({ member }: { member: DriverProps }) => (
   <div className="flex flex-col items-center">

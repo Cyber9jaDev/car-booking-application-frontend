@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { navLinks } from "@/utils/constants";
 import { useAdminContext } from "@/contexts/admin/AdminContext";
+import NavItem from "./NavItem";
 
 export default function Sidebar() {
   const { collapsedSidebar } = useAdminContext();
@@ -25,35 +26,12 @@ export default function Sidebar() {
             } gap-y-6`}
           >
             {navLinks.map((link, index) => (
-              <li
+              <NavItem
+                index={index}
                 key={link.name}
-                className={`group relative cursor-pointer flex`}
-              >
-                <Link href={link.path} className="flex gap-x-4 items-center">
-                  <link.icon
-                    className={`${collapsedSidebar ? "ml-0" : "ml-4"}`}
-                  />
-                  <span
-                    style={{ transitionDelay: `${index + 3}00ms` }}
-                    className={`whitespace-pre duration-500 ${
-                      !collapsedSidebar &&
-                      "w-0 opacity-0 translate-x-28 overflow-hidden"
-                    } text-lg`}
-                  >
-                    {link.name}
-                  </span>
-                  <span
-                    className={`${
-                      collapsedSidebar && "hidden"
-                    } absolute left-20 bg-primary-400 font-semibold whitespace-pre text-gray-100 
-                        rounded-md drop-shadow-lg px-0 py-0 w-0 
-                        overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 
-                        group-hover:duration-1000 group-hover:w-fit`}
-                  >
-                    {link.name}
-                  </span>
-                </Link>
-              </li>
+                link={link}
+                collapsedSidebar={collapsedSidebar}
+              />
             ))}
           </ul>
 
