@@ -82,6 +82,7 @@ export async function login(state: LoginFormState, formData: FormData) {
       redirect(`${successResponse.data.role === "ADMIN" ? "/admin" : "/"}`);
     }
   } catch (error) {
+    console.error(error);
     return {
       email: formData.get("email") as string,
       password: formData.get("password") as string,

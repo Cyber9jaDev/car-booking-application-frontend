@@ -76,6 +76,7 @@ export async function createTicket(state: TicketFormState, formData: FormData) {
       errors: { message: ["Unable to create ticket"] },
     };
   } catch (error) {
+    console.error(error);
     return {
       ...state,
       errors: { message: ["Failed! Please, check your internet connection"] },

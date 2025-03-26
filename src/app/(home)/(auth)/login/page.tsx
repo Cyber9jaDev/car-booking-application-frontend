@@ -17,19 +17,21 @@ export default function Login() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#f3f0f0] p-4">
       <div className="bg-white rounded-2xl p-8 w-full max-w-[750px] shadow-md border border-[#e0e0e0]">
         <form action={action}>
-          <h4 className="text-center font-bold text-4xl text-black mb-6"> Log in</h4>
+          <h4 className="text-center font-bold text-4xl text-black mb-6">
+            Log in
+          </h4>
           {/*  Error */}
           {state?.errors?.message && (
-              <div className="text-base font-bold bg-red-50 mb-6 p-2 w-full">
-                <ul className="list-disc list-inside ml-3">
-                  {state.errors.message.map((error) => (
-                    <li className="text-red-500" key={error}>
-                      {error}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            <div className="text-base font-bold bg-red-50 mb-6 p-2 w-full">
+              <ul className="list-disc list-inside ml-3">
+                {state.errors.message.map((error) => (
+                  <li className="text-red-500" key={error}>
+                    {error}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <div className="flex w-full justify-center flex-wrap gap-y-5">
             <div className="w-[47.5%] flex flex-col mx-auto gap-y-1">
@@ -80,8 +82,6 @@ export default function Login() {
               </div>
             </div>
 
-            
-
             <div className="w-[97.5%] mt-2.5">
               <button
                 disabled={isPending}
@@ -94,7 +94,7 @@ export default function Login() {
 
             <div className="w-[97.5%] text-center">
               <p className="text-sm text-[#888] font-semibold">
-                Don't have an account?{" "}
+                {"Don't have an account?"}
                 <Link
                   href="/signup"
                   className="text-[#009cff] hover:underline font-medium"

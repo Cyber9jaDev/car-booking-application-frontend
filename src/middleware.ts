@@ -4,7 +4,7 @@ import { verifySession } from "./lib/session";
 
 export default async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  const { isAuthenticated, userId, role } = await verifySession();
+  const { isAuthenticated, role } = await verifySession();
 
   if (protectedRoutes.includes(path)) {
     // You are stupid for trying to access this route if ypou are not authenticated

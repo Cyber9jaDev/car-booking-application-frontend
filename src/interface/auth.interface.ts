@@ -10,7 +10,11 @@ interface BaseAuthForm {
   errors?: FormFieldErrors;
 }
 
-export interface LoginFormState extends BaseAuthForm {}
+export interface LoginFormState {
+  email: string;
+  password: string;
+  errors?: FormFieldErrors;
+}
 
 export interface SignupFormState extends BaseAuthForm {
   name: string;

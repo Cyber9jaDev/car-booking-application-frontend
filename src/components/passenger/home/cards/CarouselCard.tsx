@@ -1,4 +1,5 @@
 import { CarouselCardProps } from "@/interface/passenger.interface";
+import Image from "next/image";
 import React from "react";
 
 const CarouselCard = ({ name, text, image, role }: CarouselCardProps) => {
@@ -11,7 +12,7 @@ const CarouselCard = ({ name, text, image, role }: CarouselCardProps) => {
       </header>
       <div className="mt-8 flex items-center">
         <div>
-          <img
+          <Image
             className="border rounded-full w-16 h-16 md:w-25 md:h-25 lg:w-30 lg:h-30 object-cover"
             src={image}
             alt="feedback-img"
