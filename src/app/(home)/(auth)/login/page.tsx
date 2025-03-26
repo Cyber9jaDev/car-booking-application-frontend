@@ -14,9 +14,7 @@ export default function Login() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#f3f0f0] p-4">
       <div className="bg-white rounded-2xl p-8 w-full max-w-[750px] shadow-md border border-[#e0e0e0]">
         <form action={action}>
-          <h4 className="text-center font-bold text-4xl text-black mb-6">
-            Log in
-          </h4>
+          <h4 className="text-center font-bold text-4xl text-black mb-6"> Log in </h4>
 
           <div className="flex w-full justify-center flex-wrap gap-y-5">
             <div className="w-[47.5%] flex flex-col mx-auto gap-y-1">

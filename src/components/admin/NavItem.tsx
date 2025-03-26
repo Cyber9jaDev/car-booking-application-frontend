@@ -11,9 +11,11 @@ export default function NavItem({
   index: number;
 }) {
   return (
-    <li className={`group relative cursor-pointer flex`}>
+    <li className="group relative cursor-pointer flex">
       <Link href={link.path} className="flex gap-x-4 items-center">
-        <link.icon className={`text-[#1363c6] ${collapsedSidebar ? "ml-0" : "ml-4"}`} />
+        <link.icon
+          className={`text-[#1363c6] ${collapsedSidebar ? "ml-0" : "ml-4"}`}
+        />
         <span
           style={{ transitionDelay: `${index + 3}00ms` }}
           className={`whitespace-pre duration-500 text-[#1363c6] ${
@@ -22,16 +24,16 @@ export default function NavItem({
         >
           {link.name}
         </span>
-        <span
-          className={`absolute left-20 bg-[#1363c6] font-semibold whitespace-pre text-white 
-                        rounded-md drop-shadow-lg px-0 py-0 w-0 
-                        overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 
-                        group-hover:duration-1000 group-hover:w-fit ${
-                          collapsedSidebar && "hidden"
-                        } `}
-        >
-          {link.name}
-        </span>
+        {!collapsedSidebar && (
+          <span
+            className="absolute left-full ml-1.5 px-2 py-1 bg-[#1363c6] font-semibold 
+                      text-white rounded-md shadow-lg whitespace-nowrap z-50
+                      opacity-0 group-hover:opacity-100 transition-opacity duration-200
+                      pointer-events-none"
+          >
+            {link.name}
+          </span>
+        )}
       </Link>
     </li>
   );

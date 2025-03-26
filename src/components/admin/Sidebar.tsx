@@ -10,9 +10,9 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={`fixed left-0 top-0 ${
+      className={`fixed left-0 top-0 z-40 ${
         collapsedSidebar ? "w-48" : "w-16"
-      } h-full bg-white border-r`}
+      } h-full bg-white border-r shadow-sm`}
     >
       <div className="h-full flex flex-col">
         <div className="h-18 p-4 border-b flex items-center justify-center">
@@ -34,17 +34,6 @@ export default function Sidebar() {
               />
             ))}
           </ul>
-
-          {/* {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.path}
-              className="flex items-center gap-3 p-3 mb-2 rounded-lg hover:bg-[#1363c6]/10 text-gray-600 hover:text-[#1363c6] transition-colors"
-            >
-              <link.icon className="h-5 w-5" />
-              <span className="text-sm font-medium">{link.name}</span>
-            </Link>
-          ))} */}
         </nav>
       </div>
     </aside>
