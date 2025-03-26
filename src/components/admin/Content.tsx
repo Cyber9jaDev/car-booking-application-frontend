@@ -9,7 +9,7 @@ export default function Content({ children }: Children) {
   return (
     <main
       className={`bg-white w-full flex-1 flex h-full transition-all duration-300 ${
-        collapsedSidebar ? "ml-48" : "ml-16"
+        collapsedSidebar ? "ml-40" : "ml-16"
       }`}
     >
       <Header />

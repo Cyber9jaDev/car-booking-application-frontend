@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { navLinks } from "@/utils/constants";
 import { useAdminContext } from "@/contexts/admin/AdminContext";
 import NavItem from "./NavItem";
@@ -11,11 +10,11 @@ export default function Sidebar() {
   return (
     <aside
       className={`fixed left-0 top-0 z-40 ${
-        collapsedSidebar ? "w-48" : "w-16"
-      } h-full bg-white border-r shadow-sm`}
+        collapsedSidebar ? "w-40" : "w-16"
+      } h-full bg-[#f5f7fb] shadow-sm`}
     >
-      <div className="h-full flex flex-col">
-        <div className="h-18 p-4 border-b flex items-center justify-center">
+      <div className="flex flex-col">
+        <div className="h-16 border-b border-gray-200 shadow-sm flex items-center justify-center">
           <strong className="text-2xl text-[#1363c6]">Logo</strong>
         </div>
 
