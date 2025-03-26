@@ -32,25 +32,12 @@ export default async function middleware(request: NextRequest) {
 
   if (publicRoutes.includes(path)) {
     if (path === "/") NextResponse.next();
-    if (isAuthenticated) NextResponse.redirect(new URL("/", request.nextUrl));
+
+    if (isAuthenticated && (path === "/login" || path === "/signup")) {
+      return NextResponse.redirect(new URL("/", request.nextUrl));
+    }
+    return NextResponse.next();
   }
 
-  // if (protectedRoutes.some(p => path.startsWith(p))) {
-  //   if (!isAuthenticated) {
-  //     return NextResponse.redirect(new URL("/login", request.nextUrl));
-  //   }
-
-  //   // Admin route protection
-  //   if (path.startsWith("/admin") && role !== "ADMIN") {
-  //     return NextResponse.redirect(new URL("/", request.nextUrl));
-  //   }
-
-  //   // Passenger route protection
-  //   if (path.startsWith("/passenger") && role !== "PASSENGER") {
-  //     return NextResponse.redirect(new URL("/", request.nextUrl));
-  //   }
-
-  //   return NextResponse.next();
-  // }
   return NextResponse.next();
 }

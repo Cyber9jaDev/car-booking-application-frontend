@@ -1,6 +1,6 @@
 "use client";
 
-import { createTicket } from "@/actions/admin/admin.action";
+import { createTicket } from "@/actions/admin/create-ticket.action";
 import { initialTicketFormState } from "@/interface/admin.interface";
 import { BusList, CitiesList } from "@/utils/functions";
 import { useActionState } from "react";
@@ -15,9 +15,8 @@ export default function TicketPage() {
     <section className="bg-white relative w-full">
       <form action={action}>
         {/*  Error */}
-        <div className="bg-red-50">
           {state?.errors?.message && (
-            <div className="text-xs">
+            <div className="text-base font-bold bg-red-50 mb-6 p-2">
               <ul className="list-disc list-inside ml-3">
                 {state.errors.message.map((error) => (
                   <li className="text-red-500" key={error}>
@@ -27,7 +26,6 @@ export default function TicketPage() {
               </ul>
             </div>
           )}
-        </div>
 
         {/* Trip Details Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">

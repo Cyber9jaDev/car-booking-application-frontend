@@ -8,7 +8,10 @@ import { initialSignupFormState } from "@/interface/auth.interface";
 import { signup } from "@/actions/auth/signup.action";
 
 export default function Signup() {
-  const [state, action, isPending] = useActionState( signup, initialSignupFormState );
+  const [state, action, isPending] = useActionState(
+    signup,
+    initialSignupFormState
+  );
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -19,6 +22,19 @@ export default function Signup() {
           <h4 className="text-center font-bold text-4xl text-black mb-6">
             Sign up
           </h4>
+
+          {state?.errors?.message && (
+            <div className="text-base font-bold bg-red-50 mb-6 p-2 w-full">
+              <ul className="list-disc list-inside ml-3">
+                {state.errors.message.map((error) => (
+                  <li className="text-red-500" key={error}>
+                    {error}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           <div className="flex w-full justify-center flex-wrap gap-y-5">
             <div className="w-[47.5%] flex flex-col mx-auto gap-y-1">
               <label
