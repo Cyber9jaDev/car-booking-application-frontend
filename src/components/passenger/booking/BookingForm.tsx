@@ -3,12 +3,21 @@
 import { CitiesList, formatDateForInput } from "@/utils/functions";
 import Image from 'next/image'; 
 import image from "../../../assets/images/car.jpg"
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { initialBookingFormState } from "@/interface/booking.interface";
 import { getBookings } from "@/actions/passenger/booking.action";
+import { useFormState } from "react-dom";
 
 export default function BookingForm() {
   const [state, action, isPending] = useActionState(getBookings, initialBookingFormState);
+  useFormState
+
+  useEffect(() => {
+    
+    return () => {
+    }
+  }, [])
+  
 
   return (
     <section className="relative text-black bg-[#fefbfb] h-68 mt-12">
