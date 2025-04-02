@@ -1,10 +1,12 @@
 "use server";
 
-import { BookingForm } from "@/interface/booking.interface";
+import { BaseErrorResponse } from "@/interface/auth.interface";
+import { BookingForm, TicketListSuccessResponse } from "@/interface/booking.interface";
 import { BookingFormSchema } from "@/lib/zod";
-import { City } from "@/utils/constants";
+import { baseUrl, City } from "@/utils/constants";
+import { revalidatePath } from "next/cache";
 
-export async function getBookings( previousState: BookingForm, formData: FormData ) {
+export async function getBookings( state: BookingForm, formData: FormData ) {
 
   const validatedFields = BookingFormSchema.safeParse({
     arrivalCity: formData.get("arrivalCity"),
@@ -21,10 +23,36 @@ export async function getBookings( previousState: BookingForm, formData: FormDat
     };
   }
 
-  return {
-    arrivalCity: formData.get("arrivalCity") as City,
-    departureCity: formData.get("departureCity") as City,
-    departureDate: formData.get("departureDate") as string,
-  };
+  try {
+    const response = await fetch (`${baseUrl}/booking/all-tickets`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    });
 
+    if(!response.ok){
+      const errorResponse: BaseErrorResponse = await response.json();
+      return {
+        arrivalCity: formData.get("arrivalCity") as City,
+        departureCity: formData.get("departureCity") as City,
+        departureDate: formData.get("departureDate") as string,
+        errors: { message: errorResponse.message }
+      }
+    }
+
+    const successResponse: TicketListSuccessResponse = await response.json();
+    if(successResponse.success){
+      revalidatePath("/booking")
+    }
+
+    return {
+      ...state,
+      errors: { message: ["Unable to create ticket"] } 
+    }
+
+  } catch (error) {
+    return {
+      ...state,
+      errors: { message: ["Failed! Please, check your internet connection"] },
+    };
+  }
 }

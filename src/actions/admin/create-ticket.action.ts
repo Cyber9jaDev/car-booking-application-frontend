@@ -1,13 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import {
-  BaseErrorResponse,
-  Bus,
-  City,
-  TicketFormState,
-  TicketSuccessResponse,
-} from "../../interface/admin.interface";
+import { BaseErrorResponse, Bus, City, TicketFormState, TicketSuccessResponse } from "../../interface/admin.interface";
 import { TicketFormFormSchema } from "@/lib/zod";
 import { baseUrl } from "@/utils/constants";
 import { cookies } from "next/headers";
@@ -60,9 +54,7 @@ export async function createTicket(state: TicketFormState, formData: FormData) {
         departureDate: formData.get("departureDate") as string,
         ticketFee: Number(formData.get("ticketFee")),
         vehicleType: formData.get("vehicleType") as Bus,
-        errors: {
-          message: errorResponse.message,
-        },
+        errors: { message: errorResponse.message },
       };
     }
 
