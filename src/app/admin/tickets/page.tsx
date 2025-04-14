@@ -6,10 +6,7 @@ import { BusList, CitiesList } from "@/utils/functions";
 import { useActionState } from "react";
 
 export default function TicketPage() {
-  const [state, action, isPending] = useActionState(
-    createTicket,
-    initialTicketFormState
-  );
+  const [state, action, isPending] = useActionState( createTicket,  initialTicketFormState );
 
   return (
     <section className="bg-white relative w-full">

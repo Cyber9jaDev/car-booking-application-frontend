@@ -1,7 +1,13 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { BaseErrorResponse, Bus, City, TicketFormState, TicketSuccessResponse } from "../../interface/admin.interface";
+import {
+  BaseErrorResponse,
+  Bus,
+  City,
+  TicketFormState,
+  TicketSuccessResponse,
+} from "../../interface/admin.interface";
 import { TicketFormFormSchema } from "@/lib/zod";
 import { baseUrl } from "@/utils/constants";
 import { cookies } from "next/headers";
@@ -36,42 +42,49 @@ export async function createTicket(state: TicketFormState, formData: FormData) {
     };
   }
 
-  try {
-    const response = await fetch(`${baseUrl}/admin/create-ticket`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Cookie: `access-token=${accessToken}`,
-      },
-      body: JSON.stringify(validatedFields.data),
-    });
+  // try {
+  const response = await fetch(`${baseUrl}/admin/create-ticket`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Cookie: `access-token=${accessToken}`,
+    },
+    body: JSON.stringify(validatedFields.data),
+  });
 
-    if (!response.ok) {
-      const errorResponse: BaseErrorResponse = await response.json();
-      return {
-        arrivalCity: formData.get("arrivalCity") as City,
-        departureCity: formData.get("departureCity") as City,
-        departureDate: formData.get("departureDate") as string,
-        ticketFee: Number(formData.get("ticketFee")),
-        vehicleType: formData.get("vehicleType") as Bus,
-        errors: { message: errorResponse.message },
-      };
-    }
-
-    const successResponse: TicketSuccessResponse = await response.json();
-    if (successResponse?.success) {
-      revalidatePath("/admin/create-ticket");
-    }
-
+  if (!response.ok) {
+    const errorResponse: BaseErrorResponse = await response.json();
     return {
-      ...state,
-      errors: { message: ["Unable to create ticket"] },
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      ...state,
-      errors: { message: ["Failed! Please, check your internet connection"] },
+      arrivalCity: formData.get("arrivalCity") as City,
+      departureCity: formData.get("departureCity") as City,
+      departureDate: formData.get("departureDate") as string,
+      ticketFee: Number(formData.get("ticketFee")),
+      vehicleType: formData.get("vehicleType") as Bus,
+      errors: { message: errorResponse.message },
     };
   }
+
+  const successResponse: TicketSuccessResponse = await response.json();
+  if (successResponse?.success) {
+    revalidatePath("/admin/create-ticket");
+    return {
+      ...state,
+      errors: {},
+      // success: true,
+    };
+  }
+
+  return {
+    ...state,
+    errors: { message: ["Unable to create ticket"] },
+  };
 }
+
+// catch (error) {
+//   console.error(error);
+//   return {
+//     ...state,
+//     errors: { message: ["Failed! Please, check your internet connection"] },
+//   };
+// }
+// }

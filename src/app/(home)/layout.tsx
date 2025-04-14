@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from 'next/font/google'
 import Navbar from "@/components/passenger/home/Navbar";
 import Footer from "@/components/passenger/home/Footer";
+import { Toaster } from 'react-hot-toast';
 import '../globals.css';
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default function HomeRootLayout({ children }: Readonly<{ children: React.
         <Navbar/>
         {children}
         <Footer/>
+        <Toaster position="top-right" toastOptions={{ duration: 3000}}/>
       </body>
     </html>
   );

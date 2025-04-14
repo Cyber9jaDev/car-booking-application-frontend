@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
 
-export const baseUrl = process.env.NEXT_PUBLIC_API_LOCALHOST;
+export const baseUrl = process.env.NEXT_PUBLIC_API_LOCALHOST as string;
 const jwtKey = process.env.NEXT_PRIVATE_JWT_SECRET;
 
 export const protectedRoutes = ["/admin/:path*", "/profile/:path*"];
