@@ -38,71 +38,16 @@ export async function signup(
     };
   }
 
-  try {
-    const response = await fetch(`${baseUrl}/auth/signup`, {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(validatedFields.data),
-    });
+  // try {
+  const response = await fetch(`${baseUrl}/auth/signup`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(validatedFields.data),
+  });
 
-    if (!response.ok) {
-      const errorResponse: BaseErrorResponse = await response.json();
-      return {
-        name: formData.get("name") as string,
-        email: formData.get("email") as string,
-        phoneNumber: formData.get("phoneNumber") as string,
-        password: formData.get("password") as string,
-        confirmPassword: formData.get("confirmPassword") as string,
-        hasAgreedTermsAndConditions:
-          formData.get("hasAgreedTermsAndConditions") === "on",
-        errors: { message: errorResponse.message || ["Signup Failed"] },
-      };
-    }
-
-    const successResponse: AuthSuccessResponse = await response.json();
-
-    if (successResponse.success) {
-      const setCookieHeader = response?.headers?.get("Set-Cookie");
-
-      if (setCookieHeader) {
-        const token = setCookieHeader.split(";")[0].split("=")[1];
-        const decoded = jwtDecode(token);
-
-        // Validate expiration consistency
-        if (!decoded.exp) throw new Error("Invalid JWT expiration");
-
-        const expires = new Date(decoded.exp * 1000);
-        const now = new Date();
-        const maxAge = Math.floor((expires.getTime() - now.getTime()) / 1000);
-
-        const cookieStore = await cookies();
-
-        // Set cookie to be used on the frontend in order to set hover colours for links
-        cookieStore.set({
-          name: "isLoggedIn",
-          value: "true",
-          secure: process.env.NODE_ENV === "production",
-          sameSite: "lax",
-          path: "/",
-          maxAge, // Derive from JWT expiration
-        });
-
-        // Set Cookie
-        cookieStore.set({
-          name: "access-token",
-          value: token,
-          expires,
-          secure: process.env.NODE_ENV === "production",
-          httpOnly: true,
-          sameSite: "lax",
-          path: "/",
-        });
-
-        redirect(`${successResponse.data.role === "ADMIN" ? "/admin" : "/"}`);
-      }
-    }
-
+  if (!response.ok) {
+    const errorResponse: BaseErrorResponse = await response.json();
     return {
       name: formData.get("name") as string,
       email: formData.get("email") as string,
@@ -111,19 +56,74 @@ export async function signup(
       confirmPassword: formData.get("confirmPassword") as string,
       hasAgreedTermsAndConditions:
         formData.get("hasAgreedTermsAndConditions") === "on",
-      errors: { message: ["Signup Failed"] },
-    };
-  } catch (error) {
-    console.error(error)
-    return {
-      name: formData.get("name") as string,
-      email: formData.get("email") as string,
-      phoneNumber: formData.get("phoneNumber") as string,
-      password: formData.get("password") as string,
-      confirmPassword: formData.get("confirmPassword") as string,
-      hasAgreedTermsAndConditions:
-        formData.get("hasAgreedTermsAndConditions") === "on",
-      errors: { message: ["Failed! Please, check your internet connection"] },
+      errors: { message: errorResponse.message || ["Signup Failed"] },
     };
   }
+
+  const successResponse: AuthSuccessResponse = await response.json();
+
+  if (successResponse.success) {
+    const setCookieHeader = response?.headers?.get("Set-Cookie");
+
+    if (setCookieHeader) {
+      const token = setCookieHeader.split(";")[0].split("=")[1];
+      const decoded = jwtDecode(token);
+
+      // Validate expiration consistency
+      if (!decoded.exp) throw new Error("Invalid JWT expiration");
+
+      const expires = new Date(decoded.exp * 1000);
+      const now = new Date();
+      const maxAge = Math.floor((expires.getTime() - now.getTime()) / 1000);
+
+      const cookieStore = await cookies();
+
+      // Set cookie to be used on the frontend in order to set hover colours for links
+      cookieStore.set({
+        name: "isLoggedIn",
+        value: "true",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: "/",
+        maxAge, // Derive from JWT expiration
+      });
+
+      // Set Cookie
+      cookieStore.set({
+        name: "access-token",
+        value: token,
+        expires,
+        secure: process.env.NODE_ENV === "production",
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+      });
+
+      return redirect(`${successResponse.data.role === "ADMIN" ? "/admin" : "/"}`);
+    }
+  }
+
+  return {
+    name: formData.get("name") as string,
+    email: formData.get("email") as string,
+    phoneNumber: formData.get("phoneNumber") as string,
+    password: formData.get("password") as string,
+    confirmPassword: formData.get("confirmPassword") as string,
+    hasAgreedTermsAndConditions:
+      formData.get("hasAgreedTermsAndConditions") === "on",
+    errors: { message: ["Signup Failed"] },
+  };
 }
+// catch (error) {
+//   // console.error(error)
+//   return {
+//     name: formData.get("name") as string,
+//     email: formData.get("email") as string,
+//     phoneNumber: formData.get("phoneNumber") as string,
+//     password: formData.get("password") as string,
+//     confirmPassword: formData.get("confirmPassword") as string,
+//     hasAgreedTermsAndConditions:
+//       formData.get("hasAgreedTermsAndConditions") === "on",
+//     errors: { message: ["Failed! Please, check your internet connection"] },
+//   };
+// }

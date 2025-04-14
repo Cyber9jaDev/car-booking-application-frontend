@@ -7,10 +7,7 @@ import Link from "next/link";
 import { useActionState, useState } from "react";
 
 export default function Login() {
-  const [state, action, isPending] = useActionState(
-    login,
-    initialLoginFormState
-  );
+  const [state, action, isPending] = useActionState( login, initialLoginFormState );
   const [showPassword, setShowPassword] = useState(false);
 
   return (
