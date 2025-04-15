@@ -1,21 +1,13 @@
 "use client";
 
 import { TicketType } from '@/interface/booking.interface';
-import { useContext, useEffect } from 'react';
-import TicketSelect from './TicketSelect';
-// import TicketSelect from './TicketSelect';
-// import { BookingType } from '../../utilities/Types';
-// import Pagination from '../../utilities/Pagination';
-// import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-// import SeatModal from '../modal/SeatModal';
+import TicketSelect from './TicketCard';
 
 interface TicketsProps {
   tickets: TicketType[]
 }
 
 export default function TicketsList({ tickets } : TicketsProps) {
-  // const { bookingState: { trips }, getTicketsList } = useContext(BookingContext);
-  // useEffect(() => { getTicketsList() }, []);
 
   return (
     <>

@@ -3,9 +3,7 @@
 import BookingForm from "@/components/passenger/booking/BookingForm";
 import TicketsList from "@/components/passenger/booking/TicketsList";
 import Pagination from "@/components/passenger/common/Pagination";
-// import { BookingContextProvider } from "@/contexts/passenger/BookingContext";
 import { TicketType } from "@/interface/booking.interface";
-import { City } from "@/utils/constants";
 import { useState } from "react";
 
 export default function Booking() {
@@ -15,7 +13,6 @@ export default function Booking() {
 
   return (
     <section>
-      {/* <BookingContextProvider> */}
       <BookingForm
         setHasError={setHasError}
         setIsLoading={setIsLoading}
@@ -23,8 +20,13 @@ export default function Booking() {
         tickets={tickets}
         setTickets={setTickets}
       />
-      {isLoading ? <div>Loading...</div> : <TicketsList tickets={tickets} />}
-      {/* </BookingContextProvider> */}
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : hasError ? (
+        <div> Error..</div>
+      ) : (
+        <TicketsList tickets={tickets} />
+      )}
       <Pagination />
     </section>
   );

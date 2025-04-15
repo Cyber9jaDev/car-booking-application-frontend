@@ -148,11 +148,17 @@ export enum City {
   OSUN = "OSUN",
 }
 
-export enum Bus {
-  TOYOTA = "TOYOTA",
-  MINIBUS = "MINIBUS",
-  SIENNA = "SIENNA",
-}
+// export enum Bus {
+//   TOYOTA = "TOYOTA",
+//   MINIBUS = "MINIBUS",
+//   SIENNA = "SIENNA",
+// }
+
+// export enum Vehicle {
+//   TOYOTA = "TOYOTA",
+//   MINIBUS = "MINIBUS",
+//   SIENNA = "SIENNA",
+// }
 
 export interface NavLink {
   name: string;

@@ -17,12 +17,8 @@ export const initialBookingFormState: BookingForm = {
   departureDate: new Date().toISOString().split('T')[0]
 }
 
-enum VehicleType {
-  TOYOTA,
-  MINIBUS,
-  SIENNA
-}
 
+export type VehicleType  =  "TOYOTA" | "MINIBUS" | "SIENNA"
 
 interface TicketListsData{
   id: string,
