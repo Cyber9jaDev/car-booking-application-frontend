@@ -1,32 +1,9 @@
 import { Buses, Cities } from "./constants";
+import sienna from "../../public/images/sienna.jpg";
+import toyota from "../../public/images/toyota.jpg";
+import minibus from "../../public/images/minibus.jpg";
 
-// export const getClientCookie = (cookieName: string): boolean => {
-//   if (typeof document !== "undefined") {
-//     const cookiePrefix = `${cookieName}=`;
-//     const allCookies = decodeURIComponent(document.cookie);
-//     const individualCookies = allCookies.split(";");
 
-//     for (let i = 0; i < individualCookies.length; i++) {
-//       let currentCookie = individualCookies[i];
-
-//       while (currentCookie.charAt(0) == " ") {
-//         currentCookie = currentCookie.substring(1);
-//       }
-
-//       if (currentCookie.indexOf(cookiePrefix) == 0) {
-//         const sessionValue = currentCookie.substring(cookiePrefix.length);
-//         console.log("sessionValue", sessionValue);
-//         if(sessionValue === "undefined"){
-//           return false;
-//         }
-//         return true;
-//       }
-//     }
-//   }
-//   return false;
-// };
-
-// utils/functions.ts
 export const getClientCookie = (cookieName: string): string | null => {
   if (typeof document === "undefined") return null;
 
@@ -63,3 +40,9 @@ export const BusList = (): { label: string; value: string }[] => {
 export const formatDateForInput = (date: Date): string => {
   return date.toISOString().split('T')[0];
 };
+
+export const BusImage: { [index: string]: string } = {
+  sienna: sienna.src,
+  toyota: toyota.src,
+  minibus: minibus.src,
+}

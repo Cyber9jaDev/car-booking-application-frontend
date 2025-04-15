@@ -40,3 +40,16 @@ export type TicketListSuccessResponse = {
   statusCode: number;
   data: TicketListsData[];
 }
+
+export type TicketType =  {
+  id: string,
+  departureCity: City,
+  arrivalCity: City,
+  departureDate: string,
+  vehicleType: VehicleType,
+  ticketFee: 10000000,
+  availableSeats: number[],
+  updatedAt: string,
+  createdAt: string,
+  createdById: string
+}

@@ -1,15 +1,11 @@
-"use client";
-
 import { CitiesList, formatDateForInput } from "@/utils/functions";
 import Image from "next/image";
 import image from "../../../assets/images/car.jpg";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { TicketListSuccessResponse } from "@/interface/booking.interface";
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useEffect, useState } from "react";
+import { TicketType } from "@/interface/booking.interface";
 import { baseUrl, City } from "@/utils/constants";
 import { BaseErrorResponse } from "@/interface/auth.interface";
 import toast from "react-hot-toast";
-
-console.log(baseUrl);
 
 export interface BookingFormType {
   departureCity: City;
@@ -23,42 +19,44 @@ const initialBookingFormState: BookingFormType = {
   departureDate: new Date().toISOString().split("T")[0],
 };
 
-export default function BookingForm() {
+interface TicketsListProps {
+  tickets: TicketType[];
+  setTickets: Dispatch<SetStateAction<TicketType[]>>;
+  isLoading: boolean;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
+  setHasError: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function BookingForm({ setTickets, isLoading, setIsLoading, setHasError}: TicketsListProps ) {
   const [formData, setFormData] = useState<BookingFormType>( initialBookingFormState );
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [hasError, setHasError] = useState(false);
-
-  // useEffect(() => {
-  //   const fetchTickets = async () => {
-  //     setIsLoading(true);
-  //     try {
-  //       const response = await fetch(`${baseUrl}/booking/all-tickets`, {
-  //         method: "GET",
-  //         headers: { "Content-Type": "application/json" },
-  //       });
-
-  //       if (!response.ok) {
-  //         const errorResponse: BaseErrorResponse = await response.json();
-  //         toast.error(errorResponse.message[0]);
-  //         setHasError(true);
-  //         return;
-  //       }
-
-  //       const data: TicketListSuccessResponse = await response.json();
-  //       console.log(data);
-  //       toast.success("Message sent successfully!");
-  //       setHasError(false);
-  //       return;
-  //     } catch (error) {
-  //       setHasError(true);
-  //       return;
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-  //   fetchTickets();
-  // }, []);
+  useEffect(() => {
+    const fetchTickets = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch(`${baseUrl}/booking/all-tickets`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+  
+        if (!response.ok) {
+          const errorResponse: BaseErrorResponse = await response.json();
+          toast.error(errorResponse.message[0]);
+          setHasError(true);
+          return;
+        }
+        const data:TicketType[] = await response.json();
+        setTickets(data)
+        setHasError(false);
+      } catch (error) {
+        setHasError(true);
+        return;
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchTickets();
+  }, []);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -70,7 +68,6 @@ export default function BookingForm() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log(baseUrl);
     try {
       const response = await fetch(`${baseUrl}/booking/all-tickets`, {
         method: "GET",
@@ -83,10 +80,9 @@ export default function BookingForm() {
         setHasError(true);
         return;
       }
-      const { data }: TicketListSuccessResponse = await response.json();
-      console.log(data);
+      const data:TicketType[] = await response.json();
+      setTickets(data)
       setHasError(false);
-      return;
     } catch (error) {
       setHasError(true);
       return;
@@ -94,9 +90,6 @@ export default function BookingForm() {
       setIsLoading(false);
     }
   };
-
-
-  console.log(formData);
 
   return (
     <section className="relative text-black bg-[#fefbfb] h-68 mt-12">
