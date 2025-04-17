@@ -9,7 +9,7 @@ const TicketCard = ({ ticket }: { ticket: TicketType }) => {
       {/* Card Header with Gradient */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-500 px-6 py-3 flex justify-between items-center">
         <div className="flex items-center">
-          <MapPin className="w-5 h-5 text-white mr-2" />
+          <MapPin className="w-5 h-5 text-white mr-2 ppp" />
           <span className="text-white font-medium text-sm">
             {ticket.departureCity} → {ticket.arrivalCity}
           </span>
