@@ -97,9 +97,9 @@ export default function BookingForm({ setTickets, isLoading, setIsLoading, setHa
         <Image src={image} alt="Background" fill objectFit="cover" priority />
       </div>
 
-      <div className="flex items-center justify-center h-full relative z-10 py-8 w-full">
-        <form onSubmit={handleSubmit} className="w-full flex items-center">
-          <div className="flex flex-wrap w-[90%] mx-auto p-4 bg-white shadow rounded">
+      <div className="flex items-center justify-center h-full relative z-10 py-8">
+        <form onSubmit={handleSubmit} className="w-full max-w-7xl flex items-center ">
+          <div className="flex flex-wrap w-full mx-auto p-4 bg-white shadow rounded">
             {/* Departure City */}
             <div className="w-full sm:w-full md:w-1/2 lg:w-1/4 my-3 px-3">
               <label

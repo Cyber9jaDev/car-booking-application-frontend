@@ -27,7 +27,7 @@ export default function Booking() {
       ) : (
         <TicketsList tickets={tickets} />
       )}
-      <Pagination />
+        {tickets && <Pagination /> }
     </section>
   );
 }

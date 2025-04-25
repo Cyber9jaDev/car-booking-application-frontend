@@ -43,7 +43,7 @@ export type TicketType =  {
   arrivalCity: City,
   departureDate: string,
   vehicleType: VehicleType,
-  ticketFee: 10000000,
+  ticketFee: number,
   availableSeats: number[],
   updatedAt: string,
   createdAt: string,

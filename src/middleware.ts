@@ -7,7 +7,7 @@ export default async function middleware(request: NextRequest) {
   const { isAuthenticated, role } = await verifySession();
 
   if (protectedRoutes.includes(path)) {
-    // You are stupid for trying to access this route if ypou are not authenticated
+    // You are stupid for trying to access this route if you are not authenticated
     if (!isAuthenticated) {
       return NextResponse.redirect(new URL("/login", request.nextUrl));
     }

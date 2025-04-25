@@ -1,7 +1,7 @@
 import { TicketType } from "@/interface/booking.interface";
 import Image from "next/image";
 import { formatTicketFee, getVehicleImage } from "@/utils/functions";
-import { ArrowRight, Clock, Ticket, Armchair, Luggage, MapPin, ChevronRight, BadgeCheck } from "lucide-react";
+import { Clock, Ticket, Armchair, Luggage, MapPin, ChevronRight, BadgeCheck } from "lucide-react";
 
 const TicketCard = ({ ticket }: { ticket: TicketType }) => {
   return (
@@ -40,16 +40,8 @@ const TicketCard = ({ ticket }: { ticket: TicketType }) => {
 
           {/* Ticket Details */}
           <div className="flex-1 flex flex-col justify-between">
-            <div>
-              <h3 className="hidden text-xl font-bold text-gray-900 items-center">
-                Premium {ticket.vehicleType} Service
-                <span className="ml-3 bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full flex items-center">
-                  <BadgeCheck className="w-3 h-3 mr-1" />
-                  Executive Class
-                </span>
-              </h3>
-              
-              <div className="mt-3 flex items-center text-blue-600">
+            <div>             
+              <div className="flex items-center text-blue-600 px-3 py-2">
                 <Clock className="w-4 h-4 mr-1.5" />
                 <span className="text-sm font-medium">{ticket.departureDate}</span>
               </div>
